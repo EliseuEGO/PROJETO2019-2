@@ -22,7 +22,7 @@ typedef struct{
 
 typedef struct{
 	char Tema[TAM];//vai ser o tbm o nome da struct
-	char Membros_da_mesa[5][TAM];// Até 5 pessoas//quem seriam????
+	char Membros_da_mesa[5][TAM];// Até 5 pessoas//lista os palestrantes cadastrados e insere o nome dos que serão escolhidos
 	int Local;//locais que possuem limitação de 30/50
 	int Capacidade;// de 30/50 pessoas////cada novo congressista decrementa a capacidade
 	float carga_horária;

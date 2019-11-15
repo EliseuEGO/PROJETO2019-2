@@ -19,3 +19,8 @@ void escolherLocal(){
   */
 
 }
+
+void cadastro(/*ponteiro da variavel da struct */){
+  //NOME:struct->nome
+  //
+}
