@@ -1,4 +1,5 @@
 #define TAM 21
+#define TAM2 30
 
 
 //ENUM's-------------------------------------------------------
@@ -13,6 +14,8 @@ typedef enum{//enum de auditório
 //STRUCTS-------------------------------------------------------
 typedef struct{
 	char Tema[TAM];//vai ser o tbm o nome da struct
+  int cadastrados[TAM2][5];//int para matricula dos congressistas
+  int numCadastrados;//numero de cadastrados no evento
 	char Palestrante[TAM];//exibe lista e pesquisa para escolher os cadastrados 
 	int Local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
 	int Capacidade; //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
@@ -21,6 +24,8 @@ typedef struct{
 }PALESTRAS;
 
 typedef struct{
+  int cadastrados[TAM2][5];//int para matricula dos congressistas
+  int numCadastrados;//numero de cadastrados no evento
 	char Tema[TAM];//vai ser o tbm o nome da struct
 	char Membros_da_mesa[5][TAM];// Até 5 pessoas//lista os palestrantes cadastrados e insere o nome dos que serão escolhidos
 	int Local;//locais que possuem limitação de 30/50
@@ -30,6 +35,8 @@ typedef struct{
 }GRUPO_DE_DISCUSSOES;
 
 typedef struct{
+  int cadastrados[TAM2][5];//int para matricula dos congressistas
+  int numCadastrados;//numero de cadastrados no evento
 	char Tema[TAM];//vai ser o tbm o nome da struct
 	char Palestrante[TAM];//pesquisa para escolher os cadastrados 
 	int Capacidade;// de 40 pessoas//cada novo congressista decrementa a capacidade
@@ -39,6 +46,8 @@ typedef struct{
 }CURSO;
 
 typedef struct{
+  int cadastrados[TAM2][5];//int para matricula dos congressistas
+  int numCadastrados;//numero de cadastrados no evento
 	char Tema[TAM];
   char Palestrante[TAM];//pesquisa para escolher os cadastrados 
 	int Local;
@@ -48,7 +57,11 @@ typedef struct{
 }OFICINAS;
 
 typedef struct{
+  int matricula;//numero randomico entre 1 e 301
   char nome[TAM];
+  int cpf;
+  int id[20][4];//array pra guardar ID's dos eventos que o congressista participar
+  int numEventos;//int pra guardar o num de eventos q o congressista participa
   int nOficinas;//numero de oficinas não pode ser maior q 1
   int nCursos;//numero de cusos não pode ser maior q 1
 }CONGRE;//struct de congressistas
