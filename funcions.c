@@ -1,5 +1,5 @@
 #include "funcions.h"
-//teste
+
 
 
 void escolherLocal(){
