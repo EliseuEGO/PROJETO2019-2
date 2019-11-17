@@ -12,7 +12,15 @@ typedef enum{//enum de auditório
 
 
 //STRUCTS-------------------------------------------------------
+
+
+
+/*criar struct de local com ID local tbm*/
+
+
 typedef struct{
+  int cod;//codigo para identificcar a palestra de 100 a 199
+  int numPalestrante;//usar para saber se o evento possui ou n palestrante
 	char Tema[TAM];//vai ser o tbm o nome da struct
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
@@ -24,6 +32,8 @@ typedef struct{
 }PALESTRAS;
 
 typedef struct{
+  int cod;//codigo para identificcar o GP de 200 a 299
+  int numPalestrante;//usar para saber se o evento possui ou n palestrante
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
 	char Tema[TAM];//vai ser o tbm o nome da struct
@@ -35,6 +45,8 @@ typedef struct{
 }GRUPO_DE_DISCUSSOES;
 
 typedef struct{
+  int cod;//codigo para identificcar o curso de 300 a 399
+  int numPalestrante;//usar para saber se o evento possui ou n palestrante
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
 	char Tema[TAM];//vai ser o tbm o nome da struct
@@ -46,6 +58,8 @@ typedef struct{
 }CURSO;
 
 typedef struct{
+  int cod;//codigo para identificcar a oficina de 400 a 499
+  int numPalestrante;//usar para saber se o evento possui ou n palestrante
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
 	char Tema[TAM];
@@ -57,7 +71,7 @@ typedef struct{
 }OFICINAS;
 
 typedef struct{
-  int matricula;//numero randomico entre 1 e 301
+  int matricula;//numero randomico entre 1001 e 1301
   char nome[TAM];
   int cpf;
   int id[20][4];//array pra guardar ID's dos eventos que o congressista participar
@@ -67,7 +81,11 @@ typedef struct{
 }CONGRE;//struct de congressistas
 
 typedef struct{
+  int ID;//num para identificar palestrante entre 800 e 899;
+  int eventos[15][4];//vetor pra guardar os cod's dos eventos
+  int numEventos;//inteiro pra guardar a qntidade de eventos do palestrante
   char nome[TAM];
+  int cpf;
   int nPalestras;//numero de palestras não pode ser maior q 1
   int nOficinas;//numero de oficinas não pode ser maior q 1
   int nCursos;//numero de cusos não pode ser maior q 1

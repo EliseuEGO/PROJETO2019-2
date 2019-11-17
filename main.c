@@ -18,7 +18,7 @@ dentro da função de preencher eventos usar if ou switch na capacidade para exi
 -Criar menu para manipular congressistas e palestrantes nos eventos;
 -ADD palestrante em gp de discussão direto do menu de manipulação de palestrantes;
 
-
+-Função para verificar se COD, ID ou MATRICULA já existe; int verifica e retorna 1 ou 0;
  
 -----------------------------PROBLEMAS---------------------
 -Usar time.h para manipular as horas;
@@ -34,6 +34,11 @@ dentro da função de preencher eventos usar if ou switch na capacidade para exi
 
 #include <stdio.h>
 #include "funcions.h"
+#include <stdlib.h>
+#include <string.h>
+//#include <windows.h>
+#include <time.h>
+#include <locale.h>
 
 
 
@@ -79,6 +84,8 @@ int main() {
       2-EDITAR
       3-LISTAR
       4-REMOVER
+      5-EVENTOS  DO CONGRESSISTA
+      6-SAIR DE EVENTOS
     }
 
     3-PALESTRANTES{
@@ -86,6 +93,8 @@ int main() {
       2-EDITAR
       3-LISTAR
       4-REMOVER
+      5-EVENTOS DO PALESTRANTE
+      6-SAIR DE EVENTOS
     }
 
      4-ORGANIZADORES{
@@ -97,6 +106,7 @@ int main() {
   */
 
 
-  printf("Hello World\n");
-  return 0;
+  printf("Bom dia\n");
+  printf("Vamos programar\n");
+  return 0 ;
 }
