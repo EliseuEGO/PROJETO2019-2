@@ -123,7 +123,7 @@ void editaPalestrante(){
     //abre arquivo e verifica
       FILE *fp=NULL;
       FILE *fp_aux=NULL;//arquivo auxiliar
-      PROFS profs;
+      PROFS profs;  
       PROFS profs;//struct auxiliar
       
       fp=fopen("arquivos\\palestrantes.txt","rb");//abre arquivos principais no modo de leitura
@@ -193,11 +193,12 @@ void removerPalestrantes(){
           }else{
           //SE NÃO
           //TALVEZ TENHA QUE COLOCAR UM REWIND PARA VOLTAR O ARQUIVO
-            while(fread(&profs,sizeof(PROFS),1,fp)){//le arquivo principal
+            //rewind(fp);//retorna para o inicio do arquivo
+            //while(fread(&profs,sizeof(PROFS),1,fp)){//le arquivo principal
               if(profs.ID!=ID){//se a matricula for a que eu quero editar
               fwrite(&profs,sizeof(PROFS),1,fp_aux);
               }
-            }
+            //}fim do while
           }
         }
     fclose(fp);//fecha arquivo principal

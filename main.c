@@ -19,7 +19,7 @@ dentro da função de preencher eventos usar if ou switch na capacidade para exi
 -ADD palestrante em gp de discussão direto do menu de manipulação de palestrantes;
 
 -Função para verificar se COD, ID ou MATRICULA já existe; int verifica e retorna 1 ou 0;
- 
+
 -----------------------------PROBLEMAS---------------------
 -Usar time.h para manipular as horas;
 -caso altere dado ou remova um congressista ou palestrante é    necessário fazer o mesmo nos arquivos dos eventos;
@@ -36,7 +36,7 @@ dentro da função de preencher eventos usar if ou switch na capacidade para exi
 #include "funcions.h"
 #include <stdlib.h>
 #include <string.h>
-//#include <windows.h>
+#include <windows.h>
 #include <time.h>
 #include <locale.h>
 
@@ -54,11 +54,28 @@ int main() {
     }
     //hablitar portugues
     setlocale(LC_ALL, "Portuguese");
-  
+
   //
   PROFS palestrantes[30];
   CONGRE congressistas[300];//add contador de oficina e de curso;
   char organizadores[30][TAM];
+
+
+
+  //cadastrar palestrante
+void cadastroPalestrante();
+
+//ALTERAR DADOS DE PALESTRANTES
+void editaPalestrante();
+
+//REMOVER PALESTRANTES
+void removerPalestrantes();
+
+//Listar palestrantes
+void listarPalestrantes();
+
+
+
 
 
   //MENU

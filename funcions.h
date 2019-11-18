@@ -26,16 +26,16 @@ typedef enum{//enum de auditório
 
 
 typedef struct{
-  int cod;//codigo para identificcar a palestra de 100 a 199
-  int numPalestrante;//usar para saber se o evento possui ou n palestrante
-	char Tema[TAM];//vai ser o tbm o nome da struct
-  int cadastrados[TAM2][5];//int para matricula dos congressistas
-  int numCadastrados;//numero de cadastrados no evento
-	char Palestrante[TAM];//exibe lista e pesquisa para escolher os cadastrados 
-	int Local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
-	int Capacidade; //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
-	float carga_horária; //saber como vai ser... talvez seja fixa
-	float Horário; //só pela manhã
+    int cod;//codigo para identificcar a palestra de 100 a 199
+    int numPalestrante;//usar para saber se o evento possui ou n palestrante
+    char tema[TAM];//vai ser o tbm o nome da struct
+    int cadastrados[TAM2][5];//int para matricula dos congressistas
+    int numCadastrados;//numero de cadastrados no evento
+	char palestrante[TAM];//exibe lista e pesquisa para escolher os cadastrados
+	int local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
+	int capacidade; //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
+	float cargahoraria; //saaber como vai ser... talvez seja fixa
+	float horario; //só pela manhã
 }PALESTRAS;
 
 typedef struct{
@@ -47,8 +47,8 @@ typedef struct{
 	char Membros_da_mesa[5][TAM];// Até 5 pessoas//lista os palestrantes cadastrados e insere o nome dos que serão escolhidos
 	int Local;//locais que possuem limitação de 30/50
 	int Capacidade;// de 30/50 pessoas////cada novo congressista decrementa a capacidade
-	float carga_horária;
-	float Horário;//horario da tarde
+	float carga_horaria;
+	float Horario;//horario da tarde
 }GRUPO_DE_DISCUSSOES;
 
 typedef struct{
@@ -57,11 +57,11 @@ typedef struct{
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
 	char Tema[TAM];//vai ser o tbm o nome da struct
-	char Palestrante[TAM];//pesquisa para escolher os cadastrados 
+	char Palestrante[TAM];//pesquisa para escolher os cadastrados
 	int Capacidade;// de 40 pessoas//cada novo congressista decrementa a capacidade
 	int Local;
-	float Carga_horária;
-	float Horário;
+	float Carga_horaria;
+	float Horario;
 }CURSO;
 
 typedef struct{
@@ -70,11 +70,11 @@ typedef struct{
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
 	char Tema[TAM];
-  char Palestrante[TAM];//pesquisa para escolher os cadastrados 
+  char Palestrante[TAM];//pesquisa para escolher os cadastrados
 	int Local;
 	int Capacidade;// 20 alunos//cada novo congressista decrementa a capacidade
-	float Horário;
-	float Carga_horária;
+	float Horario;
+	float Carga_horaria;
 }OFICINAS;
 
 typedef struct{
@@ -135,7 +135,7 @@ void editaAluno();
 //REMOVER CONGRESSISTA
 void removerAluno();
 
-//listar congressistas 
+//listar congressistas
 void listarAlunos();
 
 //CADASTRAR CONGRESSISTA EM EVENTO
