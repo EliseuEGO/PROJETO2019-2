@@ -77,7 +77,6 @@ void listarPalestrantes();
 
 
 
-
   //MENU
   /*
     1-EVENTOs{

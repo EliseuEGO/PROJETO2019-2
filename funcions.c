@@ -53,10 +53,10 @@ void criaEvento(){
   //tema
   /*Palestrante
   if(op2==2){
-    
+
   }
-    
-    
+
+
   */
 }
 
@@ -66,7 +66,7 @@ void criaEvento(){
   CRIAR PALESTRA{
     cria cod
     verifica cod
-    
+
   }
   EDITA PALESTRA{
 
@@ -80,13 +80,14 @@ void criaEvento(){
   LISTA CONGRESSISTAS DA PALESTRA{
 
   }
-  
+
 
 */
 
 //FUNÇÕES PALESTRANTES----------------------------------------
 //cadastrar palestrante
 void cadastroPalestrante(){
+    printf("INICIAR CADASTRO DE PALESTRANTE\n");
     //abre arquivo e verifica
     FILE *fp;
     PROFS profs;//varial de professores
@@ -99,14 +100,14 @@ void cadastroPalestrante(){
       srand(time(NULL));
       profs.ID = 800+(rand()% 899);//gerar num entre 1000 e 1300
       printf("Matricula: %d",profs.ID);
-    //nome 
+    //nome
       puts("Insira o nome do Palestrante");
       setbuf(stdin, NULL);
       fgets(profs.nome,TAM,stdin);
     //cpf ou curso
       puts("Insira seu CPF");
       scanf("%d",&profs.cpf);
-      
+
       puts("Cadastro concluido");
 
       fwrite(&profs,sizeof(PROFS),1,fp);
@@ -123,9 +124,9 @@ void editaPalestrante(){
     //abre arquivo e verifica
       FILE *fp=NULL;
       FILE *fp_aux=NULL;//arquivo auxiliar
-      PROFS profs;  
-      PROFS profs;//struct auxiliar
-      
+      PROFS profs;
+      //PROFS profs_aux;//struct auxiliar
+
       fp=fopen("arquivos\\palestrantes.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\temp.txt","ab");//abre arquivos temporarios no modo de acesso
 
@@ -178,8 +179,8 @@ void removerPalestrantes(){
     FILE *fp=NULL;
     FILE *fp_aux=NULL;//arquivo auxiliar
     PROFS profs;
-    PROFS aux;//struct auxiliar
-          
+    //PROFS aux;//struct auxiliar
+
     fp=fopen("arquivos\\palestrantes.txt","rb");//abre arquivos principais no modo de leitura
     fp_aux=fopen("arquivos\\temp.txt","ab");//abre arquivos temporarios no modo de acesso
 
@@ -222,17 +223,17 @@ void listarPalestrantes(){
 //-----------------------------------------------------------------
 
 /*
-PALESTRANTE 
+PALESTRANTE
 
   CADASTRAR EM EVENTO:{
     lista eventos disponiveis(evento indisponivel é oq o contadorde palestrantes esteja preenchido)
-    abre evento 
-      coloca id do palestrante na variavel palestrante 
+    abre evento
+      coloca id do palestrante na variavel palestrante
       incrementa qnt de palestrantes
 
       [se for uma palesta, curso ou oficina]
         incrementa o contador correspondente na struct
-      
+
       add id do evento no array de eventos que o palestrante está
       incrementa a qnt de eventos que o palestrante está
   }
@@ -263,7 +264,7 @@ void NovoCongressista(){
 
   //abre arquivo e verifica
 
-   
+
     if ((fp = fopen("arquivos\\alunos.txt", "ab")) == NULL){
         fprintf(stderr, "Banco de dados não existe.\n");
         exit(EXIT_FAILURE);
@@ -273,14 +274,14 @@ void NovoCongressista(){
       srand(time(NULL));
       aluno.matricula = 1000+(rand()% 1300);//gerar num entre 1000 e 1300
       printf("Matricula: %d",aluno.matricula);
-    //nome 
+    //nome
       puts("Insira o nome do congressista");
       setbuf(stdin, NULL);
       fgets(aluno.nome,TAM,stdin);
     //cpf ou curso
       puts("Insira seu CPF");
       scanf("%d",&aluno.cpf);
-      
+
       puts("Cadastro concluido");
 
       fwrite(&aluno,sizeof(CONGRE),1,fp);
@@ -297,8 +298,8 @@ void editaAluno(){
       FILE *fp=NULL;
       FILE *fp_aux=NULL;//arquivo auxiliar
       CONGRE aluno;
-      CONGRE aux;//struct auxiliar
-      
+      //CONGRE aux;//struct auxiliar
+
       fp=fopen("arquivos\\alunos.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\temp.txt","ab");//abre arquivos temporarios no modo de acesso
 
@@ -360,7 +361,7 @@ void removerAluno(){
       FILE *fp_aux=NULL;//arquivo auxiliar
       CONGRE aluno;
       CONGRE aux;//struct auxiliar
-      
+
       fp=fopen("arquivos\\alunos.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\temp.txt","ab");//abre arquivos temporarios no modo de acesso
 
@@ -376,7 +377,7 @@ void removerAluno(){
     rename("arquivos\\temp.txt","arquivos\\alunos.txt");//renomeia o aux com nome do orinial
     //fim
   }
-//listar congressistas 
+//listar congressistas
 void listarAlunos(){
       FILE *fp;
       CONGRE aluno;
@@ -393,12 +394,12 @@ void listarAlunos(){
 /*
 CONGRESSISTAS
   CADASTRAR EM EVENTO:{
-    lista eventos com ID's 
-    pega ID digitado 
+    lista eventos com ID's
+    pega ID digitado
       [Abre o evento e testa se o numero de matriculas é igual a capacidade do local]
         Add matricula do aluno no array de matriculas;
         Incrementa o num de matriculas cadastradas;
-      
+
       [se for ID de curso ou oficina incremente o contador dentro   da struc do Congressista  ]
 
       Add ID do evento em um array de eventos[n] dentro da struct Congressista e incrementa int num de eventos dentro da struct
@@ -406,17 +407,17 @@ CONGRESSISTAS
   }
   LISTAR EVENTOS DO CONGRESSISTA:{
     Pega os ID's do array de eventos usando o int num de eventos
-    entra nos arquivos 
+    entra nos arquivos
     lista os nomes com os temas e horários
   }
 
   SAIR DE EVENTO:{
     lista os eventos com os ID's usando o int num de eventos
-    pega o ID 
+    pega o ID
       abre o evento
       pesquisa e remove a matricula do aluno do array de matriculas
       decrementa o num de matriculas cadastradas
-    
+
     [se for ID de curso ou oficina decrementa o contador]
     Remove o ID do array de eventos cadastrados
 
