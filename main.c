@@ -64,12 +64,18 @@ int main() {
 mostra();
   //cadastrar palestrante
 cadastroPalestrante();
+//Listar palestrantes
+listarPalestrantes();
 
 //ALTERAR DADOS DE PALESTRANTES
 editaPalestrante();
+//Listar palestrantes
+listarPalestrantes();
 
 //REMOVER PALESTRANTES
 removerPalestrantes();
+//Listar palestrantes
+listarPalestrantes();
 
 //Listar palestrantes
 listarPalestrantes();

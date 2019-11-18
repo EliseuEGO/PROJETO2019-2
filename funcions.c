@@ -101,11 +101,12 @@ void cadastroPalestrante(){
     //ID
       srand(time(NULL));
       profs.ID = 800+(rand()% 99);//gerar num entre 800 e 899
-      printf("Matricula: %d",profs.ID);
+      printf("Matricula: %d\n",profs.ID);
     //nome
       puts("Insira o nome do Palestrante");
       setbuf(stdin, NULL);
       fgets(profs.nome,TAM,stdin);
+      strtok(profs.nome,"\n");
     //cpf ou curso
       puts("Insira seu CPF");
       scanf("%d",&profs.cpf);
@@ -118,6 +119,7 @@ void cadastroPalestrante(){
 
 //ALTERAR DADOS DE PALESTRANTES
 void editaPalestrante(){
+  puts("Editar palestrante");
     int op2;//op para switch
     int ID;//ID para pesquisa
     char novoNome[TAM];
@@ -134,7 +136,7 @@ void editaPalestrante(){
 
       puts("Insira o ID do palestrante");
         scanf("%d",&ID);
-
+        putchar("\n");
       while(fread(&profs,sizeof(PROFS),1,fp)){//le arquivo principal
         if(profs.ID==ID){//se o ID for a que eu quero editar
            puts("1-Alterar nome\t2-Alterar CPF\t3NENHUM");
@@ -175,6 +177,8 @@ void editaPalestrante(){
 
 //REMOVER PALESTRANTES
 void removerPalestrantes(){
+  puts("Remover palestrante");
+
     int ID;//ID para pesquisa
 
 
@@ -212,6 +216,7 @@ void removerPalestrantes(){
 }
 //Listar palestrantes
 void listarPalestrantes(){
+  puts("listar palestrantes");
   FILE *fp;
       PROFS profs;
       fp = fopen("arquivos\\palestrantes.txt", "rb");//abre arquivo no modo de leitura
