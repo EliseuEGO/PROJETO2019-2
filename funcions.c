@@ -62,17 +62,6 @@ void criaEvento(){
 
 /*
  PALESTRA
-  typedef struct{
-  int numPalestrante;//usar para saber se o evento possui ou n palestrante
-	char Tema[TAM];//vai ser o tbm o nome da struct
-  int cadastrados[TAM2][5];//int para matricula dos congressistas
-  int numCadastrados;//numero de cadastrados no evento
-	char Palestrante[TAM];//exibe lista e pesquisa para escolher os cadastrados 
-	int Local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
-	int Capacidade; //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
-	float carga_horária; //saber como vai ser... talvez seja fixa
-	float Horário; //só pela manhã
-  }PALESTRAS;
 
   CRIAR PALESTRA{
     cria cod
@@ -95,15 +84,145 @@ void criaEvento(){
 
 */
 
+//FUNÇÕES PALESTRANTES----------------------------------------
+//cadastrar palestrante
+void cadastroPalestrante(){
+    //abre arquivo e verifica
+    FILE *fp;
+    PROFS profs;//varial de professores
+    if ((fp = fopen("arquivos\\palestrantes.txt", "ab")) == NULL){
+        fprintf(stderr, "Banco de dados não existe.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    //ID
+      srand(time(NULL));
+      profs.ID = 800+(rand()% 899);//gerar num entre 1000 e 1300
+      printf("Matricula: %d",profs.ID);
+    //nome 
+      puts("Insira o nome do Palestrante");
+      setbuf(stdin, NULL);
+      fgets(profs.nome,TAM,stdin);
+    //cpf ou curso
+      puts("Insira seu CPF");
+      scanf("%d",&profs.cpf);
+      
+      puts("Cadastro concluido");
+
+      fwrite(&profs,sizeof(PROFS),1,fp);
+      fclose(fp);
+}
+
+//ALTERAR DADOS DE PALESTRANTES
+void editaPalestrante(){
+    int op2;//op para switch
+    int ID;//ID para pesquisa
+    char novoNome[TAM];
+
+    //abrir arquivo
+    //abre arquivo e verifica
+      FILE *fp=NULL;
+      FILE *fp_aux=NULL;//arquivo auxiliar
+      PROFS profs;
+      PROFS profs;//struct auxiliar
+      
+      fp=fopen("arquivos\\palestrantes.txt","rb");//abre arquivos principais no modo de leitura
+      fp_aux=fopen("arquivos\\temp.txt","ab");//abre arquivos temporarios no modo de acesso
+
+      puts("Insira o ID do palestrante");
+        scanf("%d",&ID);
+
+      while(fread(&profs,sizeof(PROFS),1,fp)){//le arquivo principal
+        if(profs.ID==ID){//se o ID for a que eu quero editar
+           puts("1-Alterar nome\t2-Alterar CPF\t3NENHUM");
+           puts("O que deseja alterar?");
+            scanf("%d",&op2);
+            //escolha
+            switch(op2){
+                //alterar nome
+                case 1:{
+                  puts("Insira novo nome");
+                  setbuf(stdin,NULL);
+                  fgets(novoNome,TAM,stdin);
+                  strtok(novoNome,"\n");
+                  strcpy(profs.nome,novoNome);
+                  break;
+                }
+                case 2:{
+                  puts("Insira novo CPF");
+                  scanf("%d",&profs.cpf);
+                  break;
+                }
+                case 3:{
+                  break;
+                }
+                default:puts("Opção inválida");break;
+          }
+        fwrite(&profs,sizeof(PROFS),1,fp_aux);//depois de editar escreve no arqivo novo
+        }else{
+          fwrite(&profs,sizeof(PROFS),1,fp_aux);//as que eu não quero alterar são escritas no novo arquivo
+        }
+      }
+    fclose(fp);//fecha arquivo principal
+    fclose(fp_aux);//fecha novo arquivo
+    remove("arquivos\\palestrantes.txt");//remove o original
+    rename("arquivos\\temp.txt","arquivos\\palestrantes.txt");//renomeia o aux com nome do orinial
+    //fim
+}
+
+//REMOVER PALESTRANTES
+void removerPalestrantes(){
+    int ID;//ID para pesquisa
+
+
+    FILE *fp=NULL;
+    FILE *fp_aux=NULL;//arquivo auxiliar
+    PROFS profs;
+    PROFS aux;//struct auxiliar
+          
+    fp=fopen("arquivos\\palestrantes.txt","rb");//abre arquivos principais no modo de leitura
+    fp_aux=fopen("arquivos\\temp.txt","ab");//abre arquivos temporarios no modo de acesso
+
+        puts("Insira o ID do palestrante");
+        scanf("%d",&ID);
+        while(fread(&profs,sizeof(PROFS),1,fp)){
+          if(profs.ID==ID && profs.numEventos>0){ //testa se num de eventos está maior que zero
+          //se estiver exibe que não pode remover ate que ele saia dos eventos
+            puts("Palestrante cadastrado em evento, saia do evento para poder remove-lo");
+            break;
+          }else{
+          //SE NÃO
+          //TALVEZ TENHA QUE COLOCAR UM REWIND PARA VOLTAR O ARQUIVO
+            while(fread(&profs,sizeof(PROFS),1,fp)){//le arquivo principal
+              if(profs.ID!=ID){//se a matricula for a que eu quero editar
+              fwrite(&profs,sizeof(PROFS),1,fp_aux);
+              }
+            }
+          }
+        }
+    fclose(fp);//fecha arquivo principal
+    fclose(fp_aux);//fecha novo arquivo
+    remove("arquivos\\palestrantes.txt");//remove o original
+    rename("arquivos\\temp.txt","arquivos\\palestrantes.txt");//renomeia o aux com nome do orinial
+    //fim
+}
+//Listar palestrantes
+void listarPalestrantes(){
+  FILE *fp;
+      PROFS profs;
+      fp = fopen("arquivos\\palestrantes.txt", "rb");//abre arquivo no modo de leitura
+      while (fread(&profs, sizeof(PROFS), 1,fp)){//enquanto leitura for verdadeira
+        printf("ID:%d\nNome: %s - CPF: %d\n",profs.ID, profs.nome,profs.cpf);
+      }
+      fclose(fp);
+    //fim
+}
+
+//-----------------------------------------------------------------
+
 /*
 PALESTRANTE 
-  CADASTRO DE NOVO PALESTRANTE:{
-    ID; num randominco não editavel
-      verifica id
-    NOME;
-    CPF;
 
-  }
   CADASTRAR EM EVENTO:{
     lista eventos disponiveis(evento indisponivel é oq o contadorde palestrantes esteja preenchido)
     abre evento 
@@ -131,37 +250,28 @@ PALESTRANTE
     decrementa o num de eventos e o contador de evento especifico
 
   }
-  ALTERAR DADO:{
-     escolha
-      alterar nome
-      alterar cpf
 
-  }
-   REMOVER palestrante{
-     [se o num de eventos for maior que zero]
-      imprime: não é possivel apagar o Palestrante ate que esteja fora de todos os eventos
-    remove id do palestrante do array e decrementa o num de palestrantes
-   }
-   LISTAR palestrantes{
-     for(i=numDePalestrantes)...
 
-   }
 */
 
-//funções congressistas
+//funções congressistas------------------------------------------------------
 void NovoCongressista(){
-/*
+
+      FILE *fp=NULL;
+      CONGRE aluno;
+
   //abre arquivo e verifica
-  FILE *fp;
-    CONGRE aluno;
+
+   
     if ((fp = fopen("arquivos\\alunos.txt", "ab")) == NULL){
         fprintf(stderr, "Banco de dados não existe.\n");
         exit(EXIT_FAILURE);
     }
 
     //matricula
-      //srand(time(NULL));
-      //aluno.matricula = 1000+(rand()% 1300);//gerar num entre 1000 e 1300
+      srand(time(NULL));
+      aluno.matricula = 1000+(rand()% 1300);//gerar num entre 1000 e 1300
+      printf("Matricula: %d",aluno.matricula);
     //nome 
       puts("Insira o nome do congressista");
       setbuf(stdin, NULL);
@@ -170,19 +280,117 @@ void NovoCongressista(){
       puts("Insira seu CPF");
       scanf("%d",&aluno.cpf);
       
+      puts("Cadastro concluido");
 
-*/
+      fwrite(&aluno,sizeof(CONGRE),1,fp);
+      fclose(fp);
 }
+//EDITAR CONGRESSISTA
+void editaAluno(){
+    int op2;//op para switch
+    int mat;//matricula para pesquisa
+    char novoNome[TAM];
+
+    //abrir arquivo
+    //abre arquivo e verifica
+      FILE *fp=NULL;
+      FILE *fp_aux=NULL;//arquivo auxiliar
+      CONGRE aluno;
+      CONGRE aux;//struct auxiliar
+      
+      fp=fopen("arquivos\\alunos.txt","rb");//abre arquivos principais no modo de leitura
+      fp_aux=fopen("arquivos\\temp.txt","ab");//abre arquivos temporarios no modo de acesso
+
+      puts("Insira a matricula do aluno");
+        scanf("%d",&mat);
+
+      while(fread(&aluno,sizeof(CONGRE),1,fp)){//le arquivo principal
+        if(aluno.matricula==mat){//se a matricula for a que eu quero editar
+           puts("1-Alterar nome\t2-Alterar CPF\t3NENHUM");
+           puts("O que deseja alterar?");
+            scanf("%d",&op2);
+            //escolha
+            switch(op2){
+                //alterar nome
+                case 1:{
+                  puts("Insira novo nome");
+                  setbuf(stdin,NULL);
+                  fgets(novoNome,TAM,stdin);
+                  strtok(novoNome,"\n");
+                  strcpy(aluno.nome,novoNome);
+                  break;
+                }
+                case 2:{
+                  puts("Insira novo CPF");
+                  scanf("%d",&aluno.cpf);
+                  break;
+                }
+                case 3:{
+                  break;
+                }
+                default:puts("Opção inválida");break;
+          }
+        fwrite(&aluno,sizeof(CONGRE),1,fp_aux);//depois de editar escreve no arqivo novo
+        }else{
+          fwrite(&aluno,sizeof(CONGRE),1,fp_aux);//as que eu não quero alterar são escritas no novo arquivo
+        }
+      }
+    fclose(fp);//fecha arquivo principal
+    fclose(fp_aux);//fecha novo arquivo
+    remove("arquivos\\alunos.txt");//remove o original
+    rename("arquivos\\temp.txt","arquivos\\alunos.txt");//renomeia o aux com nome do orinial
+    //fim
+}
+//REMOVER CONGRESSISTA
+void removerAluno(){
+      int mat;//pegar matricula
+      puts("Insira a matricula do aluno");
+        scanf("%d",&mat);
+      //testa SE o num de eventos é maior q zero
+          //selecionar os ID's dos eventos que ele está cadastrados
+          //for(i=numDeEventosCadastrados)
+          //remove ID'eventos[i]
+          //abre o evento
+            //pesquisa e remove a matricula do aluno do array de matriculas;
+            //decrementa o num de matriculas cadastradas;
+
+    //remove o Congressista
+      FILE *fp=NULL;
+      FILE *fp_aux=NULL;//arquivo auxiliar
+      CONGRE aluno;
+      CONGRE aux;//struct auxiliar
+      
+      fp=fopen("arquivos\\alunos.txt","rb");//abre arquivos principais no modo de leitura
+      fp_aux=fopen("arquivos\\temp.txt","ab");//abre arquivos temporarios no modo de acesso
+
+
+      while(fread(&aluno,sizeof(CONGRE),1,fp)){//le arquivo principal
+        if(aluno.matricula!=mat){//se a matricula for a que eu quero editar
+          fwrite(&aluno,sizeof(CONGRE),1,fp_aux);
+        }
+      }
+    fclose(fp);//fecha arquivo principal
+    fclose(fp_aux);//fecha novo arquivo
+    remove("arquivos\\alunos.txt");//remove o original
+    rename("arquivos\\temp.txt","arquivos\\alunos.txt");//renomeia o aux com nome do orinial
+    //fim
+  }
+//listar congressistas 
+void listarAlunos(){
+      FILE *fp;
+      CONGRE aluno;
+      fp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
+      while (fread(&aluno, sizeof(CONGRE), 1,fp)){//enquanto leitura for verdadeira
+        printf("Matricula:%d\nNome: %s - CPF: %d\n",aluno.matricula, aluno.nome,aluno.cpf);
+      }
+      fclose(fp);
+    //fim
+}
+
+//fim das funções dos congressistas---------------------------------------------------------
 
 /*
 CONGRESSISTAS
-  CADASTRO DE NOVO CONGRESSISTA:{ 
-    matricula;numero randominco não editavel
-      verifica matricula
-    nome
-    cpf
-  }
-
   CADASTRAR EM EVENTO:{
     lista eventos com ID's 
     pega ID digitado 
@@ -212,44 +420,4 @@ CONGRESSISTAS
     Remove o ID do array de eventos cadastrados
 
   }
-
-  ALTERAR DADO:{
-    int op2;
-    abrir arquivo
-    //abre arquivo e verifica
-      FILE *fp;
-      CONGRE aluno;
-      if ((fp = fopen("arquivos\\alunos.txt", "ab")) == NULL){
-        fprintf(stderr, "Banco de dados não existe.\n");
-        exit(EXIT_FAILURE);
-    }
-
-
-    puts("1-Alterar nome\t2-Alterar CPF");
-      scanf("%d",&op2);
-
-    escolha
-    switch(op2){
-      case 1://alterar nome
-      //alterar cpf
-
-    }
-  }
-
-  REMOVER CONGRESSISTA:{
-    selecionar os ID's dos eventos que ele está cadastrados
-      for(i=numDeEventosCadastrados)
-      remove ID'eventos[i]
-        abre o evento
-        pesquisa e remove a matricula do aluno do array de matriculas;
-        decrementa o num de matriculas cadastradas;
-
-    remove o Congressista
-  }
-
-  LISTAR CONGRESSISTAS{
-    for(num de congressistas)
-      imprime matricula de nome
-  }
-
 */

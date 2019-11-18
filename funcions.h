@@ -1,3 +1,10 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+#include <string.h>
+//#include <windows.h>
+#include <time.h>
+#include <locale.h>
 #define TAM 21
 #define TAM2 30
 
@@ -95,3 +102,46 @@ typedef struct{
 //FUNÇÕES-------------------------------------------------------
 
 void escolherLocal();
+
+//PALESTRANTES**************************
+//cadastrar palestrante
+void cadastroPalestrante();
+
+//ALTERAR DADOS DE PALESTRANTES
+void editaPalestrante();
+
+//REMOVER PALESTRANTES
+void removerPalestrantes();
+
+//Listar palestrantes
+void listarPalestrantes();
+
+//CADASTRAR PALESTRANTE EM EVENTO
+
+//LISTAR EVENTOS DO PALESTRANTE
+
+//SAIR DE EVENTO
+
+
+//******************************************************
+
+//CONGRESSISTAS
+//CRIAR CONGRESSISTA
+void NovoCongressista();
+
+//EDITAR CONGRESSISTA
+void editaAluno();
+
+//REMOVER CONGRESSISTA
+void removerAluno();
+
+//listar congressistas 
+void listarAlunos();
+
+//CADASTRAR CONGRESSISTA EM EVENTO
+
+//LISTAR EVENTOS DO CONGRESSISTA
+
+//SAIR DE EVENTO
+
+//************************************************************

@@ -43,8 +43,19 @@ dentro da função de preencher eventos usar if ou switch na capacidade para exi
 
 
 int main() {
+
+  //criar a pasta de arquivos
+    if(!CreateDirectory("arquivos", NULL)) {
+            if(GetLastError()==183){
+                printf("\n");
+            }else{
+        fprintf(stderr, "ERRO: %d\n", GetLastError());
+            }
+    }
+    //hablitar portugues
+    setlocale(LC_ALL, "Portuguese");
   
-  //usar ADM para cadastro; enviar o ponteiro para função e preencher os dados
+  //
   PROFS palestrantes[30];
   CONGRE congressistas[300];//add contador de oficina e de curso;
   char organizadores[30][TAM];
@@ -52,7 +63,7 @@ int main() {
 
   //MENU
   /*
-    1-EVENTO{
+    1-EVENTOs{
       1-PALESTRAS{
         1-CADASTRAR
         2-EDITAR
