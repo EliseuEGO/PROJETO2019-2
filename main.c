@@ -61,18 +61,18 @@ int main() {
   char organizadores[30][TAM];
 
 
-
+mostra();
   //cadastrar palestrante
-void cadastroPalestrante();
+cadastroPalestrante();
 
 //ALTERAR DADOS DE PALESTRANTES
-void editaPalestrante();
+editaPalestrante();
 
 //REMOVER PALESTRANTES
-void removerPalestrantes();
+removerPalestrantes();
 
 //Listar palestrantes
-void listarPalestrantes();
+listarPalestrantes();
 
 
 
@@ -135,5 +135,6 @@ void listarPalestrantes();
 
   printf("Bom dia\n");
   printf("Vamos programar\n");
+  getchar();
   return 0 ;
 }

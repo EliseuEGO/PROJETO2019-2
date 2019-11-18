@@ -2,7 +2,9 @@
 #include "funcions.h"
 
 
-
+void mostra(){
+  printf("FLAAAAAAA");
+}
 void escolherLocal(){
   //criar switch pra saber se vai colocar em auditório, lab ou sala e depois para escolher qual sala ou lab etc...
   //case xxxx: struc->local=_____;struct->capacidade=_____
@@ -98,7 +100,7 @@ void cadastroPalestrante(){
 
     //ID
       srand(time(NULL));
-      profs.ID = 800+(rand()% 899);//gerar num entre 1000 e 1300
+      profs.ID = 800+(rand()% 99);//gerar num entre 800 e 899
       printf("Matricula: %d",profs.ID);
     //nome
       puts("Insira o nome do Palestrante");
@@ -159,7 +161,7 @@ void editaPalestrante(){
                 }
                 default:puts("Opção inválida");break;
           }
-        fwrite(&profs,sizeof(PROFS),1,fp_aux);//depois de editar escreve no arqivo novo
+          fwrite(&profs,sizeof(PROFS),1,fp_aux);//depois de editar escreve no arqivo novo
         }else{
           fwrite(&profs,sizeof(PROFS),1,fp_aux);//as que eu não quero alterar são escritas no novo arquivo
         }

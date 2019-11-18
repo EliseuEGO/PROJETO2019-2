@@ -101,6 +101,8 @@ typedef struct{
 
 //FUNÇÕES-------------------------------------------------------
 
+void mostra();
+
 void escolherLocal();
 
 //PALESTRANTES**************************
