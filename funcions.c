@@ -62,12 +62,72 @@ void criaEvento(){
   */
 }
 
+
+
+void criarLocais(){
+
+  //TESTA SE O ARQUIVO JA EXISTE
+  int i;
+  //abre arquivo e verifica
+    FILE *fp;
+    SLOCAL loca;//varial de local
+    //teste de entrada de arquivo
+    if ((fp = fopen("arquivos\\locais.txt", "ab")) == NULL){
+        fprintf(stderr, "Banco de dados não existe.\n");
+        exit(EXIT_FAILURE);
+    }
+  for(i=0;i<8;i++){
+    //codigo de llocais
+      srand(time(NULL));
+      loca.CODL = 900+(rand()% 9);//gerar num entre 900 e 999
+      printf("Codigo do Local: %d\n",loca.CODL);
+    //local em si
+      loca.lugar=i;//enum de locais 1-8
+      fwrite(&loca, sizeof(SLOCAL), 1, fp);
+  }
+  fclose(fp);
+}
+
+void escolheLocal(/*tipo de evento*/){
+//lista locais
+switch(/*tipoevento*/){
+  case palestra:{
+
+  }
+}
+}
+
+
+/*
+typedef struct{
+    int cod;//codigo para identificcar a palestra de 100 a 199
+    int numPalestrante;//usar para saber se o evento possui ou n palestrante
+    char tema[TAM];//vai ser o tbm o nome da struct
+    int cadastrados[TAM2][5];//int para matricula dos congressistas
+    int numCadastrados;//numero de cadastrados no evento
+	char palestrante[TAM];//exibe lista e pesquisa para escolher os cadastrados
+	int local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
+	int capacidade; //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
+	float cargahoraria; //saaber como vai ser... talvez seja fixa
+	float horario; //só pela manhã
+}PALESTRAS;
+*/
+
 /*
  PALESTRA
 
   CRIAR PALESTRA{
+    cria arquivo
     cria cod
-    verifica cod
+      verifica cod
+    Insere tema
+    insere palestrantes
+      lista palestrantes
+      escolhe palestrantes da lista baseado no id
+        verifica se o ID escolhido corresponde ao palestrante existente
+    
+    função para colocar local
+
 
   }
   EDITA PALESTRA{
@@ -93,6 +153,7 @@ void cadastroPalestrante(){
     //abre arquivo e verifica
     FILE *fp;
     PROFS profs;//varial de professores
+    //teste de entrada de arquivo
     if ((fp = fopen("arquivos\\palestrantes.txt", "ab")) == NULL){
         fprintf(stderr, "Banco de dados não existe.\n");
         exit(EXIT_FAILURE);
@@ -136,7 +197,7 @@ void editaPalestrante(){
 
       puts("Insira o ID do palestrante");
         scanf("%d",&ID);
-        putchar("\n");
+        putchar('\n');
       while(fread(&profs,sizeof(PROFS),1,fp)){//le arquivo principal
         if(profs.ID==ID){//se o ID for a que eu quero editar
            puts("1-Alterar nome\t2-Alterar CPF\t3NENHUM");
@@ -381,7 +442,7 @@ void removerAluno(){
     fclose(fp);//fecha arquivo principal
     fclose(fp_aux);//fecha novo arquivo
     remove("arquivos\\alunos.txt");//remove o original
-    rename("arquivos\\temp.txt","arquivos\\alunos.txt");//renomeia o aux com nome do orinial
+    rename("arquivos\\temp.txt","arquivos\\alunos.txt");//renomeia o aux com nome do original
     //fim
   }
 //listar congressistas

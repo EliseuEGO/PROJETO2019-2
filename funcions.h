@@ -24,6 +24,14 @@ typedef enum{//enum de auditório
 
 /*criar struct de local com ID local tbm*/
 
+typedef struct{
+  int CODL;//codigo de local
+  int disponibilidade;
+  int lugar; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
+  float cargahoraria; //saaber como vai ser... talvez seja fixa
+  float horario; //
+}SLOCAL;
+
 
 typedef struct{
     int cod;//codigo para identificcar a palestra de 100 a 199
