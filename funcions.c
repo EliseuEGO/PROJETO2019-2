@@ -3,7 +3,7 @@
 
 
 void mostra(){
-  printf("FLAAAAAAA");
+  puts("oiiiiii");
 }
 void escolherLocal(){
   //criar switch pra saber se vai colocar em auditório, lab ou sala e depois para escolher qual sala ou lab etc...
@@ -136,7 +136,7 @@ void editaPalestrante(){
 
       puts("Insira o ID do palestrante");
         scanf("%d",&ID);
-        putchar("\n");
+        //putchar('\n');
       while(fread(&profs,sizeof(PROFS),1,fp)){//le arquivo principal
         if(profs.ID==ID){//se o ID for a que eu quero editar
            puts("1-Alterar nome\t2-Alterar CPF\t3NENHUM");
