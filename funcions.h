@@ -24,6 +24,15 @@ typedef enum{//enum de auditório
 
 /*criar struct de local com ID local tbm*/
 
+typedef struct{
+  int CODL;//codigo de local
+  int disponibilidade;
+  int lugar; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
+  float cargahoraria; //saaber como vai ser... talvez seja fixa
+  float horario; //
+  int capacidade;
+}SLOCAL;
+
 
 typedef struct{
     int cod;//codigo para identificcar a palestra de 100 a 199
@@ -31,11 +40,19 @@ typedef struct{
     char tema[TAM];//vai ser o tbm o nome da struct
     int cadastrados[TAM2][5];//int para matricula dos congressistas
     int numCadastrados;//numero de cadastrados no evento
+<<<<<<< HEAD
 	  char palestrante[TAM];//exibe lista e pesquisa para escolher os cadastrados
 	  int local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
 	  int capacidade; //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
 	  float cargahoraria; //saaber como vai ser... talvez seja fixa
 	  float horario; //só pela manhã
+=======
+	int palestrante;//exibe lista e pesquisa para escolher os cadastrados
+	int local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
+	 //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
+	float cargahoraria; //saaber como vai ser... talvez seja fixa
+	float horario; //só pela manhã
+>>>>>>> f5e496c8590d6812eb933d7c795d65d41686d43a
 }PALESTRAS;
 
 typedef struct{
@@ -57,7 +74,7 @@ typedef struct{
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
 	char Tema[TAM];//vai ser o tbm o nome da struct
-	char Palestrante[TAM];//pesquisa para escolher os cadastrados
+	int Palestrante;//pesquisa para escolher os cadastrados
 	int Capacidade;// de 40 pessoas//cada novo congressista decrementa a capacidade
 	int Local;
 	float Carga_horaria;
@@ -70,7 +87,7 @@ typedef struct{
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
 	char Tema[TAM];
-  char Palestrante[TAM];//pesquisa para escolher os cadastrados
+  int Palestrante;//pesquisa para escolher os cadastrados
 	int Local;
 	int Capacidade;// 20 alunos//cada novo congressista decrementa a capacidade
 	float Horario;
@@ -89,7 +106,7 @@ typedef struct{
 
 typedef struct{
   int ID;//num para identificar palestrante entre 800 e 899;
-  int eventos[15][4];//vetor pra guardar os cod's dos eventos
+  int eventos[30][4];//vetor pra guardar os cod's dos eventos
   int numEventos;//inteiro pra guardar a qntidade de eventos do palestrante
   char nome[TAM];
   int cpf;
