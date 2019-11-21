@@ -64,6 +64,7 @@ int main() {
 mostra();
   //cadastrar palestrante
 cadastroPalestrante();
+cadastroPalestrante();
 //Listar palestrantes
 listarPalestrantes();
 
@@ -74,6 +75,7 @@ listarPalestrantes();
 
 //REMOVER PALESTRANTES
 removerPalestrantes();
+puts("dps de remover");
 //Listar palestrantes
 listarPalestrantes();
 

@@ -40,19 +40,11 @@ typedef struct{
     char tema[TAM];//vai ser o tbm o nome da struct
     int cadastrados[TAM2][5];//int para matricula dos congressistas
     int numCadastrados;//numero de cadastrados no evento
-<<<<<<< HEAD
-	  char palestrante[TAM];//exibe lista e pesquisa para escolher os cadastrados
-	  int local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
-	  int capacidade; //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
-	  float cargahoraria; //saaber como vai ser... talvez seja fixa
-	  float horario; //só pela manhã
-=======
 	int palestrante;//exibe lista e pesquisa para escolher os cadastrados
 	int local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
 	 //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
 	float cargahoraria; //saaber como vai ser... talvez seja fixa
 	float horario; //só pela manhã
->>>>>>> f5e496c8590d6812eb933d7c795d65d41686d43a
 }PALESTRAS;
 
 typedef struct{

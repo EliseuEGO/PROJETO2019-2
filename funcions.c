@@ -73,7 +73,7 @@ void escolheLocal(int evento){
   int op2;
 //lista locais
 switch(evento){
-  case palestra:{
+  //case palestra:{
 
 
 
@@ -82,8 +82,8 @@ switch(evento){
     switch(op2){
       case 1: 
     
-    }*/
-  }
+    //}*/
+ // }
 }
 }
 
@@ -102,56 +102,6 @@ typedef struct{
 	float horario; //só pela manhã
 }PALESTRAS;
 */
-void criaPalestra(){
-  int pes;//pesquisa de codigo
-    //cria arquivo
-    FILE *fp;
-    PALESTRAS pale;//varial de professores
-    //teste de entrada de arquivo
-    if ((fp = fopen("arquivos\\palestras.txt", "ab")) == NULL){
-        fprintf(stderr, "Banco de dados não existe.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    
-    //cria cod
-      //verifica cod
-      srand(time(NULL));
-      pale.cod = 100+(rand()% 99);//gerar num entre 100 e 199
-      printf("Código: %d\n",pale.cod);
-    
-    //Insere tema
-      puts("Insira o Tema da palestra");
-      setbuf(stdin, NULL);
-      fgets(pale.tema,TAM,stdin);
-      strtok(pale.tema,"\n");
-    // lista palestrantes
-      puts("Lista de palestrantes");
-      listarPalestrantes();
-      putchar('\n');
-      puts("\nInsira o ID do palestrante desejado");
-      //insere palestrantes
-      //escolhe palestrantes da lista baseado no id
-      scanf("%d",&pale.palestrante);
-        //verifica se o ID escolhido corresponde ao palestrante existente
-        //VERIFICA SE O NUM DE PALESTRAS DESSE ID EH MAIOR Q 0
-
-        //abre arquivo de palestrante para incrementar o num de palestrar e colocar o COD da palestras no array
-        incrementarPalestrante(pale.cod, pale.palestrante);
-
-    //função para colocar local/hora/capacidade/cargahoraria
-    
-    
-      puts("Cadastro concluido");
-
-    //escreve tudo no arquivo
-      fwrite(&pale,sizeof(PALESTRAS),1,fp);
-    //fecha o arquivo
-      fclose(fp);
-   
-    
-
-}
 
 
 /*
@@ -241,11 +191,7 @@ void editaPalestrante(){
 
       puts("Insira o ID do palestrante");
         scanf("%d",&ID);
-<<<<<<< HEAD
-        //putchar('\n');
-=======
         putchar('\n');
->>>>>>> f5e496c8590d6812eb933d7c795d65d41686d43a
       while(fread(&profs,sizeof(PROFS),1,fp)){//le arquivo principal
         if(profs.ID==ID){//se o ID for a que eu quero editar
            puts("1-Alterar nome\t2-Alterar CPF\t3NENHUM");
@@ -287,10 +233,7 @@ void editaPalestrante(){
 //REMOVER PALESTRANTES
 void removerPalestrantes(){
   puts("Remover palestrante");
-
     int ID;//ID para pesquisa
-
-
     FILE *fp=NULL;
     FILE *fp_aux=NULL;//arquivo auxiliar
     PROFS profs;
@@ -322,6 +265,8 @@ void removerPalestrantes(){
     remove("arquivos\\palestrantes.txt");//remove o original
     rename("arquivos\\temp.txt","arquivos\\palestrantes.txt");//renomeia o aux com nome do orinial
     //fim
+    puts("fim da função");
+    getchar();
 }
 //Listar palestrantes
 void listarPalestrantes(){
@@ -336,7 +281,7 @@ void listarPalestrantes(){
     //fim
 }
 
-void incrementarPalestrante(int cod,int ID){
+void incrementarPale(int cod,int ID){
   int i;
   FILE *fpp;
       PROFS profs;
@@ -362,7 +307,7 @@ void incrementarPalestrante(int cod,int ID){
       fwrite(&profs,sizeof(PROFS),1,fpp);
 }
 
-void decrementarPalestrante(int cod,int ID){
+void decrementarPale(int cod,int ID){
       int i;
       FILE *fpp;
       PROFS profs;
@@ -593,3 +538,52 @@ CONGRESSISTAS
 
   }
 */
+//***************************************************************************************
+void criaPalestra(){
+  int pes;//pesquisa de codigo
+    //cria arquivo
+    FILE *fp;
+    PALESTRAS pale;//varial de professores
+    //teste de entrada de arquivo
+    if ((fp = fopen("arquivos\\palestras.txt", "ab")) == NULL){
+        fprintf(stderr, "Banco de dados não existe.\n");
+        exit(EXIT_FAILURE);
+    }
+    //cria cod
+      //verifica cod
+      srand(time(NULL));
+      pale.cod = 100+(rand()% 99);//gerar num entre 100 e 199
+      printf("Código: %d\n",pale.cod);
+    
+    //Insere tema
+      puts("Insira o Tema da palestra");
+      setbuf(stdin, NULL);
+      fgets(pale.tema,TAM,stdin);
+      strtok(pale.tema,"\n");
+    // lista palestrantes
+      puts("Lista de palestrantes");
+      listarPalestrantes();
+      putchar('\n');
+      puts("\nInsira o ID do palestrante desejado");
+      //insere palestrantes
+      //escolhe palestrantes da lista baseado no id
+      scanf("%d",&pale.palestrante);
+        //verifica se o ID escolhido corresponde ao palestrante existente
+        //VERIFICA SE O NUM DE PALESTRAS DESSE ID EH MAIOR Q 0
+
+        //abre arquivo de palestrante para incrementar o num de palestrar e colocar o COD da palestras no array
+        incrementarPale(pale.cod, pale.palestrante);
+
+    //função para colocar local/hora/capacidade/cargahoraria
+    
+    
+      puts("Cadastro concluido");
+
+    //escreve tudo no arquivo
+      fwrite(&pale,sizeof(PALESTRAS),1,fp);
+    //fecha o arquivo
+      fclose(fp);
+   
+    
+
+}
