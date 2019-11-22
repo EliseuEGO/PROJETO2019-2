@@ -1,18 +1,14 @@
 /*
 -----------------------------------------------------------
 -----------------------------DUVIDAS------------------------
--membros da mesa//quem seriam?//PALESTRANTES
--carga horaria?
--Armazenar dados de pessoas//SÓ NOME?
--Planilha a ser apresentada//QUE PLANILHA?
--melhor forma de preencher os horários?
+
+
 
 
 -----------------------------IDEIAS---------------------------
- //usar ADM para cadastro; enviar o ponteiro para função e preencher os dados;
- Estudar time.h;
- usar mesma função pra preencher structs de eventos(exceto os palestrantes);
-dentro da função de preencher eventos usar if ou switch na capacidade para exibir as opções de locais;
+
+ 
+
 -Inserir ID para as palestras e MATRICULA para os alunos
 -Os ID's dos eventos são com numeros randomincos entre n e n+100 para serem indentificados com mais facilidade
 -Criar menu para manipular congressistas e palestrantes nos eventos;
@@ -64,23 +60,23 @@ int main() {
 mostra();
   //cadastrar palestrante
 cadastroPalestrante();
-cadastroPalestrante();
+//cadastroPalestrante();
 //Listar palestrantes
 listarPalestrantes();
 
 //ALTERAR DADOS DE PALESTRANTES
-editaPalestrante();
+//editaPalestrante();
 //Listar palestrantes
 listarPalestrantes();
 
 //REMOVER PALESTRANTES
-removerPalestrantes();
+//removerPalestrantes();
 puts("dps de remover");
 //Listar palestrantes
-listarPalestrantes();
+//listarPalestrantes();
 
 //Listar palestrantes
-listarPalestrantes();
+//listarPalestrantes();
 
 
 

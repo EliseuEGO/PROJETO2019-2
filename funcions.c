@@ -266,7 +266,7 @@ void removerPalestrantes(){
     rename("arquivos\\temp.txt","arquivos\\palestrantes.txt");//renomeia o aux com nome do orinial
     //fim
     puts("fim da função");
-    getchar();
+    //getchar();
 }
 //Listar palestrantes
 void listarPalestrantes(){

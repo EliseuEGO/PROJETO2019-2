@@ -36,7 +36,7 @@ typedef struct{
 
 typedef struct{
     int cod;//codigo para identificcar a palestra de 100 a 199
-    int numPalestrante;//usar para saber se o evento possui ou n palestrante
+    //int numPalestrante;//usar para saber se o evento possui ou n palestrante
     char tema[TAM];//vai ser o tbm o nome da struct
     int cadastrados[TAM2][5];//int para matricula dos congressistas
     int numCadastrados;//numero de cadastrados no evento
@@ -127,6 +127,10 @@ void removerPalestrantes();
 //Listar palestrantes
 void listarPalestrantes();
 
+//INCREMENTAR PALESTRANTES
+void incrementarPale();
+//DECREMENTAR PALESTRANTES
+void decrementarPale();
 //CADASTRAR PALESTRANTE EM EVENTO
 
 //LISTAR EVENTOS DO PALESTRANTE
@@ -156,3 +160,10 @@ void listarAlunos();
 //SAIR DE EVENTO
 
 //************************************************************
+
+//PALESTRAS-------------------------------------------------------
+//CRIAR PALESTRAS
+
+//EDITAR PALESTRAS
+
+//LISTAR 
