@@ -2,6 +2,7 @@
 -----------------------------------------------------------
 -----------------------------DUVIDAS------------------------
 
+para incrementar, decrementar e trocar palestrantes eu preciso criar um novo arquivo e substituir o antigo?
 
 
 
@@ -22,7 +23,7 @@
 -caso um palestrante seja removido é necessario cancelar um evento ou colocar um aviso para se alterar o palestrante da palestra que ele vai dar ou apagar a palesta;
 -para o congressista ser removido é necessario cancelar sua inscrição nos eventos que ele está matriculado;
 -criar função de cadastrar congressistas nos eventos assim como listar os eventos cadastrados; cadastro por MATRICULA;
-
+lllll
 
 -------------------------------------------------------------
 */

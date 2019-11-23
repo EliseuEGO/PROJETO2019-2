@@ -38,9 +38,9 @@ typedef struct{
     int cod;//codigo para identificcar a palestra de 100 a 199
     //int numPalestrante;//usar para saber se o evento possui ou n palestrante
     char tema[TAM];//vai ser o tbm o nome da struct
-    int cadastrados[TAM2][5];//int para matricula dos congressistas
+    int cadastrados[150][5];//int para matricula dos congressistas
     int numCadastrados;//numero de cadastrados no evento
-	int palestrante;//exibe lista e pesquisa para escolher os cadastrados
+	  int palestrante;//exibe lista e pesquisa para escolher os cadastrados
 	int local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
 	 //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
 	float cargahoraria; //saaber como vai ser... talvez seja fixa
@@ -90,7 +90,7 @@ typedef struct{
   int matricula;//numero randomico entre 1001 e 1301
   char nome[TAM];
   int cpf;
-  int id[20][4];//array pra guardar ID's dos eventos que o congressista participar
+  int cods[20][4];//array pra guardar ID's dos eventos que o congressista participar
   int numEventos;//int pra guardar o num de eventos q o congressista participa
   int nOficinas;//numero de oficinas não pode ser maior q 1
   int nCursos;//numero de cusos não pode ser maior q 1
