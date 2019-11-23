@@ -289,7 +289,7 @@ void decrementarPale(int cod,int ID){
           int num = profs.numEventos;
           for(i=0;i<=num;i++){
             if(profs.eventos[i]==cod){//antes tinha[0]tbm
-                profs.eventos[i]=0;//antes tinha[0]tbm
+                profs.eventos[i][0]=0;//antes tinha[0]tbm
             }
           }
           //se for codigo de palestra decrementa numero de palestras
@@ -323,7 +323,7 @@ void trocaPalestrante(int cod,int IDvelho,int IDnovo){
           //remover COD da palestra do array de eventos
           for(i=0;i<=profs.numEventos;i++){
             if(profs.eventos[i]==cod){//antes tinha[0]tbm
-                profs.eventos[i]=0;//antes tinha[0]tbm
+                profs.eventos[i][0]=0;//antes tinha[0]tbm
             }
           }
           //decrementar numero de palestras
@@ -536,6 +536,7 @@ void listarAlunos(){
 }
 //LISTAR CONGRESSISTAS DE EVENTOS
 void listarAlunosdeEventos(int cod,int IDaluno){
+    int i;
   FILE *fp;
       CONGRE aluno;
       fp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
@@ -598,7 +599,7 @@ void criaPalestra(){
         exit(EXIT_FAILURE);
     }
 
-    puts("!FALTA ZERAR O NUM DE CADASTRADOS!")
+    puts("!FALTA ZERAR O NUM DE CADASTRADOS!");
     //cria cod
       //verifica cod
       srand(time(NULL));
@@ -694,11 +695,11 @@ void editaPalestra(){
                   break;
                 }
                 case 3:{//aterar local
-                  puts("!Alterar local ainda não está disponivel!")
+                  puts("!Alterar local ainda não está disponivel!");
                   break;
                 }
                 case 4:{//aterar horario
-                  puts("!Alterar horario ainda n está disponivel!")
+                  puts("!Alterar horario ainda n está disponivel!");
                   break;
                 }
                 default:puts("Opção inválida");break;
