@@ -70,21 +70,7 @@ void criarLocais(){
 }
 
 void escolheLocal(int evento){
-  int op2;
-//lista locais
-switch(evento){
-  //case palestra:{
-
-
-
-    /*puts("1-Auditorio 1(Capacidade MAX de 150 pessoas)\n2-Auditorio 2(Capacidade MAX de 100 pessoas)\n3- Auditório 3 (Capacidade MAX de 50 pessoas)");
-    scanf("%d",&op2);
-    switch(op2){
-      case 1: 
-    
-    //}*/
- // }
-}
+  
 }
 
 
@@ -250,14 +236,9 @@ void removerPalestrantes(){
             puts("Palestrante cadastrado em evento, saia do evento para poder remove-lo");
             break;
           }else{
-          //SE NÃO
-          //TALVEZ TENHA QUE COLOCAR UM REWIND PARA VOLTAR O ARQUIVO
-            //rewind(fp);//retorna para o inicio do arquivo
-            //while(fread(&profs,sizeof(PROFS),1,fp)){//le arquivo principal
-              if(profs.ID!=ID){//se a matricula for a que eu quero editar
+            if(profs.ID!=ID){//se a matricula for a que eu quero editar
               fwrite(&profs,sizeof(PROFS),1,fp_aux);
-              }
-            //}fim do while
+            }
           }
         }
     fclose(fp);//fecha arquivo principal
@@ -280,7 +261,7 @@ void listarPalestrantes(){
       fclose(fpp);
     //fim
 }
-
+//INCREMENTAR PALESTRANTES
 void incrementarPale(int cod,int ID){
   int i;
   FILE *fpp;
@@ -306,7 +287,7 @@ void incrementarPale(int cod,int ID){
       }
       fwrite(&profs,sizeof(PROFS),1,fpp);
 }
-
+//DECREMENTAR PALESTRANTES
 void decrementarPale(int cod,int ID){
       int i;
       FILE *fpp;

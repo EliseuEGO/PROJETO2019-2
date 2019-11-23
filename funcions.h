@@ -142,7 +142,7 @@ void decrementarPale();
 
 //CONGRESSISTAS
 //CRIAR CONGRESSISTA
-void NovoCongressista();
+void NovoCongressista();//
 
 //EDITAR CONGRESSISTA
 void editaAluno();
@@ -166,4 +166,8 @@ void listarAlunos();
 
 //EDITAR PALESTRAS
 
-//LISTAR 
+//LISTAR PALESTRAS
+
+//REMOVER PALESTRAS
+
+//LISTAR CONGRESSISTAS DE UMA PALESTRA
