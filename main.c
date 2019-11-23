@@ -8,7 +8,7 @@ para incrementar, decrementar e trocar palestrantes eu preciso criar um novo arq
 
 -----------------------------IDEIAS---------------------------
 
- 
+ -pesquisar como colocar imagem no terminal
 
 -Inserir ID para as palestras e MATRICULA para os alunos
 -Os ID's dos eventos são com numeros randomincos entre n e n+100 para serem indentificados com mais facilidade

@@ -49,12 +49,13 @@ typedef struct{
 
 typedef struct{
   int cod;//codigo para identificcar o GP de 200 a 299
+	char Tema[TAM];//vai ser o tbm o nome da struct
   int numPalestrante;//usar para saber se o evento possui ou n palestrante
+	char Membros_da_mesa[5][TAM];// Até 5 pessoas//lista os palestrantes cadastrados e insere o nome dos que serão escolhidos
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
-	char Tema[TAM];//vai ser o tbm o nome da struct
-	char Membros_da_mesa[5][TAM];// Até 5 pessoas//lista os palestrantes cadastrados e insere o nome dos que serão escolhidos
-	int Local;//locais que possuem limitação de 30/50
+	
+  int Local;//locais que possuem limitação de 30/50
 	int Capacidade;// de 30/50 pessoas////cada novo congressista decrementa a capacidade
 	float carga_horaria;
 	float Horario;//horario da tarde
@@ -62,12 +63,13 @@ typedef struct{
 
 typedef struct{
   int cod;//codigo para identificcar o curso de 300 a 399
+	char Tema[TAM];//vai ser o tbm o nome da struct
   int numPalestrante;//usar para saber se o evento possui ou n palestrante
+	int Palestrante;//pesquisa para escolher os cadastrados
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
-	char Tema[TAM];//vai ser o tbm o nome da struct
-	int Palestrante;//pesquisa para escolher os cadastrados
-	int Capacidade;// de 40 pessoas//cada novo congressista decrementa a capacidade
+	
+  int Capacidade;// de 40 pessoas//cada novo congressista decrementa a capacidade
 	int Local;
 	float Carga_horaria;
 	float Horario;
