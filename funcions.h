@@ -15,9 +15,6 @@ typedef enum{//enum de auditório
   AUD1=1,AUD2,AUD3,SALA1,SALA2,SALA3,LAB1,LAB2//auditório 1,2,3...
 }LOCAL;
 
-
-
-
 //STRUCTS-------------------------------------------------------
 
 
@@ -131,14 +128,21 @@ void listarPalestrantes();
 
 //INCREMENTAR PALESTRANTES
 void incrementarPale();
+
 //DECREMENTAR PALESTRANTES
 void decrementarPale();
+
 //CADASTRAR PALESTRANTE EM EVENTO
 
 //LISTAR EVENTOS DO PALESTRANTE
 
 //SAIR DE EVENTO
 
+void listarPalestrantes2(int cod);//lista só os que não estão em certos eventos
+
+void mostraPalestrante(int ID);//exibi palestrante especifico
+
+void trocaPalestrante(int cod,int IDvelho,int IDnovo);//retira o cadastro de um palestrante de certo evento e coloca outro no lugar
 
 //******************************************************
 
@@ -161,15 +165,61 @@ void listarAlunos();
 
 //SAIR DE EVENTO
 
+void listarAlunosdeEventos(int cod,int IDaluno);//lista congressistas de determinado evento
+
+
+
 //************************************************************
 
 //PALESTRAS-------------------------------------------------------
 //CRIAR PALESTRAS
-
+void criaPalestra();//
 //EDITAR PALESTRAS
-
+void editaPalestra();//
 //LISTAR PALESTRAS
-
+void listaPalestras();//
 //REMOVER PALESTRAS
-
+void removerPalestra();//
 //LISTAR CONGRESSISTAS DE UMA PALESTRA
+void listarAlunosdaPalestra();//
+
+//****************************************************
+
+//CURSOS*********************************************
+
+//CRIAR CURSOS
+void criaCurso();
+//EDITAR CURSOS
+void editaCurso();//
+//LISTAR CURSOS
+void listaCursos();//
+//REMOVER CURSOS
+void removerCurso();//
+//LISTAR CONGRESSISTAS DE UM CURSO
+void listarAlunosdoCurso();//
+//*****************************************************
+
+//OFICINAS********************************************
+//CRIAR OFICINAS
+void criaOficina();//
+//EDITAR OFICINAS
+void editaOficinas();//
+//LISTAR OFICINAS
+void listaOficinas();//
+//REMOVER OFICINAS
+void removerOficinas();//
+//LISTAR CONGRESSISTAS DE OFICINAS
+void listaAlunosdaOficina();//
+//****************************************************
+
+//GRUPO_DE_DISCUSSOES*********************************
+
+//CRIAR GRUPO_DE_DISCUSSOES
+void criaGrupo();//
+//EDITAR GRUPO_DE_DISCUSSOES
+
+//LISTAR GRUPO_DE_DISCUSSOES
+
+//REMOVER GRUPO_DE_DISCUSSOES
+
+//LISTAR CONGRESSISTAS DE GRUPO_DE_DISCUSSOES
