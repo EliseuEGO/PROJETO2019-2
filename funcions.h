@@ -48,7 +48,7 @@ typedef struct{
   int cod;//codigo para identificcar o GP de 200 a 299
 	char Tema[TAM];//vai ser o tbm o nome da struct
   int numPalestrante;//usar para saber se o evento possui ou n palestrante
-	char Membros_da_mesa[5][TAM];// Até 5 pessoas//lista os palestrantes cadastrados e insere o nome dos que serão escolhidos
+	int Membros_da_mesa[5][TAM];// Até 5 pessoas//lista os palestrantes cadastrados e insere o nome dos que serão escolhidos
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
 	

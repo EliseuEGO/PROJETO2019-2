@@ -1,5 +1,7 @@
 /*
 -----------------------------------------------------------
+BUGS
+função de listar palestrantes(provavelmente pq falta zerar palestras no cadastro de palestrantes)
 -----------------------------DUVIDAS------------------------
 
 para incrementar, decrementar e trocar palestrantes eu preciso criar um novo arquivo e substituir o antigo?
@@ -59,27 +61,6 @@ int main() {
 
 
 mostra();
-  //cadastrar palestrante
-cadastroPalestrante();
-//cadastroPalestrante();
-//Listar palestrantes
-listarPalestrantes();
-
-//ALTERAR DADOS DE PALESTRANTES
-//editaPalestrante();
-//Listar palestrantes
-listarPalestrantes();
-
-//REMOVER PALESTRANTES
-//removerPalestrantes();
-puts("dps de remover");
-//Listar palestrantes
-//listarPalestrantes();
-
-//Listar palestrantes
-//listarPalestrantes();
-
-
 
 
 //MENU
@@ -103,7 +84,7 @@ do{
         case 5: break;//voltar
         default:break;
       }
-    }
+    }break;
     
     case 2:{//-CONGRESSISTAS
       puts("CONGRESSISTAS");
@@ -120,8 +101,8 @@ do{
         case 7: break;//-SAIR DE EVENTOS
         case 8: break;//voltar
         default:break;
-      }
-    }
+      }break;
+    }break;
 
     case 3:{//-PALESTRANTES
       puts("PALESTRANTES");
@@ -136,8 +117,8 @@ do{
         case 5: break;//-EVENTOS  DO PALESTRANTE
         case 6: break;//voltar
         default:break;
-      }
-    }
+      }break;
+    }break;
 
     case 4:{//-EVENTOs
       puts("EVENTOS");
@@ -159,7 +140,7 @@ do{
             case 6: break;//voltar
             default:break;
           }
-        }
+        }break;
         
         case 2:{//GRUPOD DE DISCUSSÕES
           puts("GRUPOS DE DISCUSSÕES");
@@ -175,7 +156,7 @@ do{
             case 6: break;//voltar
             default:break;
           }
-        }
+        }break;
         case 3:{ //CURSOS
           puts("CURSOS");
           puts("1-CADASTRAR\t2-EDITAR\n3-LISTAR\t4-REMOVER\n5-LISTAR POR CURSOS\t6-VOLTAR");
@@ -190,7 +171,7 @@ do{
             case 6: break;//voltar
             default:break;
           }
-        }
+        }break;
         case 4:{ //OFICINAS
           puts("OFICINAS");
           puts("1-CADASTRAR\t2-EDITAR\n3-LISTAR\t4-REMOVER\n5-LISTAR POR OFICINAS\t6-VOLTAR");
@@ -205,8 +186,8 @@ do{
             case 6: break;//voltar
             default:break;
           }
-        }
-      }
+        }break;
+      }break;
     }
     case 5:{
       puts("Fim do programa");break;
