@@ -73,6 +73,69 @@ void escolheLocal(int evento){
   
 }
 
+//FUNÇÃO PARA LISTAR EVENTOS
+void listarEventos(int cod){
+  if(cod>=100 && cod<200){//cod de palestra
+      FILE *fp;
+      PALESTRAS pale;
+      fp = fopen("arquivos\\palestras.txt", "rb");//abre arquivo no modo de leitura
+      while (fread(&pale, sizeof(PALESTRAS), 1,fp)){//enquanto leitura for verdadeira
+        if(cod==pale.cod){
+          printf("CODIGO: %d\nTEMA: %s\n",pale.cod,pale.tema);
+          //LISTAR HORÁRIO E LOCAL
+          puts("\nLISTAR LOCAL E HR TA FALTANDO");
+        }
+      }
+      fclose(fp);
+  }
+  if(cod>=400 && cod<500){//cod de oficina
+      FILE *fp;
+      OFICINAS ofi;
+      fp = fopen("arquivos\\oficinas.txt", "rb");//abre arquivo no modo de leitura
+      while (fread(&ofi, sizeof(OFICINAS), 1,fp)){//enquanto leitura for verdadeira
+       if(cod==ofi.cod){      
+        printf("CODIGO: %d\nTEMA: %s\n",ofi.cod,ofi.Tema);
+        mostraPalestrante(ofi.Palestrante);//pega o id do palestrante para exibir nome
+        //LISTAR HORÁRIO E LOCAL
+        puts("LISTAR LOCAL E HR TA FALTANDO");
+       }
+      }
+      fclose(fp);
+      //fim
+  }
+  if(cod>=300 && cod<400){//cod de curso
+      FILE *fp;
+      CURSO curse;
+      fp = fopen("arquivos\\cursos.txt", "rb");//abre arquivo no modo de leitura
+      while (fread(&curse, sizeof(CURSO), 1,fp)){//enquanto leitura for verdadeira
+        if(cod==curse.cod){
+          printf("CODIGO: %d\nTEMA: %s\n",curse.cod,curse.Tema);
+          mostraPalestrante(curse.Palestrante);//pega o id do palestrante para exibir nome
+          //LISTAR HORÁRIO E LOCAL
+          puts("LISTAR LOCAL E HR TA FALTANDO");
+        }
+      }
+      fclose(fp);
+      //fim
+  }
+  if(cod>=200 && cod<300){//cod de GRUPO_DE_DISCUSSOES
+    puts("!FUNÇÂO DE LISTAR GP ESTÁ FALTANDO!");
+  }
+  //!! SE O COD DO EVENTO DO ARRAY FOR 0 NÃO LISTA!!
+}
+
+//INCREMENTAR eventos com congressistas
+void incrementarEventos(int cod, int mat){
+  if(cod>=100 && cod<200){//cod de palestra
+  }
+  if(cod>=200 && cod<300){//cod de GRUPO_DE_DISCUSSOES
+  }
+  if(cod>=300 && cod<400){//cod de curso
+  }
+  if(cod>=400 && cod<500){//cod de oficina
+  }
+}
+
 //FUNÇÕES PALESTRANTES----------------------------------------
 //cadastrar palestrante
 void cadastroPalestrante(){
@@ -211,7 +274,7 @@ void removerPalestrantes(){
 }
 //Listar palestrantes
 void listarPalestrantes(){
-  puts("listar palestrantes");
+  puts("\nlista de palestrantes");
   FILE *fpp;
       PROFS profs;
       fpp = fopen("arquivos\\palestrantes.txt", "rb");//abre arquivo no modo de leitura
@@ -246,6 +309,30 @@ void listarPalestrantes2(int cod){//lista só os que não estão em certos event
       }
       fclose(fpp);
     //fim
+}
+//LISTAR EVENTOS DO PALESTRANTE 
+void listaEventosdoPalestrante(){
+  int i; //contador
+  listarPalestrantes();
+  int ID;
+  printf("Insira o ID do palestrante >>");
+  scanf("%d",&ID);
+  FILE *fpp;
+      PROFS profs;
+      fpp = fopen("arquivos\\palestrantes.txt", "rb");//abre arquivo no modo de leitura
+      while (fread(&profs, sizeof(PROFS), 1,fpp)){//enquanto leitura for verdadeira
+        if(ID==profs.ID){
+          printf("Eventos de %s\n",profs.nome);
+          //FUNÇÃO PARA LISTAR EVENTOS
+          for(i=0;i<profs.numEventos;i++){
+              listarEventos(profs.eventos[i][0]);
+          }
+          //!! SE O COD DO EVENTO DO ARRAY FOR 0 NÃO LISTA!!
+        }
+      }
+      fclose(fpp);
+    //fim
+
 }
 //EXIBIR PALESTRANTE EXPECIFICO
 void mostraPalestrante(int ID){
@@ -307,7 +394,7 @@ void incrementarPale(int cod,int ID){
 }
 //DECREMENTAR PALESTRANTES
 void decrementarPale(int cod,int ID){
-  //TALVEZ DEVA CRIAR NOVO ARQUIVO
+ 
       puts("\n**ENTRANDO EM DECREMENTAR PALESTRAS\n**");
       int i;
       FILE *fpp;
@@ -418,18 +505,6 @@ void trocaPalestrante(int cod,int IDvelho,int IDnovo){
 /*
 PALESTRANTE
 
-  CADASTRAR EM EVENTO:{
-    lista eventos disponiveis(evento indisponivel é oq o contadorde palestrantes esteja preenchido)
-    abre evento
-      coloca id do palestrante na variavel palestrante
-      incrementa qnt de palestrantes
-
-      [se for uma palesta, curso ou oficina]
-        incrementa o contador correspondente na struct
-
-      add id do evento no array de eventos que o palestrante está
-      incrementa a qnt de eventos que o palestrante está
-  }
 
   LISTAR EVENTOS DO PALESTRANTE:{
     for com numero de id's cadastrados
@@ -597,7 +672,7 @@ void listarAlunos(){
 //LISTAR CONGRESSISTAS DE EVENTOS
 void listarAlunosdeEventos(int cod,int IDaluno){
     int i;
-  FILE *fpp;
+    FILE *fpp;
       CONGRE aluno;
       fpp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
       while (fread(&aluno, sizeof(CONGRE), 1,fpp)){//enquanto leitura for verdadeira
@@ -610,7 +685,79 @@ void listarAlunosdeEventos(int cod,int IDaluno){
       fclose(fpp);
     //fim
 }
+//INCREMENTAR EVENTO EM CONGRESSISTA
+void incrementarAluno(int cod,int mat){//recebe o codigo do evento e a matricula do aluno
+    int i;
+    FILE *fpp;
+    FILE *fpp2;
+    CONGRE aluno;
 
+    fpp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
+    fpp2 = fopen("arquivos\\tempAlunos.txt", "ab");//abre arquivo no modo de acesso
+
+    while (fread(&aluno, sizeof(CONGRE), 1,fpp)){
+        if(mat==aluno.matricula){
+          aluno.cods[aluno.numEventos][0]=cod;//coloca codigo do evento no array de codigos
+          aluno.numEventos++;//incrementa num de evnetos 
+
+          if(cod>=400 && cod<500){//se for oficina
+            aluno.nOficinas=1;
+            puts("\n**OFICINAS=1\n**");
+          }
+          if(cod>=300 && cod<400){//se for curso
+            aluno.nCursos=1;
+            puts("\n**CURSOS=1\n**");
+          }
+          fwrite(&aluno,sizeof(CONGRE),1,fpp2);
+        }else{
+          fwrite(&aluno,sizeof(CONGRE),1,fpp2);
+        }
+    }
+    fclose(fpp);
+    fclose(fpp2);
+    remove("arquivos\\alunos.txt");//remove o original
+    rename("arquivos\\tempAlunos.txt","arquivos\\alunos.txt");//renomeia o aux com nome do original
+    //fim
+}
+
+//CADASTRAR EM EVENTO
+void cadastrarAlunoemEvento(){
+  int op,mat,cod;
+
+  listarAlunos();//LISTAR ALUNOS PARA escolha
+  printf("Insira a matricula do aluno que quer cadastrar>>");
+  scanf("%d",&mat);
+
+  puts("\n1-Palestras\t2-Gp de discussão\t3-Curso\t4Oficina\n5Sair");
+  printf("Deseja cadastrar o congressita em qual evento?>>");
+  scanf("%d",&op);
+
+  switch(op){
+    case 1:{//PALESTRAS
+    //[Abre o evento e testa se o numero de matriculas é igual a capacidade do local]
+    puts("!Falta testar se o num de matriculas é igual a capacidade do local!");
+      //listar palestras
+      listaPalestras();
+      printf("\nInsira o codigo da palestra desejada>>");
+      scanf("%d",&cod);
+      //incrementar PALESTRA
+      incrementarEventos(cod,mat);
+      //incrementar aluno
+      incrementarAluno(cod,mat);
+
+    }
+    case 2:{//GRUPO_DE_DISCUSSOES
+
+    }
+    case 3:{//Curso
+    //testa se o num de cusros é maior que 0
+    }
+    case 4:{//OFICINA
+    //testa se o num de oficinas é maior que 0
+    }
+  }
+ 
+}
 //fim das funções dos congressistas---------------------------------------------------------
 
 /*
@@ -841,6 +988,7 @@ void listarAlunosdaPalestra(){
    fclose(fp);//fecha arquivo principal
    //fim
 }
+
 
 
 
@@ -1284,3 +1432,8 @@ void criaGrupo(){
       fclose(fp);
     //fim
 }
+
+
+
+
+//************************************************************************************************

@@ -1,10 +1,27 @@
 /*
+FALTA
+--termianr a função de cadastrar aluno em evento e incremento de evento
+
+--CRIAR FUNÇÃO PARA VERIFICAR ID, COD, MATRICULA E CODL
+--CRIAR FUNÇÕES DOS organizadores
+--FUNÇÃO PARA ESPERAR UM TEMPO OU PARAR
+--CADASTRAR CONGRESSISTAS NOS EVENTOS
+--DEMAIS FUNÇÕES DO GP DE DISCUSSÃO
+--INCLUIR VARIOS PALESTRANTES NO GP DE DISCUSSÃO
+--INCLUIR PARTE DE INSTRUÇÕES NO MENU
+--FUNÇÃO PARA RETIRAR UM UNICO PALESTRANTE DO GP DE DISCUSSÃO
+
+--ADD A DESCRIÇÃO DE CADA FUNÇÃO NO MENU
+
+--DEFINIR PROCESSO E ESTRUTURA DA FUNÇÕES DE ESCOLHA E PREENCHIMENTO DE LOCAIS
+
+
 -----------------------------------------------------------
 BUGS
-função de listar palestrantes(provavelmente pq falta zerar palestras no cadastro de palestrantes)
+
 -----------------------------DUVIDAS------------------------
 
-para incrementar, decrementar e trocar palestrantes eu preciso criar um novo arquivo e substituir o antigo?
+para incrementar, decrementar e trocar palestrantes eu preciso criar um novo arquivo e substituir o antigo?-- sim
 
 
 
@@ -12,20 +29,19 @@ para incrementar, decrementar e trocar palestrantes eu preciso criar um novo arq
 
  -pesquisar como colocar imagem no terminal
 
--Inserir ID para as palestras e MATRICULA para os alunos
--Os ID's dos eventos são com numeros randomincos entre n e n+100 para serem indentificados com mais facilidade
 -Criar menu para manipular congressistas e palestrantes nos eventos;
--ADD palestrante em gp de discussão direto do menu de manipulação de palestrantes;
 
 -Função para verificar se COD, ID ou MATRICULA já existe; int verifica e retorna 1 ou 0;
 
 -----------------------------PROBLEMAS---------------------
--Usar time.h para manipular as horas;
+
 -caso altere dado ou remova um congressista ou palestrante é    necessário fazer o mesmo nos arquivos dos eventos;
--caso um palestrante seja removido é necessario cancelar um evento ou colocar um aviso para se alterar o palestrante da palestra que ele vai dar ou apagar a palesta;
+
 -para o congressista ser removido é necessario cancelar sua inscrição nos eventos que ele está matriculado;
 -criar função de cadastrar congressistas nos eventos assim como listar os eventos cadastrados; cadastro por MATRICULA;
-lllll
+
+
+
 
 -------------------------------------------------------------
 */
@@ -92,7 +108,7 @@ do{
       printf("Escolha uma opção>>");
       scanf("%d",&op2);
       switch(op2){
-        case 1:NovoCongressista(); break;//-CADASTRAR
+        case 1:NovoCongressista(); break;//-CADASTRAR CONGRESSISTA
         case 2:editaAluno(); break;//-EDITAR
         case 3:listarAlunos(); break;//-LISTAR
         case 4:removerAluno(); break;//-REMOVER
@@ -114,7 +130,7 @@ do{
         case 2:editaPalestrante(); break;//-EDITAR
         case 3:listarPalestrantes(); break;//-LISTAR
         case 4:removerPalestrantes(); break;//-REMOVER
-        case 5: break;//-EVENTOS  DO PALESTRANTE
+        case 5:listaEventosdoPalestrante(); break;//-EVENTOS  DO PALESTRANTE
         case 6: break;//voltar
         default:break;
       }break;

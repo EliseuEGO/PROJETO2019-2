@@ -106,12 +106,20 @@ typedef struct{
   int nCursos;//numero de cusos não pode ser maior q 1
 }PROFS;//struct de palestrantes
 
+typedef struct{
+  int ID;//id do organizador
+  char nome[TAM];
+  int cpf;
+}ORGANIZADORES;
+
 
 //FUNÇÕES-------------------------------------------------------
 
 void mostra();
 
 void escolherLocal();
+
+void listarEventos(int cod);
 
 //PALESTRANTES**************************
 //cadastrar palestrante
@@ -132,11 +140,8 @@ void incrementarPale();
 //DECREMENTAR PALESTRANTES
 void decrementarPale();
 
-//CADASTRAR PALESTRANTE EM EVENTO
-
 //LISTAR EVENTOS DO PALESTRANTE
-
-//SAIR DE EVENTO
+void listaEventosdoPalestrante();
 
 void listarPalestrantes2(int cod);//lista só os que não estão em certos eventos
 
@@ -160,13 +165,16 @@ void removerAluno();
 void listarAlunos();
 
 //CADASTRAR CONGRESSISTA EM EVENTO
-
+void cadastrarAlunoemEvento();
 //LISTAR EVENTOS DO CONGRESSISTA
 
 //SAIR DE EVENTO
 
 void listarAlunosdeEventos(int cod,int IDaluno);//lista congressistas de determinado evento
 
+void incrementarAluno(int cod,int mat);//incrementar evento em aluno
+
+//decrementar evento de aluno
 
 
 //************************************************************
