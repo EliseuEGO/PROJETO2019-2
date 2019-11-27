@@ -127,12 +127,82 @@ void listarEventos(int cod){
 //INCREMENTAR eventos com congressistas
 void incrementarEventos(int cod, int mat){
   if(cod>=100 && cod<200){//cod de palestra
+      int i;
+    FILE *fpp;
+    FILE *fpp2;
+    PALESTRAS pale;
+
+    fpp = fopen("arquivos\\palestras.txt", "rb");//abre arquivo no modo de leitura
+    fpp2 = fopen("arquivos\\tempPale.txt", "ab");//abre arquivo no modo de acesso
+
+    while (fread(&pale, sizeof(PALESTRAS), 1,fpp)){
+      if(cod==pale.cod){
+        pale.numCadastrados++;//incrementa num de cadastradas
+        pale.cadastrados[pale.numCadastrados][0]=mat;//add matricula do aluno no array de cadastradas
+        fwrite(&pale,sizeof(PALESTRAS),1,fpp2);
+      }else{
+        fwrite(&pale,sizeof(PALESTRAS),1,fpp2);
+      }
+    }
+    fclose(fpp);
+    fclose(fpp2);
+    remove("arquivos\\palestras.txt");//remove o original
+    rename("arquivos\\tempPale.txt","arquivos\\palestras.txt");//renomeia o aux com nome do original
+    //fim
   }
+
   if(cod>=200 && cod<300){//cod de GRUPO_DE_DISCUSSOES
+    puts("!INCREMENTAR GRUPO_DE_DISCUSSOES ESTÁ EM FALTA!");
   }
+
   if(cod>=300 && cod<400){//cod de curso
+    int i;
+    FILE *fpp;
+    FILE *fpp2;
+    CURSO curse;
+
+    fpp = fopen("arquivos\\cursos.txt", "rb");//abre arquivo no modo de leitura
+    fpp2 = fopen("arquivos\\tempCurse.txt", "ab");//abre arquivo no modo de acesso
+
+    while (fread(&curse, sizeof(CURSO), 1,fpp)){
+      if(cod==curse.cod){
+        curse.numCadastrados++;//incrementa num de cadastradas
+        curse.cadastrados[curse.numCadastrados][0]=mat;//add matricula do aluno no array de cadastradas
+        fwrite(&curse,sizeof(CURSO),1,fpp2);
+      }else{
+        fwrite(&curse,sizeof(CURSO),1,fpp2);
+      }
+    }
+    fclose(fpp);
+    fclose(fpp2);
+    remove("arquivos\\cursos.txt");//remove o original
+    rename("arquivos\\tempCurse.txt","arquivos\\cursos.txt");//renomeia o aux com nome do original
+    //fim
   }
+
   if(cod>=400 && cod<500){//cod de oficina
+      int i;
+    FILE *fpp;
+    FILE *fpp2;
+    OFICINAS ofi;
+
+    fpp = fopen("arquivos\\oficinas.txt", "rb");//abre arquivo no modo de leitura
+    fpp2 = fopen("arquivos\\tempOfi.txt", "ab");//abre arquivo no modo de acesso
+
+    while (fread(&ofi, sizeof(OFICINAS), 1,fpp)){
+      if(cod==ofi.cod){
+        ofi.numCadastrados++;//incrementa num de cadastradas
+        ofi.cadastrados[ofi.numCadastrados][0]=mat;//add matricula do aluno no array de cadastradas
+        fwrite(&ofi,sizeof(OFICINAS),1,fpp2);
+      }else{
+        fwrite(&ofi,sizeof(OFICINAS),1,fpp2);
+      }
+    }
+    fclose(fpp);
+    fclose(fpp2);
+    remove("arquivos\\oficinas.txt");//remove o original
+    rename("arquivos\\tempOfi.txt","arquivos\\oficinas.txt");//renomeia o aux com nome do original
+    //fim
   }
 }
 
@@ -305,6 +375,9 @@ void listarPalestrantes2(int cod){//lista só os que não estão em certos event
           if(profs.nOficinas==0){
            printf("\nID:%d\nNome: %s\n",profs.ID, profs.nome);
           } 
+        }
+        if(cod>=200&&cod<300){//se for codigo de grupo
+          printf("\nID:%d\nNome: %s\n",profs.ID, profs.nome);
         }
       }
       fclose(fpp);
@@ -1410,13 +1483,15 @@ void criaGrupo(){
       strtok(grup.Tema,"\n");
     // lista palestrantes
       puts("Lista de palestrantes");
-      listarPalestrantes2(grup.cod);//envia cod pra listar só palestrantes sem oficina
+      listarPalestrantes2(grup.cod);//
       putchar('\n');
       puts("\nInsira o ID do palestrante desejado");
+
+      
       puts("FALTA FAzER FUNÇÕES PRA PEGAR MAIS DE UM ID DE PALESTRANTE");
       //insere palestrantes
       //escolhe palestrantes da lista baseado no id
-      scanf("%d",&grup.Membros_da_mesa[grup.numPalestrante]);
+      scanf("%d",&grup.Membros_da_mesa[grup.numPalestrante][0]);
         //verifica se o ID escolhido corresponde ao palestrante existente!!
         //abre arquivo de palestrante para incrementar o num de palestrar e colocar o COD da palestras no array
         incrementarPale(grup.cod, grup.Membros_da_mesa[grup.numPalestrante][0]);
