@@ -137,6 +137,7 @@ void incrementarEventos(int cod, int mat){
 
     while (fread(&pale, sizeof(PALESTRAS), 1,fpp)){
       if(cod==pale.cod){
+        //num de cadastradas não pode ser maior que a capacidade
         pale.numCadastrados++;//incrementa num de cadastradas
         pale.cadastrados[pale.numCadastrados][0]=mat;//add matricula do aluno no array de cadastradas
         fwrite(&pale,sizeof(PALESTRAS),1,fpp2);
@@ -153,6 +154,7 @@ void incrementarEventos(int cod, int mat){
 
   if(cod>=200 && cod<300){//cod de GRUPO_DE_DISCUSSOES
     puts("!INCREMENTAR GRUPO_DE_DISCUSSOES ESTÁ EM FALTA!");
+     //num de cadastradas não pode ser maior que a capacidade
   }
 
   if(cod>=300 && cod<400){//cod de curso
@@ -166,6 +168,7 @@ void incrementarEventos(int cod, int mat){
 
     while (fread(&curse, sizeof(CURSO), 1,fpp)){
       if(cod==curse.cod){
+         //num de cadastradas não pode ser maior que a capacidade
         curse.numCadastrados++;//incrementa num de cadastradas
         curse.cadastrados[curse.numCadastrados][0]=mat;//add matricula do aluno no array de cadastradas
         fwrite(&curse,sizeof(CURSO),1,fpp2);
@@ -191,8 +194,105 @@ void incrementarEventos(int cod, int mat){
 
     while (fread(&ofi, sizeof(OFICINAS), 1,fpp)){
       if(cod==ofi.cod){
+         //num de cadastradas não pode ser maior que a capacidade
         ofi.numCadastrados++;//incrementa num de cadastradas
         ofi.cadastrados[ofi.numCadastrados][0]=mat;//add matricula do aluno no array de cadastradas
+        fwrite(&ofi,sizeof(OFICINAS),1,fpp2);
+      }else{
+        fwrite(&ofi,sizeof(OFICINAS),1,fpp2);
+      }
+    }
+    fclose(fpp);
+    fclose(fpp2);
+    remove("arquivos\\oficinas.txt");//remove o original
+    rename("arquivos\\tempOfi.txt","arquivos\\oficinas.txt");//renomeia o aux com nome do original
+    //fim
+  }
+}
+
+//DECREMENTAR EVENTOS DO CONGRESSISTA
+void decrementarEventos(int cod, int mat){
+  if(cod>=100 && cod<200){//cod de palestra
+      int i;
+    FILE *fpp;
+    FILE *fpp2;
+    PALESTRAS pale;
+
+    fpp = fopen("arquivos\\palestras.txt", "rb");//abre arquivo no modo de leitura
+    fpp2 = fopen("arquivos\\tempPale.txt", "ab");//abre arquivo no modo de acesso
+
+    while (fread(&pale, sizeof(PALESTRAS), 1,fpp)){
+      if(cod==pale.cod){
+        //num de cadastradas não pode ser maior que a capacidade
+        for(i=0;i<pale.numCadastrados;i++){
+          if(pale.cadastrados[i][0]==mat){
+            pale.cadastrados[i][0]=0;//add matricula do aluno no array de cadastradas
+          }
+        }
+        pale.numCadastrados--;//decrementa num de cadastradas
+        fwrite(&pale,sizeof(PALESTRAS),1,fpp2);
+      }else{
+        fwrite(&pale,sizeof(PALESTRAS),1,fpp2);
+      }
+    }
+    fclose(fpp);
+    fclose(fpp2);
+    remove("arquivos\\palestras.txt");//remove o original
+    rename("arquivos\\tempPale.txt","arquivos\\palestras.txt");//renomeia o aux com nome do original
+    //fim
+  }
+
+  if(cod>=200 && cod<300){//cod de GRUPO_DE_DISCUSSOES
+    puts("!INCREMENTAR GRUPO_DE_DISCUSSOES ESTÁ EM FALTA!");
+     //num de cadastradas não pode ser maior que a capacidade
+  }
+
+  if(cod>=300 && cod<400){//cod de curso
+    int i;
+    FILE *fpp;
+    FILE *fpp2;
+    CURSO curse;
+
+    fpp = fopen("arquivos\\cursos.txt", "rb");//abre arquivo no modo de leitura
+    fpp2 = fopen("arquivos\\tempCurse.txt", "ab");//abre arquivo no modo de acesso
+
+    while (fread(&curse, sizeof(CURSO), 1,fpp)){
+      if(cod==curse.cod){
+         for(i=0;i<curse.numCadastrados;i++){
+          if(curse.cadastrados[i][0]==mat){
+            curse.cadastrados[i][0]=0;//add matricula do aluno no array de cadastradas
+          }
+        }
+        curse.numCadastrados--;//decrementa num de cadastradas
+        fwrite(&curse,sizeof(CURSO),1,fpp2);
+      }else{
+        fwrite(&curse,sizeof(CURSO),1,fpp2);
+      }
+    }
+    fclose(fpp);
+    fclose(fpp2);
+    remove("arquivos\\cursos.txt");//remove o original
+    rename("arquivos\\tempCurse.txt","arquivos\\cursos.txt");//renomeia o aux com nome do original
+    //fim
+  }
+
+  if(cod>=400 && cod<500){//cod de oficina
+      int i;
+    FILE *fpp;
+    FILE *fpp2;
+    OFICINAS ofi;
+
+    fpp = fopen("arquivos\\oficinas.txt", "rb");//abre arquivo no modo de leitura
+    fpp2 = fopen("arquivos\\tempOfi.txt", "ab");//abre arquivo no modo de acesso
+
+    while (fread(&ofi, sizeof(OFICINAS), 1,fpp)){
+      if(cod==ofi.cod){
+         for(i=0;i<ofi.numCadastrados;i++){
+          if(ofi.cadastrados[i][0]==mat){
+            ofi.cadastrados[i][0]=0;//add matricula do aluno no array de cadastradas
+          }
+        }
+        ofi.numCadastrados--;//decrementa num de cadastradas
         fwrite(&ofi,sizeof(OFICINAS),1,fpp2);
       }else{
         fwrite(&ofi,sizeof(OFICINAS),1,fpp2);
@@ -575,28 +675,7 @@ void trocaPalestrante(int cod,int IDvelho,int IDnovo){
 
 //-----------------------------------------------------------------
 
-/*
-PALESTRANTE
 
-
-  LISTAR EVENTOS DO PALESTRANTE:{
-    for com numero de id's cadastrados
-   !! SE O COD DO EVENTO DO ARRAY FOR 0 NÃO LISTA!!
-      lista os ID's com nomes e horarios
-  }
-
-  SAIR DE EVENTO{
-    lista os eventos que está com ID
-    pega o id do evento q for SAIR
-    entra no evento
-      remove o ID do char de palestrantes
-        [se for GP decrementa o num de palestrantes]
-    decrementa o num de eventos e o contador de evento especifico
-
-  }
-
-
-*/
 
 //funções congressistas------------------------------------------------------
 void NovoCongressista(){
@@ -697,7 +776,7 @@ void editaAluno(){
 }
 //REMOVER CONGRESSISTA
 void removerAluno(){
-      int mat;//pegar matricula
+      int mat,i;//pegar matricula
       puts("Insira a matricula do aluno");
         scanf("%d",&mat);
       puts("!FALTA VERIFICAR SE POSSUI EVENTOS!");
@@ -722,6 +801,10 @@ void removerAluno(){
       while(fread(&aluno,sizeof(CONGRE),1,fp)){//le arquivo principal
         if(aluno.matricula!=mat){//se a matricula for a que eu quero editar
           fwrite(&aluno,sizeof(CONGRE),1,fp_aux);
+        }else{
+          for(i=0;i<aluno.numEventos;i++){
+            decrementarEventos(aluno.cods[i][0] ,mat);
+          }
         }
       }
     fclose(fp);//fecha arquivo principal
@@ -732,12 +815,36 @@ void removerAluno(){
   }
 //listar congressistas
 void listarAlunos(){
-  int i;
+      int i;
       FILE *fpp;
       CONGRE aluno;
       fpp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
       while (fread(&aluno, sizeof(CONGRE), 1,fpp)){//enquanto leitura for verdadeira
         printf("\nMatricula:%d\nNome: %s - CPF: %d\n\n",aluno.matricula, aluno.nome,aluno.cpf);
+      }
+      fclose(fpp);
+    //fim
+}
+//LISTAR ALUNOS SEM CURSO OU SEM OFICINA
+void listarAlunos2(int cod){
+      int i;
+      FILE *fpp;
+      CONGRE aluno;
+      fpp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
+      while (fread(&aluno, sizeof(CONGRE), 1,fpp)){//enquanto leitura for verdadeira
+        if(cod>=400 && cod<500){//se for oficina
+            if(aluno.nOficinas==0){
+              printf("\nMatricula:%d\nNome: %s - CPF: %d\n\n",aluno.matricula, aluno.nome,aluno.cpf);
+            }
+          }
+          if(cod>=300 && cod<400){//se for curso
+            if(aluno.nCursos==0){
+              printf("\nMatricula:%d\nNome: %s - CPF: %d\n\n",aluno.matricula, aluno.nome,aluno.cpf);
+            }
+          }
+          if((cod>=100 && cod<200)||(cod>=200 && cod<300)){
+            printf("\nMatricula:%d\nNome: %s - CPF: %d\n\n",aluno.matricula, aluno.nome,aluno.cpf);
+          }
       }
       fclose(fpp);
     //fim
@@ -792,14 +899,48 @@ void incrementarAluno(int cod,int mat){//recebe o codigo do evento e a matricula
     rename("arquivos\\tempAlunos.txt","arquivos\\alunos.txt");//renomeia o aux com nome do original
     //fim
 }
+//DECREMENTAR EVENTO DE UM CONGRESSISTA
+void decrementarAluno(int cod, int mat){
+    int i;
+    FILE *fpp;
+    FILE *fpp2;
+    CONGRE aluno;
+
+    fpp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
+    fpp2 = fopen("arquivos\\tempAlunos.txt", "ab");//abre arquivo no modo de acesso
+
+    while (fread(&aluno, sizeof(CONGRE), 1,fpp)){
+        if(mat==aluno.matricula){
+          for(i=0;i<aluno.numEventos;i++){          
+            if(aluno.cods[i][0]==cod){
+              aluno.cods[i][0]=0;
+            };//zera o codigo do evento no array de codigos
+          }
+
+          if(cod>=400 && cod<500){//se for oficina
+            aluno.nOficinas=0;
+            puts("\n**OFICINAS=0\n**");
+          }
+          if(cod>=300 && cod<400){//se for curso
+            aluno.nCursos=0;
+            puts("\n**CURSOS=0\n**");
+          }
+          fwrite(&aluno,sizeof(CONGRE),1,fpp2);
+        }else{
+          fwrite(&aluno,sizeof(CONGRE),1,fpp2);
+        }
+    }
+    fclose(fpp);
+    fclose(fpp2);
+    remove("arquivos\\alunos.txt");//remove o original
+    rename("arquivos\\tempAlunos.txt","arquivos\\alunos.txt");//renomeia o aux com nome do original
+    //fim
+
+}
 
 //CADASTRAR EM EVENTO
 void cadastrarAlunoemEvento(){
   int op,mat,cod;
-
-  listarAlunos();//LISTAR ALUNOS PARA escolha
-  printf("Insira a matricula do aluno que quer cadastrar>>");
-  scanf("%d",&mat);
 
   puts("\n1-Palestras\t2-Gp de discussão\t3-Curso\t4Oficina\n5Sair");
   printf("Deseja cadastrar o congressita em qual evento?>>");
@@ -811,47 +952,130 @@ void cadastrarAlunoemEvento(){
     puts("!Falta testar se o num de matriculas é igual a capacidade do local!");
       //listar palestras
       listaPalestras();
+      putchar('\n');
       printf("\nInsira o codigo da palestra desejada>>");
       scanf("%d",&cod);
+
+        listarAlunos2(cod);//LISTAR ALUNOS PARA escolha
+        printf("Insira a matricula do aluno que quer cadastrar>>");
+        putchar('\n');
+        scanf("%d",&mat);
+
       //incrementar PALESTRA
       incrementarEventos(cod,mat);
       //incrementar aluno
       incrementarAluno(cod,mat);
-
+      break;
     }
     case 2:{//GRUPO_DE_DISCUSSOES
-
+      puts("!FALTA FUNÇÃO PARA CADASTRAR CONGRESSISTA NO GRUPO_DE_DISCUSSOES!");
+      break;
     }
     case 3:{//Curso
-    //testa se o num de cusros é maior que 0
+      //[Abre o evento e testa se o numero de matriculas é igual a capacidade do local]
+      puts("!Falta testar se o num de matriculas é igual a capacidade do local!");
+      //listar cursos
+      listaCursos();
+      putchar('\n');
+      printf("\nInsira o codigo da palestra desejada>>");
+      scanf("%d",&cod);
+
+      listarAlunos2(cod);//LISTAR ALUNOS PARA escolha
+        printf("Insira a matricula do aluno que quer cadastrar>>");
+        putchar('\n');
+        scanf("%d",&mat);
+
+      //incrementar curso
+      incrementarEventos(cod,mat);
+      //incrementar aluno
+      incrementarAluno(cod,mat);
+      break;
     }
     case 4:{//OFICINA
-    //testa se o num de oficinas é maior que 0
+      //[Abre o evento e testa se o numero de matriculas é igual a capacidade do local]
+      puts("!Falta testar se o num de matriculas é igual a capacidade do local!");
+      //listar oficina
+      listaOficinas();
+      putchar('\n');
+      printf("\nInsira o codigo da palestra desejada>>");
+      scanf("%d",&cod);
+
+      listarAlunos2(cod);//LISTAR ALUNOS PARA escolha
+        printf("Insira a matricula do aluno que quer cadastrar>>");
+        putchar('\n');
+        scanf("%d",&mat);
+
+      //incrementar PALESTRA
+      incrementarEventos(cod,mat);
+      //incrementar aluno
+      incrementarAluno(cod,mat);
+      break;
     }
   }
  
+}
+//LISTAR ALUNOS COM EVENTOS
+void listadeAlunoscomEventos(){
+  FILE *fpp;
+      CONGRE aluno;
+      fpp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
+      while (fread(&aluno, sizeof(CONGRE), 1,fpp)){//enquanto leitura for verdadeira
+        if(aluno.numEventos>0){
+          printf("\nMatricula: %d\nNome: %s\n",aluno.matricula,aluno.nome);
+        }
+      }
+    fclose(fpp);
+}
+//LISTAR EVENTOS DO CONGRESSISTA
+void listaEventosdeAlunos(){
+  int mat,i;
+    FILE *fpp;
+      CONGRE aluno;
+      fpp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
+      listadeAlunoscomEventos();
+      putchar('\n');
+      printf("Insira a matricula do aluno para listar eventos>>");
+      scanf("%d",&mat);
+      while (fread(&aluno, sizeof(CONGRE), 1,fpp)){//enquanto leitura for verdadeira
+        if(mat==aluno.matricula){
+          for(i=0;i<aluno.numEventos;i++){
+            listarEventos(aluno.cods[i][0]);
+          }
+        }
+      }
+}
+//SAIR DO EVENTO
+void deixarEvento(){
+  int mat,i,cod;
+    FILE *fpp;
+
+    CONGRE aluno;
+    fpp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
+    
+    listadeAlunoscomEventos();
+    putchar('\n');
+    printf("Insira a matricula do congressista>>");
+    scanf("%d",&mat);
+      while (fread(&aluno, sizeof(CONGRE), 1,fpp)){//enquanto leitura for verdadeira
+        if(mat==aluno.matricula){
+          for(i=0;i<aluno.numEventos;i++){
+            listarEventos(aluno.cods[i][0]);
+          }
+        }
+      }
+      printf("Insira o codigo do evento que deseja remover>>");
+      scanf("%d",&cod);
+      decrementarEventos(cod,mat);
+      puts("Removido dos eventos");
+      decrementarAluno(cod, mat);
+      puts("Evento removido");
+      fclose(fpp);
+      //fim
 }
 //fim das funções dos congressistas---------------------------------------------------------
 
 /*
 CONGRESSISTAS
-  CADASTRAR EM EVENTO:{
-    lista eventos com ID's
-    pega ID digitado
-      [Abre o evento e testa se o numero de matriculas é igual a capacidade do local]
-        Add matricula do aluno no array de matriculas;
-        Incrementa o num de matriculas cadastradas;
-
-      [se for ID de curso ou oficina incremente o contador dentro   da struc do Congressista  ]
-
-      Add ID do evento em um array de eventos[n] dentro da struct Congressista e incrementa int num de eventos dentro da struct
-
-  }
-  LISTAR EVENTOS DO CONGRESSISTA:{
-    Pega os ID's do array de eventos usando o int num de eventos
-    entra nos arquivos
-    lista os nomes com os temas e horários
-  }
 
   SAIR DE EVENTO:{
     lista os eventos com os ID's usando o int num de eventos

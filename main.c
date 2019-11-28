@@ -1,11 +1,10 @@
 /*
 FALTA
---termianr a função de cadastrar aluno em evento e incremento de evento
+
 
 --CRIAR FUNÇÃO PARA VERIFICAR ID, COD, MATRICULA E CODL
 --CRIAR FUNÇÕES DOS organizadores
 --FUNÇÃO PARA ESPERAR UM TEMPO OU PARAR
---CADASTRAR CONGRESSISTAS NOS EVENTOS
 --DEMAIS FUNÇÕES DO GP DE DISCUSSÃO
 --INCLUIR VARIOS PALESTRANTES NO GP DE DISCUSSÃO
 --INCLUIR PARTE DE INSTRUÇÕES NO MENU
@@ -112,9 +111,9 @@ do{
         case 2:editaAluno(); break;//-EDITAR
         case 3:listarAlunos(); break;//-LISTAR
         case 4:removerAluno(); break;//-REMOVER
-        case 5: break;//-CADASTRAR EM EVENTO 
-        case 6: break;//-EVENTOS  DO CONGRESSISTA
-        case 7: break;//-SAIR DE EVENTOS
+        case 5:cadastrarAlunoemEvento(); break;//-CADASTRAR EM EVENTO 
+        case 6:listaEventosdeAlunos(); break;//-EVENTOS  DO CONGRESSISTA
+        case 7:deixarEvento(); break;//-SAIR DE EVENTOS
         case 8: break;//voltar
         default:break;
       }break;
