@@ -310,7 +310,7 @@ void decrementarEventos(int cod, int mat){
 //cadastrar palestrante
 void cadastroPalestrante(){
     int i,j;
-    printf("INICIAR CADASTRO DE PALESTRANTE\n");
+    printf("\nCADASTRO DE PALESTRANTE\n");
     //abre arquivo e verifica
     FILE *fp;
     PROFS profs;//varial de professores
@@ -444,7 +444,7 @@ void removerPalestrantes(){
 }
 //Listar palestrantes
 void listarPalestrantes(){
-  puts("\nlista de palestrantes");
+  puts("\nListar palestrantes");
   FILE *fpp;
       PROFS profs;
       fpp = fopen("arquivos\\palestrantes.txt", "rb");//abre arquivo no modo de leitura
@@ -485,6 +485,7 @@ void listarPalestrantes2(int cod){//lista só os que não estão em certos event
 }
 //LISTAR EVENTOS DO PALESTRANTE 
 void listaEventosdoPalestrante(){
+  puts("\nLista de Eventos de um palestrante");
   int i; //contador
   listarPalestrantes();
   int ID;
@@ -679,6 +680,7 @@ void trocaPalestrante(int cod,int IDvelho,int IDnovo){
 
 //funções congressistas------------------------------------------------------
 void NovoCongressista(){
+  puts("\nCadastrar congressista");
       int i,j;//contadores
       FILE *fp=NULL;
       CONGRE aluno;
@@ -721,6 +723,7 @@ void NovoCongressista(){
 }
 //EDITAR CONGRESSISTA
 void editaAluno(){
+  puts("\nEditar congressista");
     int op2;//op para switch
     int mat;//matricula para pesquisa
     char novoNome[TAM];
@@ -776,6 +779,7 @@ void editaAluno(){
 }
 //REMOVER CONGRESSISTA
 void removerAluno(){
+  puts("\nRemover congressista");
       int mat,i;//pegar matricula
       puts("Insira a matricula do aluno");
         scanf("%d",&mat);
@@ -815,6 +819,7 @@ void removerAluno(){
   }
 //listar congressistas
 void listarAlunos(){
+  puts("\nLista de congressistas");
       int i;
       FILE *fpp;
       CONGRE aluno;
@@ -827,6 +832,7 @@ void listarAlunos(){
 }
 //LISTAR ALUNOS SEM CURSO OU SEM OFICINA
 void listarAlunos2(int cod){
+  puts("\nLista de congressistas");
       int i;
       FILE *fpp;
       CONGRE aluno;
@@ -1046,6 +1052,7 @@ void listaEventosdeAlunos(){
 }
 //SAIR DO EVENTO
 void deixarEvento(){
+  puts("\nSair do evento");
   int mat,i,cod;
     FILE *fpp;
 
@@ -1074,26 +1081,12 @@ void deixarEvento(){
 }
 //fim das funções dos congressistas---------------------------------------------------------
 
-/*
-CONGRESSISTAS
-
-  SAIR DE EVENTO:{
-    lista os eventos com os ID's usando o int num de eventos
-    pega o ID
-      abre o evento
-      pesquisa e remove a matricula do aluno do array de matriculas
-      decrementa o num de matriculas cadastradas
-
-    [se for ID de curso ou oficina decrementa o contador]
-    Remove o ID do array de eventos cadastrados
-
-  }
-*/
 //***************************************************************************************
 //PALESTRAS
 
 //CRIAR PALESTRA
 void criaPalestra(){
+  puts("\nCriar palestra");
     int i,j;//contadores
     //cria arquivo
     FILE *fp;
@@ -1151,6 +1144,7 @@ void criaPalestra(){
 
 //LISTAR PALESTRA
 void listaPalestras(){
+  puts("\nLista de palestras");
     FILE *fp;
       PALESTRAS pale;
       fp = fopen("arquivos\\palestras.txt", "rb");//abre arquivo no modo de leitura
@@ -1165,6 +1159,7 @@ void listaPalestras(){
 
 //EDITAR PALESTRA
 void editaPalestra(){
+  puts("\nEditar palestra");
     int op2;//op para switch
     int codigo;//codigo para pesquisa
     int ID;//ID para pesquisa
@@ -1233,6 +1228,7 @@ void editaPalestra(){
 
 //REMOVER PALESTRA
 void removerPalestra(){
+  puts("\nRemover palestra");
       int codigo;//pegar codigo
       puts("Insira o codigo da palestra que deseja remover");
         scanf("%d",&codigo);
@@ -1263,6 +1259,7 @@ void removerPalestra(){
 
 //LISTA CONGRESSISTAS DA PALESTRA
 void listarAlunosdaPalestra(){
+  puts("\nLista de alunos da palestra");
   int codigo;//codigo da palestra
   int i;
    puts("Insira o codigo da palestra");
@@ -1292,6 +1289,7 @@ void listarAlunosdaPalestra(){
 //CURSOS******************************************************************
 //CRIAR CURSO
 void criaCurso(){
+  puts("\nCriar curso");
   int i,j;//contadores
   //cria arquivo
     FILE *fp;
@@ -1349,6 +1347,7 @@ void criaCurso(){
 
 //LISTAR CURSOS
 void listaCursos(){
+  puts("\nLista de cursos");
   FILE *fp;
       CURSO curse;
       fp = fopen("arquivos\\cursos.txt", "rb");//abre arquivo no modo de leitura
@@ -1364,6 +1363,7 @@ void listaCursos(){
 
 //EDITAR CURSO
 void editaCurso(){
+  puts("\nEditar curso");
     int op2;//op para switch
     int codigo;//codigo para pesquisa
     int ID;//ID para pesquisa
@@ -1432,6 +1432,7 @@ void editaCurso(){
 
 //REMOVER CURSO
 void removerCurso(){
+  puts("\nRemover curso");
     int codigo;//pegar codigo
       puts("Insira o codigo do curso que deseja remover");
         scanf("%d",&codigo);
@@ -1462,6 +1463,7 @@ void removerCurso(){
 
 //LISTAR CONGRESSISTAS DO CURSO
 void listarAlunosdoCurso(){
+  puts("\nListar alunos do curso");
   int codigo;//codigo do curso
   int i;
    puts("Insira o codigo do curso");
@@ -1488,6 +1490,7 @@ void listarAlunosdoCurso(){
 //OFICINAS**************************************************************************
 //CRIAR OFICINA
 void criaOficina(){
+  puts("\nCriar oficina");
     int i,j;//contadores
   //cria arquivo
     FILE *fp;
@@ -1545,6 +1548,7 @@ void criaOficina(){
 
 //LISTAR OFICINAS
 void listaOficinas(){
+  puts("\nLista de oficinas");
   FILE *fp;
       OFICINAS ofi;
       fp = fopen("arquivos\\oficinas.txt", "rb");//abre arquivo no modo de leitura
@@ -1560,6 +1564,7 @@ void listaOficinas(){
 
 //EDITAR OFICINAS
 void editaOficinas(){
+  puts("\nEditar oficina");
     int op2;//op para switch
     int codigo;//codigo para pesquisa
     int ID;//ID para pesquisa
@@ -1628,6 +1633,7 @@ void editaOficinas(){
 
 //REMOVER OFICINAS
 void removerOficinas(){
+  puts("\nRemover oficina");
   int codigo;//pegar codigo
       puts("Insira o codigo da oficina que deseja remover");
         scanf("%d",&codigo);
@@ -1658,6 +1664,7 @@ void removerOficinas(){
 
 //LISTAR ALUNOS DAS OFICINAS
 void listaAlunosdaOficina(){
+  puts("\nListar alunos da oficina");
   int codigo;//codigo da oficina
   int i;
    puts("Insira o codigo da oficina");
@@ -1731,8 +1738,5 @@ void criaGrupo(){
       fclose(fp);
     //fim
 }
-
-
-
 
 //************************************************************************************************
