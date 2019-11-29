@@ -1713,19 +1713,34 @@ void criaGrupo(){
       puts("Lista de palestrantes");
       listarPalestrantes2(grup.cod);//
       putchar('\n');
-      printf("Quantos palestrantes deseja adicionar no grupo?>>");
+      printf("Quantos palestrantes deseja adicionar no grupo?(MAX 5)>>");
       scanf("%d",&qntd);
-      if(qntd>)
-      listarPalestrante();
-      for(i=0;i<qntd;i++){
+      if(qntd>numPalestrantes()){
+        puts("Numero desejado de palestrantes é maior que o numero de palestrantes disponiveis\nO numero de palestrantes cadastrados será o mesmo dos palestrantes disponiveis");
+        listarPalestrante();
+        for(i=0;i<=numPalestrantes();i++){
           printf("\nInsira o ID do palestrante desejado>>");
           //insere palestrantes
           //escolhe palestrantes da lista baseado no id
           scanf("%d",&grup.Membros_da_mesa[grup.numPalestrante][0]);
-        //verifica se o ID escolhido corresponde ao palestrante existente!!
-        //abre arquivo de palestrante para incrementar o num de palestrar e colocar o COD da palestras no array
-        incrementarPale(grup.cod, grup.Membros_da_mesa[grup.numPalestrante][0]);
+          //verifica se o ID escolhido corresponde ao palestrante existente!!
+          //abre arquivo de palestrante para incrementar o num de palestrar e colocar o COD da palestras no array
+          incrementarPale(grup.cod, grup.Membros_da_mesa[grup.numPalestrante][0]);
+          grup.numPalestrante++;
+        }
+      }else{
+        for(i=0;i<=qntd;i++){
+          printf("\nInsira o ID do palestrante desejado>>");
+          //insere palestrantes
+          //escolhe palestrantes da lista baseado no id
+          scanf("%d",&grup.Membros_da_mesa[grup.numPalestrante][0]);
+          //verifica se o ID escolhido corresponde ao palestrante existente!!
+          //abre arquivo de palestrante para incrementar o num de palestrar e colocar o COD da palestras no array
+          incrementarPale(grup.cod, grup.Membros_da_mesa[grup.numPalestrante][0]);
+          grup.numPalestrante++;
+        }
       }
+      
       
     //função para colocar local/hora/capacidade/cargahoraria
     puts("FUNÇÃO DE LOCAL TA FALTANDO");
@@ -1740,9 +1755,46 @@ void criaGrupo(){
 }
 
 
+void listaGrupos(){
+  puts("\nLista de grupos");
+  int i;
+  FILE *fp;
+      GRUPO_DE_DISCUSSOES grup;
+      fp = fopen("arquivos\\grupos.txt", "rb");//abre arquivo no modo de leitura
+      while (fread(&grup, sizeof(OFICINAS), 1,fp)){//enquanto leitura for verdadeira
+        printf("CODIGO: %d\nTEMA: %s\n",grup.cod,grup.Tema);
+        for(i=0;i<grup.numPalestrante;i++){
+          mostraPalestrante(grup.Membros_da_mesa[i][0]);//pega o id do palestrante para exibir nome
+          putchar('\n');
+        }
+        //LISTAR HORÁRIO E LOCAL
+        puts("LISTAR LOCAL E HR TA FALTANDO");
+      }
+      fclose(fp);
+      //fim
+}
+
+
+
+
+
+
+
 
 //ADD PALESTRANTE AO GRUPO DE DISCUSSÃO
 void addPalestranteaGrupo(){
+    //cria arquivo
+    FILE *fp;
+    GRUPO_DE_DISCUSSOES grup;
+    //teste de entrada de arquivo
+    if ((fp = fopen("arquivos\\grupos.txt", "ab")) == NULL){
+        fprintf(stderr, "Banco de dados não existe.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    while (fread(&grup, sizeof(OFICINAS), 1,fp)){
+      
+    }
 
 }
 
