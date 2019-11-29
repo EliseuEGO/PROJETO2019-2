@@ -306,6 +306,27 @@ void decrementarEventos(int cod, int mat){
   }
 }
 
+int numCongressistas(){
+  int cont=0;
+  FILE *fp;
+  CONGRE aluno;
+  fp = fopen("arquivos\\alunos.txt", "rb");
+  while(fread(&aluno,sizeof(CONGRE),1,fp)){
+    cont++;
+  }
+  return cont;
+}
+
+int numPalestrantes(){
+  int cont=0;
+  FILE *fp;
+  PROFS profs;
+  fp = fopen("arquivos\\palestrantes.txt", "rb");
+  while(fread(&profs,sizeof(PROFS),1,fp)){
+    cont++;
+  }
+  return cont;
+}
 //FUNÇÕES PALESTRANTES----------------------------------------
 //cadastrar palestrante
 void cadastroPalestrante(){
@@ -368,7 +389,8 @@ void editaPalestrante(){
       fp=fopen("arquivos\\palestrantes.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\tempProf.txt","ab");//abre arquivos temporarios no modo de acesso
 
-      puts("Insira o ID do palestrante");
+      listarPalestrante();
+      puts("\n\nInsira o ID do palestrante");
         scanf("%d",&ID);
         putchar('\n');
       while(fread(&profs,sizeof(PROFS),1,fp)){//le arquivo principal
@@ -420,8 +442,8 @@ void removerPalestrantes(){
 
     fp=fopen("arquivos\\palestrantes.txt","rb");//abre arquivos principais no modo de leitura
     fp_aux=fopen("arquivos\\tempProf.txt","ab");//abre arquivos temporarios no modo de acesso
-
-        puts("Insira o ID do palestrante");
+        listarPalestrante();
+        puts("\n\nInsira o ID do palestrante que deseja remover");
         scanf("%d",&ID);
         while(fread(&profs,sizeof(PROFS),1,fp)){
           if(profs.ID==ID && profs.numEventos>0){ //testa se num de eventos está maior que zero
@@ -515,7 +537,7 @@ void mostraPalestrante(int ID){
       fpp = fopen("arquivos\\palestrantes.txt", "rb");//abre arquivo no modo de leitura
       while (fread(&profs, sizeof(PROFS), 1,fpp)){//enquanto leitura for verdadeira
         if(ID==profs.ID){
-          printf("Nome: %s\n",profs.nome);
+          printf("Palestrante: %s\n",profs.nome);
         }
       }
       fclose(fpp);
@@ -613,64 +635,10 @@ void decrementarPale(int cod,int ID){
 
 //SUBSTITUIR PALESTRANTE
 void trocaPalestrante(int cod,int IDvelho,int IDnovo){
-  //TALVEZ DEVA CRIAR NOVO ARQUIVO
-  //entrar no arquivo de palestrrantes
-  puts("\n**ENTRANDO EM TROCAR PALESTRAS\n**");
-  int i;
-  FILE *fpp;
-  FILE *fpp2;
-    PROFS profs;
-    fpp = fopen("arquivos\\palestrantes.txt", "rb");//abre arquivo no modo de acesso
-    fpp2 = fopen("arquivos\\tempProfI.txt","ab");
-      while (fread(&profs, sizeof(PROFS), 1,fpp)){
-        //selecionar palestrante com o ID velho
-        if(profs.ID==IDvelho){//se for o ID do palestrante 
-          //remover COD da palestra do array de eventos
-          for(i=0;i<=profs.numEventos;i++){
-            if(profs.eventos[i][0]==cod){//antes tinha[0]tbm
-                profs.eventos[i][0]=0;//antes tinha[0]tbm
-            }
-          }
-          //decrementar numero de palestras
-          //se for codigo de palestra decrementa numero de palestras
-          if(cod>=100 && cod<200){
-            profs.nPalestras=0;
-          }
-          if(cod>=400 && cod<500){
-            profs.nOficinas=0;
-          }
-          if(cod>=300 && cod<400){
-            profs.nCursos=0;
-          }
-          fwrite(&profs,sizeof(PROFS),1,fpp2);
-        }
-      //selecionar palestrante do novo ID
-      if(profs.ID==IDnovo){//se for o ID do palestrante 
-        //incrementar num de palestras
-        //se for codigo de palestra incrementa numero de palestras
-          if(cod>=100 && cod<200){
-            profs.nPalestras=1;
-          }
-          if(cod>=400 && cod<500){//se for oficina
-            profs.nOficinas=1;
-          }
-          if(cod>=300 && cod<400){//se for curso
-            profs.nCursos=1;
-          }
-        //colocar cod da palestra no array de codigos
-        profs.eventos[profs.numEventos][0]=cod;
-        //incrementar num de eventos
-        profs.numEventos++;
-        fwrite(&profs,sizeof(PROFS),1,fpp2);
-      }
-      fwrite(&profs,sizeof(PROFS),1,fpp2);
-    }
-    fclose(fpp2);
-    fclose(fpp);
-    remove("arquivos\\palestrantes.txt");//remove o original
-    rename("arquivos\\tempProfI.txt","arquivos\\palestrantes.txt");//renomeia o aux com nome do orinial
-    //fim
-    //fim
+  
+  incrementarPale(cod,IDnovo);//insere os dados do evento no novo palestrante
+  decrementarPale(cod,IDvelho);//retira os dados do evento do antigo palestrante
+  
 }
 
 
@@ -736,8 +704,8 @@ void editaAluno(){
 
       fp=fopen("arquivos\\alunos.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\tempAlunos.txt","ab");//abre arquivos temporarios no modo de acesso
-
-      puts("Insira a matricula do aluno");
+      listarAlunos();
+      puts("\n\nInsira a matricula do aluno");
         scanf("%d",&mat);
 
       while(fread(&aluno,sizeof(CONGRE),1,fp)){//le arquivo principal
@@ -781,16 +749,9 @@ void editaAluno(){
 void removerAluno(){
   puts("\nRemover congressista");
       int mat,i;//pegar matricula
-      puts("Insira a matricula do aluno");
+      listarAlunos();
+      puts("\n\nInsira a matricula do aluno");
         scanf("%d",&mat);
-      puts("!FALTA VERIFICAR SE POSSUI EVENTOS!");
-      //testa SE o num de eventos é maior q zero
-          //selecionar os ID's dos eventos que ele está cadastrados
-          //for(i=numDeEventosCadastrados)
-          //remove ID'eventos[i]
-          //abre o evento
-            //pesquisa e remove a matricula do aluno do array de matriculas;
-            //decrementa o num de matriculas cadastradas;
 
     //remove o Congressista
       FILE *fp=NULL;
@@ -948,8 +909,8 @@ void decrementarAluno(int cod, int mat){
 void cadastrarAlunoemEvento(){
   int op,mat,cod;
 
-  puts("\n1-Palestras\t2-Gp de discussão\t3-Curso\t4Oficina\n5Sair");
-  printf("Deseja cadastrar o congressita em qual evento?>>");
+  puts("\n1-Palestras\t2-Gp de discussão\t3-Curso\t4-Oficina\n5-Sair");
+  printf("Deseja cadastrar um congressita em qual evento?>>");
   scanf("%d",&op);
 
   switch(op){
@@ -1090,7 +1051,7 @@ void criaPalestra(){
     int i,j;//contadores
     //cria arquivo
     FILE *fp;
-    PALESTRAS pale;//varial de ppalestras
+    PALESTRAS pale;//varial de palestras
     //teste de entrada de arquivo
     if ((fp = fopen("arquivos\\palestras.txt", "ab")) == NULL){
         fprintf(stderr, "Banco de dados não existe.\n");
@@ -1159,7 +1120,10 @@ void listaPalestras(){
 
 //EDITAR PALESTRA
 void editaPalestra(){
-  puts("\nEditar palestra");
+  puts("\nEditar palestra\n");
+
+    listaPalestras();
+
     int op2;//op para switch
     int codigo;//codigo para pesquisa
     int ID;//ID para pesquisa
@@ -1174,7 +1138,7 @@ void editaPalestra(){
       fp=fopen("arquivos\\palestras.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\tempPale.txt","ab");//abre arquivos temporarios no modo de acesso
 
-      puts("Insira o CODIGO da Palestra que deseja alterar");
+      puts("\n\nInsira o CODIGO da Palestra que deseja alterar");
         scanf("%d",&codigo);
 
       while(fread(&pale,sizeof(PALESTRAS),1,fp)){//le arquivo principal
@@ -1228,9 +1192,11 @@ void editaPalestra(){
 
 //REMOVER PALESTRA
 void removerPalestra(){
-  puts("\nRemover palestra");
+  puts("\nRemover palestra\n");
       int codigo;//pegar codigo
-      puts("Insira o codigo da palestra que deseja remover");
+      int i;
+      listaPalestras();
+      puts("\nInsira o codigo da palestra que deseja remover");
         scanf("%d",&codigo);
 
       FILE *fp=NULL;
@@ -1240,15 +1206,20 @@ void removerPalestra(){
       fp=fopen("arquivos\\palestras.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\tempPale.txt","ab");//abre arquivos temporarios no modo de acesso
 
-      //remover o cod da palestra dos arquivos dos palestrantes
-        decrementarPale(pale.cod,pale.palestrante);
-      //remover o cod da palestra dos arquivos dos alunos
-        puts("!FUNÇÂO DE DECREMENTAR ALUNO ESTA EM FALTA!");
+      
       //remover a palestra
       while(fread(&pale,sizeof(PALESTRAS),1,fp)){//le arquivo principal
         if(pale.cod!=codigo){//
           fwrite(&pale,sizeof(PALESTRAS),1,fp_aux);
+        }else{
+            //remover o cod da palestra dos arquivos dos palestrantes
+            decrementarPale(codigo,pale.palestrante);
+            //remover o cod da palestra dos arquivos dos alunos
+            for(i=0;i<pale.numCadastrados;i++){
+            decrementarAluno(codigo,pale.cadastrados[i][0]);
         }
+        }
+        
       }
     fclose(fp);//fecha arquivo principal
     fclose(fp_aux);//fecha novo arquivo
@@ -1262,7 +1233,8 @@ void listarAlunosdaPalestra(){
   puts("\nLista de alunos da palestra");
   int codigo;//codigo da palestra
   int i;
-   puts("Insira o codigo da palestra");
+    listaPalestras();
+   puts("\n\nInsira o codigo da palestra");
         scanf("%d",&codigo);
 
   FILE *fp=NULL;
@@ -1378,7 +1350,8 @@ void editaCurso(){
       fp=fopen("arquivos\\cursos.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\tempCurse.txt","ab");//abre arquivos temporarios no modo de acesso
 
-      puts("Insira o CODIGO do Curso que deseja alterar");
+      listaCursos();
+      puts("\n\nInsira o CODIGO do Curso que deseja alterar");
         scanf("%d",&codigo);
 
       while(fread(&curse,sizeof(CURSO),1,fp)){//le arquivo principal
@@ -1434,6 +1407,8 @@ void editaCurso(){
 void removerCurso(){
   puts("\nRemover curso");
     int codigo;//pegar codigo
+    int i;
+      listaCursos();
       puts("Insira o codigo do curso que deseja remover");
         scanf("%d",&codigo);
 
@@ -1444,14 +1419,19 @@ void removerCurso(){
       fp=fopen("arquivos\\cursos.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\tempCurse.txt","ab");//abre arquivos temporarios no modo de acesso
 
-      //remover o cod da palestra dos arquivos dos palestrantes
-        decrementarPale(curse.cod,curse.Palestrante);
-      //remover o cod da palestra dos arquivos dos alunos
+     
         puts("!FUNÇÂO DE DECREMENTAR ALUNO ESTA EM FALTA!");
       //remover a palestra
       while(fread(&curse,sizeof(CURSO),1,fp)){//le arquivo principal
         if(curse.cod!=codigo){//
           fwrite(&curse,sizeof(CURSO),1,fp_aux);
+        }else{
+          //remover o cod da palestra dos arquivos dos palestrantes
+            decrementarPale(codigo,curse.Palestrante);
+            //remover o cod da palestra dos arquivos dos alunos
+            for(i=0;i<curse.numCadastrados;i++){
+            decrementarAluno(codigo,curse.cadastrados[i][0]);
+            }
         }
       }
     fclose(fp);//fecha arquivo principal
@@ -1466,7 +1446,8 @@ void listarAlunosdoCurso(){
   puts("\nListar alunos do curso");
   int codigo;//codigo do curso
   int i;
-   puts("Insira o codigo do curso");
+  listaCursos();
+   puts("\n\nInsira o codigo do curso");
         scanf("%d",&codigo);
 
   FILE *fp=NULL;
@@ -1578,8 +1559,8 @@ void editaOficinas(){
 
       fp=fopen("arquivos\\oficinas.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\tempOfi.txt","ab");//abre arquivos temporarios no modo de acesso
-
-      puts("Insira o CODIGO da oficina que deseja alterar");
+      listaOficinas();
+      puts("\n\nInsira o CODIGO da oficina que deseja alterar");
         scanf("%d",&codigo);
 
       while(fread(&ofi,sizeof(OFICINAS),1,fp)){//le arquivo principal
@@ -1634,7 +1615,8 @@ void editaOficinas(){
 //REMOVER OFICINAS
 void removerOficinas(){
   puts("\nRemover oficina");
-  int codigo;//pegar codigo
+       int codigo;//pegar codigo
+      int i;
       puts("Insira o codigo da oficina que deseja remover");
         scanf("%d",&codigo);
 
@@ -1645,14 +1627,18 @@ void removerOficinas(){
       fp=fopen("arquivos\\oficinas.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\tempOfi.txt","ab");//abre arquivos temporarios no modo de acesso
 
-      //remover o cod da palestra dos arquivos dos palestrantes
-        decrementarPale(ofi.cod,ofi.Palestrante);
-      //remover o cod da palestra dos arquivos dos alunos
-        puts("!FUNÇÂO DE DECREMENTAR ALUNO ESTA EM FALTA!");
+      
       //remover a oficina
       while(fread(&ofi,sizeof(OFICINAS),1,fp)){//le arquivo principal
         if(ofi.cod!=codigo){//
           fwrite(&ofi,sizeof(OFICINAS),1,fp_aux);
+        }else{
+            //remover o cod da palestra dos arquivos dos palestrantes
+            decrementarPale(ofi.cod,ofi.Palestrante);
+            //remover o cod da palestra dos arquivos dos alunos
+            for(i=0;i<ofi.numCadastrados;i++){
+            decrementarAluno(codigo,ofi.cadastrados[i][0]);
+            }
         }
       }
     fclose(fp);//fecha arquivo principal
@@ -1691,6 +1677,7 @@ void listaAlunosdaOficina(){
 //GRUPOS DE DISCUSSÃO******************************************************************************
 //CRIAR GRUPO
 void criaGrupo(){
+  int i,j,qntd;
     //cria arquivo
     FILE *fp;
     GRUPO_DE_DISCUSSOES grup;
@@ -1700,7 +1687,17 @@ void criaGrupo(){
         exit(EXIT_FAILURE);
     }
 
-    puts("!FALTA ZERAR O NUM DE CADASTRADOS!");
+    //zerar cadastrados
+    for(i=0;i<50;i++){
+        for(j=0;j<5;j++){
+          grup.cadastrados[i][j]=0;
+        }
+      }
+      //zera numero de cadastrados
+      grup.numCadastrados=0;
+      //zera num de palestrnates
+      grup.numPalestrante=0;
+
     //cria cod
       //verifica cod
       srand(time(NULL));
@@ -1716,17 +1713,20 @@ void criaGrupo(){
       puts("Lista de palestrantes");
       listarPalestrantes2(grup.cod);//
       putchar('\n');
-      puts("\nInsira o ID do palestrante desejado");
-
-      
-      puts("FALTA FAzER FUNÇÕES PRA PEGAR MAIS DE UM ID DE PALESTRANTE");
-      //insere palestrantes
-      //escolhe palestrantes da lista baseado no id
-      scanf("%d",&grup.Membros_da_mesa[grup.numPalestrante][0]);
+      printf("Quantos palestrantes deseja adicionar no grupo?>>");
+      scanf("%d",&qntd);
+      if(qntd>)
+      listarPalestrante();
+      for(i=0;i<qntd;i++){
+          printf("\nInsira o ID do palestrante desejado>>");
+          //insere palestrantes
+          //escolhe palestrantes da lista baseado no id
+          scanf("%d",&grup.Membros_da_mesa[grup.numPalestrante][0]);
         //verifica se o ID escolhido corresponde ao palestrante existente!!
         //abre arquivo de palestrante para incrementar o num de palestrar e colocar o COD da palestras no array
         incrementarPale(grup.cod, grup.Membros_da_mesa[grup.numPalestrante][0]);
-
+      }
+      
     //função para colocar local/hora/capacidade/cargahoraria
     puts("FUNÇÃO DE LOCAL TA FALTANDO");
     
@@ -1737,6 +1737,13 @@ void criaGrupo(){
     //fecha o arquivo
       fclose(fp);
     //fim
+}
+
+
+
+//ADD PALESTRANTE AO GRUPO DE DISCUSSÃO
+void addPalestranteaGrupo(){
+
 }
 
 //************************************************************************************************

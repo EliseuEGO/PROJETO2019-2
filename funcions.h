@@ -48,8 +48,8 @@ typedef struct{
   int cod;//codigo para identificcar o GP de 200 a 299
 	char Tema[TAM];//vai ser o tbm o nome da struct
   int numPalestrante;//usar para saber se o evento possui ou n palestrante
-	int Membros_da_mesa[5][TAM];// Até 5 pessoas//lista os palestrantes cadastrados e insere o nome dos que serão escolhidos
-  int cadastrados[TAM2][5];//int para matricula dos congressistas
+	int Membros_da_mesa[5][5];// Até 5 pessoas//lista os palestrantes cadastrados e insere o nome dos que serão escolhidos
+  int cadastrados[50][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
 	
   int Local;//locais que possuem limitação de 30/50
@@ -125,6 +125,10 @@ void incrementarEventos(int cod, int mat);
 
 void decrementarEventos(int cod, int mat);
 
+int numCongressistas();
+
+int numPalestrantes();
+
 //PALESTRANTES**************************
 //cadastrar palestrante
 void cadastroPalestrante();
@@ -168,12 +172,18 @@ void removerAluno();
 //listar congressistas
 void listarAlunos();
 
+//LISTAR ALUNO SEM CURSO OU OFICINA
+void listarAlunos2(int cod);
+
 //CADASTRAR CONGRESSISTA EM EVENTO
 void cadastrarAlunoemEvento();
+
 //LISTAR EVENTOS DO CONGRESSISTA
 void listaEventosdeAlunos();
+
 //SAIR DE EVENTO
 void deixarEvento();
+
 void listarAlunosdeEventos(int cod,int IDaluno);//lista congressistas de determinado evento
 
 void listadeAlunoscomEventos();//listar alunos que possuem eventos cadastrados
@@ -239,3 +249,6 @@ void criaGrupo();//
 //REMOVER GRUPO_DE_DISCUSSOES
 
 //LISTAR CONGRESSISTAS DE GRUPO_DE_DISCUSSOES
+
+//ADD PALESTRANTE AO GRUPO DE DISCUSSÃO
+void addPalestranteaGrupo();
