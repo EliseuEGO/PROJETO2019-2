@@ -44,7 +44,7 @@ struct de horarios
 void criarLocais(){
 
   //TESTA SE O ARQUIVO JA EXISTE
-  int i;
+  int i,j;
   //abre arquivo e verifica
     FILE *fp;
     SLOCAL loca;//varial de local
@@ -56,14 +56,37 @@ void criarLocais(){
   for(i=1;i<=8;i++){
     //codigo de llocais
       srand(time(NULL));
-      loca.CODL = 900+(rand()% 9);//gerar num entre 900 e 999
+      loca.CODL = 900+(rand()% 9);//gerar num entre 900 e 909
       printf("Codigo do Local: %d\n",loca.CODL);
     //local em si
       loca.lugar=i;//enum de locais 1-8
-      loca.cargahoraria=0;
-      loca.horario=0;
-      loca.capacidade=0;
-      
+
+      //carga horaria de duas horas
+      loca.cargahoraria=2;
+
+      for(j=1;j<=6;j++){//deixar todos os horarios disponiveis
+        loca.horario[0][j]=j;//dia 1
+        loca.horario[1][j]=j;//dia 2
+      }
+
+      //define as capacidades dos locais
+      if(i==AUD1){//se for auditorio 1
+        loca.capacidade=150;
+      }
+      if(i==AUD2){//se for auditorio 2
+        loca.capacidade=100;
+      }
+      if(i==AUD3||i==SALA1||i==SALA2){//se for auditorio 3, sala1 ou sala 2
+        loca.capacidade=50;
+      }
+      if(i==SALA3){//se for sala 3
+        loca.capacidade=30;
+      }
+      if(i==LAB1||i==LAB2){//se for lab 1 ou lab 2
+        loca.capacidade=20;
+      }
+
+
       fwrite(&loca, sizeof(SLOCAL), 1, fp);
   }
   fclose(fp);
@@ -138,6 +161,7 @@ void incrementarEventos(int cod, int mat){
     while (fread(&pale, sizeof(PALESTRAS), 1,fpp)){
       if(cod==pale.cod){
         //num de cadastradas não pode ser maior que a capacidade
+        if((pale.numCadastrados+1)>pale.)
         pale.numCadastrados++;//incrementa num de cadastradas
         pale.cadastrados[pale.numCadastrados][0]=mat;//add matricula do aluno no array de cadastradas
         fwrite(&pale,sizeof(PALESTRAS),1,fpp2);
@@ -389,7 +413,7 @@ void editaPalestrante(){
       fp=fopen("arquivos\\palestrantes.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\tempProf.txt","ab");//abre arquivos temporarios no modo de acesso
 
-      listarPalestrante();
+      listarPalestrantes();
       puts("\n\nInsira o ID do palestrante");
         scanf("%d",&ID);
         putchar('\n');
@@ -442,7 +466,7 @@ void removerPalestrantes(){
 
     fp=fopen("arquivos\\palestrantes.txt","rb");//abre arquivos principais no modo de leitura
     fp_aux=fopen("arquivos\\tempProf.txt","ab");//abre arquivos temporarios no modo de acesso
-        listarPalestrante();
+        listarPalestrantes();
         puts("\n\nInsira o ID do palestrante que deseja remover");
         scanf("%d",&ID);
         while(fread(&profs,sizeof(PROFS),1,fp)){
@@ -1094,7 +1118,7 @@ void criaPalestra(){
 
     //função para colocar local/hora/capacidade/cargahoraria
     puts("FUNÇÃO DE LOCAL TA FALTANDO");
-    
+    //ESCOLHE LOCAL(COD DO EVENTO)
       puts("Cadastro de palestra concluido");
 
     //escreve tudo no arquivo
@@ -1717,7 +1741,7 @@ void criaGrupo(){
       scanf("%d",&qntd);
       if(qntd>numPalestrantes()){
         puts("Numero desejado de palestrantes é maior que o numero de palestrantes disponiveis\nO numero de palestrantes cadastrados será o mesmo dos palestrantes disponiveis");
-        listarPalestrante();
+        listarPalestrantes();
         for(i=0;i<=numPalestrantes();i++){
           printf("\nInsira o ID do palestrante desejado>>");
           //insere palestrantes
@@ -1799,3 +1823,29 @@ void addPalestranteaGrupo(){
 }
 
 //************************************************************************************************
+
+
+//FUNÇÕES DE LOCAIS***************************************************************
+//ESCOLHE LOCAL(cod do evnto)
+    //abre arquivos de locais
+      //if cod de evento
+        //abre local COMPATIVEL com evento e define sua capacidade e carga horaria
+        //if(cod entre 100 200 exibe locais com capacidade pra ate 150)
+          
+          //escolhe o local
+            //switch dia 14 ou 15
+            //de acordo com o local,pega a capacidade do local e coloca na capacidade do evento 
+              //função para imprimir só os horarios disponiveis//recebe os
+                //switch para pegar os horarios
+                  //insira o horario inicial do evento EX: 07 
+
+
+//LISTAR OS HORARIOS(int dia, int cod)
+  //abre arquivos de locais
+    //abre cod de locais
+    //if cod de local {aparece determinados horarios compativeis}
+    //while cods de locais
+      //abre o array de horarios
+        //lista os horarios diferentes de zero
+
+

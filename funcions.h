@@ -15,9 +15,11 @@ typedef enum{//enum de auditório
   AUD1=1,AUD2,AUD3,SALA1,SALA2,SALA3,LAB1,LAB2//auditório 1,2,3...
 }LOCAL;
 
+typedef enum{
+  PRIMEIRO=1,SEGUNDO,TERCEIRO,QUARTO,QUINTO,SEXTO
+}HORARIO;
+
 //STRUCTS-------------------------------------------------------
-
-
 
 /*criar struct de local com ID local tbm*/
 
@@ -26,7 +28,7 @@ typedef struct{
   int disponibilidade;
   int lugar; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
   float cargahoraria; //saaber como vai ser... talvez seja fixa
-  float horario; //
+  HORARIO horario[2][6]; //imprime horario dependendo do local//primeira parte é dia e segunda é horario
   int capacidade;
 }SLOCAL;
 
@@ -38,10 +40,12 @@ typedef struct{
     int cadastrados[150][5];//int para matricula dos congressistas
     int numCadastrados;//numero de cadastrados no evento
 	  int palestrante;//exibe lista e pesquisa para escolher os cadastrados
-	int local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
+	  int capacidadeE;//capacidade de alunos no evento
+
+    SLOCAL local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
 	 //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
-	float cargahoraria; //saaber como vai ser... talvez seja fixa
-	float horario; //só pela manhã
+	  float cargahoraria; //saaber como vai ser... talvez seja fixa
+	  float horario; //só pela manhã
 }PALESTRAS;
 
 typedef struct{
