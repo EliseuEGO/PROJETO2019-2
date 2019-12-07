@@ -120,7 +120,8 @@ void mostra();
 
 void criarLocais(int i);
 
-void escolherLocal();
+//void escolherLocal();
+
 
 void listarEventos(int cod);
 
@@ -260,6 +261,12 @@ void addPalestranteaGrupo();
 
 //=============================================================
 void escolheLocal(int cod);
+
+void testeEscolheLocal(int cod);
+
+void listaHorarios(int dia, int cod, int local);
+
+void listaLocais(int capacidade);
 
 //LISTAR O HORARIO DO EVENTO
 void listaHorariodoEvento(int cod);
