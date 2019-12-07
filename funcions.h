@@ -24,12 +24,14 @@ typedef enum{
 /*criar struct de local com ID local tbm*/
 
 typedef struct{
+  int lugar; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
+  int CODE;//codigo do evento add ao local
   int CODL;//codigo de local
   int disponibilidade;
-  int lugar; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
   float cargahoraria; //saaber como vai ser... talvez seja fixa
   HORARIO horario[2][6]; //imprime horario dependendo do local//primeira parte é dia e segunda é horario
   int capacidade;
+  int Eventos[2][6][4];
 }SLOCAL;
 
 
@@ -42,10 +44,9 @@ typedef struct{
 	  int palestrante;//exibe lista e pesquisa para escolher os cadastrados
 	  int capacidadeE;//capacidade de alunos no evento
 
-    SLOCAL local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
+    int Local; //|Auditório 1,2,3..... o local define a capacidade//switch de locais que define capacidade
 	 //de 50 até a 150 pessoas//switch para local//cada novo congressista decrementa a capacidade
-	  float cargahoraria; //saaber como vai ser... talvez seja fixa
-	  float horario; //só pela manhã
+	 //só pela manhã
 }PALESTRAS;
 
 typedef struct{
@@ -55,11 +56,10 @@ typedef struct{
 	int Membros_da_mesa[5][5];// Até 5 pessoas//lista os palestrantes cadastrados e insere o nome dos que serão escolhidos
   int cadastrados[50][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
+  int capacidadeE;//capacidade de alunos no evento
 	
-  int Local;//locais que possuem limitação de 30/50
-	int Capacidade;// de 30/50 pessoas////cada novo congressista decrementa a capacidade
-	float carga_horaria;
-	float Horario;//horario da tarde
+  SLOCAL Local;//locais que possuem limitação de 30/50
+	
 }GRUPO_DE_DISCUSSOES;
 
 typedef struct{
@@ -69,24 +69,21 @@ typedef struct{
 	int Palestrante;//pesquisa para escolher os cadastrados
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
+  int capacidadeE;//capacidade de alunos no evento
 	
-  int Capacidade;// de 40 pessoas//cada novo congressista decrementa a capacidade
-	int Local;
-	float Carga_horaria;
-	float Horario;
+  SLOCAL Local;
 }CURSO;
 
 typedef struct{
   int cod;//codigo para identificcar a oficina de 400 a 499
+	char Tema[TAM];
   int numPalestrante;//usar para saber se o evento possui ou n palestrante
+  int Palestrante;//pesquisa para escolher os cadastrados
   int cadastrados[TAM2][5];//int para matricula dos congressistas
   int numCadastrados;//numero de cadastrados no evento
-	char Tema[TAM];
-  int Palestrante;//pesquisa para escolher os cadastrados
-	int Local;
-	int Capacidade;// 20 alunos//cada novo congressista decrementa a capacidade
-	float Horario;
-	float Carga_horaria;
+  int capacidadeE;//capacidade de alunos no evento
+	
+  SLOCAL Local;
 }OFICINAS;
 
 typedef struct{
@@ -120,6 +117,8 @@ typedef struct{
 //FUNÇÕES-------------------------------------------------------
 
 void mostra();
+
+void criarLocais(int i);
 
 void escolherLocal();
 
@@ -256,3 +255,11 @@ void criaGrupo();//
 
 //ADD PALESTRANTE AO GRUPO DE DISCUSSÃO
 void addPalestranteaGrupo();
+
+
+
+//=============================================================
+void escolheLocal(int cod);
+
+//LISTAR O HORARIO DO EVENTO
+void listaHorariodoEvento(int cod);

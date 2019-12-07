@@ -1,6 +1,6 @@
 /*
 FALTA
---CHAMAR SEMPRE LISTA
+
 
 --CRIAR FUNÇÃO PARA VERIFICAR ID, COD, MATRICULA E CODL
 --CRIAR FUNÇÕES DOS organizadores
@@ -58,7 +58,7 @@ para incrementar, decrementar e trocar palestrantes eu preciso criar um novo arq
 
 
 
-int main() {
+int main(){
 
   //criar a pasta de arquivos
     if(!CreateDirectory("arquivos", NULL)) {
@@ -75,8 +75,10 @@ int main() {
   PROFS palestrantes[30];
   CONGRE congressistas[300];//add contador de oficina e de curso;
   char organizadores[30][TAM];
-
-
+int j;
+for(j=1;j<=8;j++){
+  criarLocais(j);
+}
 mostra();
 
 
