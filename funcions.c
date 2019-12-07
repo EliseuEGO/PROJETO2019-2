@@ -164,6 +164,7 @@ void listarEventos(int cod){
 
 //INCREMENTAR eventos com congressistas
 void incrementarEventos(int cod, int mat){
+  
   if(cod>=100 && cod<200){//cod de palestra
       int i;
     FILE *fpp;
@@ -520,6 +521,7 @@ void listarPalestrantes(){
 }
 //Listar palestrantes
 void listarPalestrantes2(int cod){//lista só os que não estão em certos eventos
+    int i;
   puts("**entrando em listar palestrantes 2**");
   FILE *fpp;
       PROFS profs;
@@ -541,7 +543,11 @@ void listarPalestrantes2(int cod){//lista só os que não estão em certos event
           } 
         }
         if(cod>=200&&cod<300){//se for codigo de grupo
-          printf("\nID:%d\nNome: %s\n",profs.ID, profs.nome);
+          for(i=0;i<profs.numEventos;i++){
+            if(profs.eventos[i][0]!=cod){//listar palestrantes que não estão no grupo
+              printf("\nID:%d\nNome: %s\n",profs.ID, profs.nome);
+            }
+          }
         }
       }
       fclose(fpp);
@@ -1788,7 +1794,7 @@ void criaGrupo(){
       
       
     //função para colocar local/hora/capacidade/cargahoraria
-    puts("FUNÇÃO DE LOCAL TA FALTANDO");
+      escolheLocal(grup.cod);
     
       puts("Cadastro de oficina concluido");
 
@@ -1813,35 +1819,216 @@ void listaGrupos(){
           putchar('\n');
         }
         //LISTAR HORÁRIO E LOCAL
-        puts("LISTAR LOCAL E HR TA FALTANDO");
+        listaHorariodoEvento(grup.cod);
       }
       fclose(fp);
       //fim
 }
 
+//ALTERAR GRUPO
+void editaGrupo(){
+      int codigo,op2,op3,IDvelho,IDnovo,i;
+      char novoTema[TAM];
+
+      FILE *fp;
+      FILE *fpp;
+      GRUPO_DE_DISCUSSOES grup;
+      fp = fopen("arquivos\\grupos.txt", "rb");//abre arquivo no modo de leitura
+      fpp = fopen("arquivos\\tempGrupos.txt", "ab");//
+
+      listaGrupos();
+      puts("\n\nInsira o CODIGO do grupo que deseja alterar");
+        scanf("%d",&codigo);
+
+      while(fread(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fp)){//le arquivo principal
+        if(grup.cod==codigo){//se a matricula for a que eu quero editar
+           puts("1-Tema\t2-Palestrante\t3-Local\t4-Horário\t5-Sair");
+           puts("O que deseja alterar?");
+            scanf("%d",&op2);
+            //escolha
+            switch(op2){
+                //alterar tema
+                case 1:{
+                  puts("Insira novo tema");
+                  setbuf(stdin,NULL);
+                  fgets(novoTema,TAM,stdin);
+                  strtok(novoTema,"\n");
+                  strcpy(grup.Tema,novoTema);
+                  break;
+                }
+                case 2:{
+                  puts("\n1-Trocar palestrante\t2-Adicionar novo palestrante\t3-Remover Palestrante\t4-Sair");
+                  printf("Escolha uma opção>> ");
+                  scanf("%d",&op3);
+                  switch(op3){
+                    case 1:{
+                      listaPalesdoGrupo(grup.cod);
+                      putchar('\n');
+                      printf("Insira o ID do palestrante que quer substituir>> ");
+                      scanf("%d",&IDvelho);
+
+                      listarPalestrantes2(grup.cod);
+                      putchar('\n');
+                      printf("Insira o ID do novo palestrante>> ");
+                      scanf("%d",&IDnovo);
+
+                      trocaPalestrante(grup.cod, IDvelho, IDnovo);//talvez dê problemas por estar alterando o grupo que está sendo alterado já
+
+                      puts("Palestrante substituido");
+                      break;
+                    }
+                    case 2:{
+                      if((grup.numPalestrante+1)<=5){
+                        listarPalestrantes2(grup.cod);
+                        putchar('\n');
+                        printf("Insira o ID do palestrante que quer adicionar>> ");
+                        scanf("%d",&IDnovo);
+                        incrementarPale(grup.cod, IDnovo);
+
+                        grup.numPalestrante++;
+                        grup.Membros_da_mesa[grup.numPalestrante][0]=IDnovo;
+                        
+                        break;
+                      }else{
+                        puts("Numero de palestrantes do grupo já atingiu o maximo disponível");
+                        break;
+                      }
+                        
+                    }
+                    case 3:{
+                      if((grup.numPalestrante-1)>0){
+                        listaPalesdoGrupo(grup.cod);
+                        putchar('\n');
+                        printf("Insira o ID do palestrante que deseja remover>> ");
+                        scanf("%d",&IDvelho);
+                        decrementarPale(grup.cod, IDvelho);
+
+                        for(i=0;i<grup.numPalestrante;i++){
+                          if(grup.Membros_da_mesa[i][0]==IDvelho){
+                              grup.Membros_da_mesa[i][0]=0;
+                              grup.numPalestrante--;
+                          }
+                        }
+                        puts("Palestrante removido");
+                        break;
+                      }else{
+                        puts("É preciso haver ao menos um palestrante na mesa, insira um novo antes de remover o atual");
+                        break;
+                      }
+                    }
+                    case 4: break;
+                    default: break;
+
+                  }
+                  break;
+                }
+                case 3:{
+                  puts("Função de alterar o local está faltando");
+
+                }
+                case 4:{
+                  puts("Função de alterar a hora está faltando");
+                }
+                case 5: break;
+
+                default: break;
+            }
+        }
+      }
 
 
-
-
-
-
-
-//ADD PALESTRANTE AO GRUPO DE DISCUSSÃO
-void addPalestranteaGrupo(){
-    //cria arquivo
-    FILE *fp;
-    GRUPO_DE_DISCUSSOES grup;
-    //teste de entrada de arquivo
-    if ((fp = fopen("arquivos\\grupos.txt", "ab")) == NULL){
-        fprintf(stderr, "Banco de dados não existe.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    while (fread(&grup, sizeof(OFICINAS), 1,fp)){
-      
-    }
-
+      fclose(fp);
+      fclose(fpp);
+      remove("arquivos\\grupos.txt");
+      rename("arquivos\\tempGrupos.txt", "arquivos\\grupos.txt");
 }
+
+//REMOVER GRUPO
+void removeGrupo(){
+  puts("\nRemover Grupo\n");
+      int codigo;//pegar codigo
+      int i;
+
+      listaGrupos();
+      puts("Insira o codigo do grupo que deseja remover");
+        scanf("%d",&codigo);
+
+      FILE *fp=NULL;
+      FILE *fp_aux=NULL;//arquivo auxiliar
+      GRUPO_DE_DISCUSSOES grup;
+
+      fp=fopen("arquivos\\grupos.txt","rb");//abre arquivos principais no modo de leitura
+      fp_aux=fopen("arquivos\\tempGrupos.txt","ab");//abre arquivos temporarios no modo de acesso
+
+      
+      //remover a oficina
+      while(fread(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fp)){//le arquivo principal
+        if(grup.cod!=codigo){//
+          fwrite(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fp_aux);
+        }else{
+            //remover o cod da palestra dos arquivos dos palestrantes
+            for(i=0;i<grup.numPalestrante;i++){
+              decrementarPale(grup.cod,grup.Membros_da_mesa[i][0]);
+            }
+            //remover o cod da palestra dos arquivos dos alunos
+            for(i=0;i<grup.numCadastrados;i++){
+              decrementarAluno(codigo,grup.cadastrados[i][0]);
+            }
+        }
+      }
+    fclose(fp);//fecha arquivo principal
+    fclose(fp_aux);//fecha novo arquivo
+    remove("arquivos\\grupos.txt");//remove o original
+    rename("arquivos\\tempGrupos.txt","arquivos\\grupos.txt");//renomeia o aux com nome do orinial
+    //fim
+}
+
+//LISTAR CONGRESSISTAS DE GRUPO_DE_DISCUSSOES
+void listaAlunosdoGrupo(){
+  puts(" \nListar alunos do grupo\n");
+  int codigo;//codigo d
+  int i;
+
+  listaGrupos();
+   puts("Insira o codigo do grupo");
+        scanf("%d",&codigo);
+
+  FILE *fp=NULL;
+  GRUPO_DE_DISCUSSOES grup;
+
+  fp=fopen("arquivos\\grupos.txt","rb");//abre arquivos principais no modo de leitura
+
+  while(fread(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fp)){//le arquivo principal
+    if(grup.cod==codigo){
+      for(i=0;i<grup.numCadastrados;i++){
+        listarAlunosdeEventos(grup.cod,grup.cadastrados[i][0]);//envia o ID do array de acordo que o for passar por ele
+      }
+    }
+  }
+
+   fclose(fp);//fecha arquivo principal
+   //fim
+}
+//LISTAR PALESTRANTES DO GRUPO
+void listaPalesdoGrupo(int cod){
+      int i;
+      FILE *fp2;
+      GRUPO_DE_DISCUSSOES grup;
+      fp2 = fopen("arquivos\\grupos.txt", "rb");//abre arquivo no modo de leitura
+      while(fread(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fp2)){
+        if(grup.cod==cod){
+          for(i=0;i<=grup.numPalestrante;i++){
+            mostraPalestrante(grup.Membros_da_mesa[i][0]);
+          }
+        }
+      }
+
+  fclose(fp2);
+}
+
+
+
+
 
 //************************************************************************************************
 

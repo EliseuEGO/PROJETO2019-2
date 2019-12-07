@@ -254,6 +254,9 @@ void criaGrupo();//
 
 //LISTAR CONGRESSISTAS DE GRUPO_DE_DISCUSSOES
 
+//LISTAR PALESTRANTES DO GRUPO
+void listaPalesdoGrupo(int cod);
+
 //ADD PALESTRANTE AO GRUPO DE DISCUSSÃO
 void addPalestranteaGrupo();
 

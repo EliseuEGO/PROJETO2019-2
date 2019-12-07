@@ -1,13 +1,27 @@
 /*
 FALTA
+*TERMINAR FUNÇÃO DE ESCOLHA DE LOCAL
+
+*FAZER FUNÇÕES DE ORGANIZADORES
+
+*TERMINAR FUNÇÕES DE GRUPOS
+
+*FAZER A LIMPEZA DAS FUNÇÕES
+
+*COMENTARIO E ORGANIZAÇÃO NO .H
+
+**ADD LISTAR HORA E DATA EM TODAS AS FUNÇÕES NECESSARIAS
+
+
+
 
 
 --CRIAR FUNÇÃO PARA VERIFICAR ID, COD, MATRICULA E CODL
 --CRIAR FUNÇÕES DOS organizadores
 --FUNÇÃO PARA ESPERAR UM TEMPO OU PARAR
 --DEMAIS FUNÇÕES DO GP DE DISCUSSÃO
---INCLUIR VARIOS PALESTRANTES NO GP DE DISCUSSÃO
---INCLUIR PARTE DE INSTRUÇÕES NO MENU
+
+
 --FUNÇÃO PARA RETIRAR UM UNICO PALESTRANTE DO GP DE DISCUSSÃO
 --ADD "LISTA VAZIA" QUANDO NÃO POSSUIR ITENS
 
@@ -22,26 +36,15 @@ BUGS
 
 -----------------------------DUVIDAS------------------------
 
-para incrementar, decrementar e trocar palestrantes eu preciso criar um novo arquivo e substituir o antigo?-- sim
-
-
 
 -----------------------------IDEIAS---------------------------
 
  -pesquisar como colocar imagem no terminal
 
--Criar menu para manipular congressistas e palestrantes nos eventos;
 
 -Função para verificar se COD, ID ou MATRICULA já existe; int verifica e retorna 1 ou 0;
 
 -----------------------------PROBLEMAS---------------------
-
--caso altere dado ou remova um congressista ou palestrante é    necessário fazer o mesmo nos arquivos dos eventos;
-
--para o congressista ser removido é necessario cancelar sua inscrição nos eventos que ele está matriculado;
--criar função de cadastrar congressistas nos eventos assim como listar os eventos cadastrados; cadastro por MATRICULA;
-
-
 
 
 -------------------------------------------------------------
