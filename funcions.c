@@ -104,9 +104,9 @@ void incrementarEventos(int cod, int mat){
     while (fread(&pale, sizeof(PALESTRAS), 1,fpp)){
       if(cod==pale.cod){
         //num de cadastradas não pode ser maior que a capacidade
-        if((pale.numCadastrados+1)<pale.capacidadeE){
-          pale.numCadastrados++;//incrementa num de cadastradas
+        if((pale.numCadastrados+1)<150){
           pale.cadastrados[pale.numCadastrados][0]=mat;//add matricula do aluno no array de cadastradas
+          pale.numCadastrados++;//incrementa num de cadastradas
         }else{
           puts("Numero de cadastrados atingiu o max disponivel");
         }
@@ -1357,8 +1357,9 @@ void listarAlunosdaPalestra(){
 
   while(fread(&pale,sizeof(PALESTRAS),1,fp)){//le arquivo principal
     if(pale.cod==codigo){
-      for(i=0;i<pale.numCadastrados;i++){
+      for(i=0;i<1;i++){
         //codigos=pale.cadastrados
+        printf("%d NUM DE CADASTRADOS\n",pale.numCadastrados);
         listarAlunosdeEventos(pale.cod,pale.cadastrados[i][0]);
       }
     }
@@ -1791,6 +1792,7 @@ void listaAlunosdaOficina(){
 //CRIAR GRUPO
 void criaGrupo(){
   int i,j,qntd,id;
+  printf("\n\n------------------------------------------\n\n");
     //cria arquivo
     FILE *fp;
     FILE *fpp;
@@ -1804,19 +1806,19 @@ void criaGrupo(){
     /*while(fread(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fp)){
         fwrite(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fpp);
     }*/
-    /*//zerar cadastrados
+    //zerar cadastrados
     for(i=0;i<50;i++){
         for(j=0;j<5;j++){
           grup.cadastrados[i][j]=0;
         }
       }
-*/
-     /* //zerar palestrantes
+
+      //zerar palestrantes
     for(i=0;i<5;i++){
         for(j=0;j<5;j++){
           grup.Membros_da_mesa[i][j]=0;
         }
-      }*/
+      }
       //zera numero de cadastrados
       grup.numCadastrados=0;
       //zera num de palestrnates
@@ -1868,10 +1870,17 @@ void criaGrupo(){
           grup.numPalestrante++;
         }
       }
+
+printf("\n\n------------------------------------------\n\n");
+printf("id:%d\n",id);
+printf("ID 1 %d e ID 2 %d\n",grup.Membros_da_mesa[grup.numPalestrante][0],grup.Membros_da_mesa[grup.numPalestrante-1][0]);
+printf("TEMA %s\n",grup.Tema);
+printf("CODIGO %d\n",grup.cod);
+printf("\n\n------------------------------------------\n\n");
       
       
     //função para colocar local/hora/capacidade/cargahoraria
-     // escolheLocal(grup.cod);
+      escolheLocal(grup.cod);
     
       puts("Cadastro de GRUPO concluido");
 
@@ -1887,19 +1896,20 @@ void criaGrupo(){
 
 //LISTAR TODOS OS GRUPOS
 void listaGrupos(){
+  
   puts("\nLista de grupos");
   int i;
   FILE *fpp;
       GRUPO_DE_DISCUSSOES grup;
       fpp = fopen("arquivos\\grupos.txt", "rb");//abre arquivo no modo de leitura
-      while (fread(&grup, sizeof(OFICINAS), 1,fpp)){//enquanto leitura for verdadeira
+      while (fread(&grup, sizeof(GRUPO_DE_DISCUSSOES), 1,fpp)){//enquanto leitura for verdadeira
         printf("CODIGO: %d\nTEMA: %s\n",grup.cod,grup.Tema);
         for(i=0;i<grup.numPalestrante;i++){
           mostraPalestrante(grup.Membros_da_mesa[i][0]);//pega o id do palestrante para exibir nome
           putchar('\n');
         }
         //LISTAR HORÁRIO E LOCAL
-        //listaHorariodoEvento(grup.cod);
+        listaHorariodoEvento(grup.cod);
       }
       fclose(fpp);
       //fim
@@ -2013,6 +2023,9 @@ void editaGrupo(){
 
                 default: break;
             }
+            fwrite(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fpp);
+        }else{
+          fwrite(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fpp);
         }
       }
 
