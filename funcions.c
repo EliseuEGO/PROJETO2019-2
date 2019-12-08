@@ -318,7 +318,7 @@ void criaOrganizador(){
       org.ID = 700+(rand()% 99);//gerar num entre 700 e 799
       printf("\nID: %d\n",org.ID);
     //nome
-      puts("Insira o nome do Palestrante");
+      puts("Insira o nome do Organizador");
       setbuf(stdin, NULL);
       fgets(org.nome,TAM,stdin);
       strtok(org.nome,"\n");
@@ -417,7 +417,7 @@ void removeOrganizador(){
         if(org.ID!=id){
           fwrite(&org,sizeof(ORGANIZADORES),1,fp2);
         }else{
-          printf("Removendo...");
+          printf("Removendo...\n");
         }
     }
 
@@ -604,11 +604,12 @@ void listarPalestrantes2(int cod){//lista só os que não estão em certos event
           } 
         }
         if(cod>=200&&cod<300){//se for codigo de grupo
-          for(i=0;i<profs.numEventos;i++){
+            printf("\nID:%d\nNome: %s\n",profs.ID, profs.nome);
+          /*for(i=0;i<profs.numEventos;i++){
             if(profs.eventos[i][0]!=cod){//listar palestrantes que não estão no grupo
               printf("\nID:%d\nNome: %s\n",profs.ID, profs.nome);
             }
-          }
+          }*/
         }
       }
       fclose(fpp);
@@ -1789,22 +1790,33 @@ void listaAlunosdaOficina(){
 //GRUPOS DE DISCUSSÃO******************************************************************************
 //CRIAR GRUPO
 void criaGrupo(){
-  int i,j,qntd;
+  int i,j,qntd,id;
     //cria arquivo
     FILE *fp;
+    FILE *fpp;
     GRUPO_DE_DISCUSSOES grup;
     //teste de entrada de arquivo
-    if ((fp = fopen("arquivos\\grupos.txt", "ab")) == NULL){
-        fprintf(stderr, "Banco de dados não existe.\n");
-        exit(EXIT_FAILURE);
-    }
+    
+    fp = fopen("arquivos\\grupos.txt", "ab");
+    //fp = fopen("arquivos\\grupos.txt", "rb");
+    //fpp = fopen("arquivos\\grupos2.txt", "ab");
 
-    //zerar cadastrados
+    /*while(fread(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fp)){
+        fwrite(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fpp);
+    }*/
+    /*//zerar cadastrados
     for(i=0;i<50;i++){
         for(j=0;j<5;j++){
           grup.cadastrados[i][j]=0;
         }
       }
+*/
+     /* //zerar palestrantes
+    for(i=0;i<5;i++){
+        for(j=0;j<5;j++){
+          grup.Membros_da_mesa[i][j]=0;
+        }
+      }*/
       //zera numero de cadastrados
       grup.numCadastrados=0;
       //zera num de palestrnates
@@ -1821,31 +1833,35 @@ void criaGrupo(){
       setbuf(stdin, NULL);
       fgets(grup.Tema,TAM,stdin);
       strtok(grup.Tema,"\n");
+
     // lista palestrantes
-      puts("Lista de palestrantes");
-      listarPalestrantes2(grup.cod);//
+      //puts("\nLista de palestrantes\n");
+      //listarPalestrantes2(grup.cod);//
       putchar('\n');
-      printf("Quantos palestrantes deseja adicionar no grupo?(MAX 5)>>");
+      printf("Quantos palestrantes deseja adicionar no grupo?(MAX 5)>> ");
       scanf("%d",&qntd);
       if(qntd>numPalestrantes()){
         puts("Numero desejado de palestrantes é maior que o numero de palestrantes disponiveis\nO numero de palestrantes cadastrados será o mesmo dos palestrantes disponiveis");
         listarPalestrantes();
-        for(i=0;i<=numPalestrantes();i++){
+        for(i=0;i<numPalestrantes();i++){
           printf("\nInsira o ID do palestrante desejado>>");
           //insere palestrantes
           //escolhe palestrantes da lista baseado no id
-          scanf("%d",&grup.Membros_da_mesa[grup.numPalestrante][0]);
+          scanf("%d",&id);
+          grup.Membros_da_mesa[grup.numPalestrante][0]=id;
           //verifica se o ID escolhido corresponde ao palestrante existente!!
           //abre arquivo de palestrante para incrementar o num de palestrar e colocar o COD da palestras no array
           incrementarPale(grup.cod, grup.Membros_da_mesa[grup.numPalestrante][0]);
           grup.numPalestrante++;
         }
       }else{
-        for(i=0;i<=qntd;i++){
+        for(i=0;i<qntd;i++){
+          listarPalestrantes();
           printf("\nInsira o ID do palestrante desejado>>");
           //insere palestrantes
           //escolhe palestrantes da lista baseado no id
-          scanf("%d",&grup.Membros_da_mesa[grup.numPalestrante][0]);
+          scanf("%d",&id);
+          grup.Membros_da_mesa[grup.numPalestrante][0]=id;
           //verifica se o ID escolhido corresponde ao palestrante existente!!
           //abre arquivo de palestrante para incrementar o num de palestrar e colocar o COD da palestras no array
           incrementarPale(grup.cod, grup.Membros_da_mesa[grup.numPalestrante][0]);
@@ -1855,14 +1871,17 @@ void criaGrupo(){
       
       
     //função para colocar local/hora/capacidade/cargahoraria
-      escolheLocal(grup.cod);
+     // escolheLocal(grup.cod);
     
-      puts("Cadastro de oficina concluido");
+      puts("Cadastro de GRUPO concluido");
 
     //escreve tudo no arquivo
       fwrite(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fp);
     //fecha o arquivo
       fclose(fp);
+     // fclose(fpp);
+     // remove("arquivos\\grupos.txt");
+     // rename("arquivos\\grupos2.txt","arquivos\\grupos.txt");
     //fim
 }
 
@@ -1870,19 +1889,19 @@ void criaGrupo(){
 void listaGrupos(){
   puts("\nLista de grupos");
   int i;
-  FILE *fp;
+  FILE *fpp;
       GRUPO_DE_DISCUSSOES grup;
-      fp = fopen("arquivos\\grupos.txt", "rb");//abre arquivo no modo de leitura
-      while (fread(&grup, sizeof(OFICINAS), 1,fp)){//enquanto leitura for verdadeira
+      fpp = fopen("arquivos\\grupos.txt", "rb");//abre arquivo no modo de leitura
+      while (fread(&grup, sizeof(OFICINAS), 1,fpp)){//enquanto leitura for verdadeira
         printf("CODIGO: %d\nTEMA: %s\n",grup.cod,grup.Tema);
         for(i=0;i<grup.numPalestrante;i++){
           mostraPalestrante(grup.Membros_da_mesa[i][0]);//pega o id do palestrante para exibir nome
           putchar('\n');
         }
         //LISTAR HORÁRIO E LOCAL
-        listaHorariodoEvento(grup.cod);
+        //listaHorariodoEvento(grup.cod);
       }
-      fclose(fp);
+      fclose(fpp);
       //fim
 }
 
@@ -2097,26 +2116,26 @@ void listaPalesdoGrupo(int cod){
 //FUNÇÕES DE LOCAIS*****************************************************
 //CRIA TODOS OS LOCAIS ZERADOS 
 void criarLocais(int i){
-printf("I eh %d\n",i);
+  
+  printf("I eh %d\n",i);
   //TESTA SE O ARQUIVO JA EXISTE
   int j,x,y;
   //abre arquivo e verifica
-    FILE *fp;
+    FILE *fp=NULL;
     SLOCAL loca;//varial de local
     //teste de entrada de arquivo
-    if ((fp = fopen("arquivos\\locais.txt", "ab")) == NULL){
-        fprintf(stderr, "Banco de dados não existe.\n");
-        exit(EXIT_FAILURE);
-    }
+    
+        
+      fp = fopen("arquivos\\locais.txt", "ab");
     puts("\nENTRANDO EM CRIAR LOCAIS\n");
-//while (fread(&loca, sizeof(SLOCAL), 1,fp)){//enquanto leitura for verdadeira
-puts("WHILW DE CRIAAR LOCAIS");
+    //while (fread(&loca, sizeof(SLOCAL), 1,fp)){//enquanto leitura for verdadeira
+    puts("WHILW DE CRIAAR LOCAIS");
   
-    //codigo de llocais
+      //codigo de llocais
       //srand(time(NULL));
       //loca.CODL = 2000+(rand()% 999);//gerar num entre 2000 e 2999
       //printf("Codigo do Local: %d\n",loca.CODL);
-    //local em si
+      //local em si
       loca.lugar=i;//enum de locais 1-8
      // puts("lugar");
       //carga horaria de duas horas
@@ -2158,6 +2177,7 @@ puts("WHILW DE CRIAAR LOCAIS");
 
 //}
 puts("FINAL");
+    
       fwrite(&loca, sizeof(SLOCAL), 1, fp);
   fclose(fp);
 }
@@ -2253,35 +2273,35 @@ void escolheLocal(int cod){
                   if(loca.lugar==i && loca.capacidade<40){//capacidade de 150 pq é palestra
                       if(i==1){
                         printf("%d-Auditório 1\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==2){
                         printf("%d-Auditório 2\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==3){
                         printf("%d-Auditório 3\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==4){
                         printf("%d-Sala 1\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==5){
                         printf("%d-Sala 2\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==6){
                         printf("%d-Sala 3\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==7){
                         printf("%d-Laboratório 1\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==8){
                         printf("%d-Laboratório 2\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                   }
               }
@@ -2334,35 +2354,35 @@ void escolheLocal(int cod){
                   if(loca.lugar==i && loca.capacidade==20){//capacidade d
                       if(i==1){
                         printf("%d-Auditório 1\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==2){
                         printf("%d-Auditório 2\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==3){
                         printf("%d-Auditório 3\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==4){
                         printf("%d-Sala 1\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==5){
                         printf("%d-Sala 2\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==6){
                         printf("%d-Sala 3\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==7){
                         printf("%d-Laboratório 1\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==8){
                         printf("%d-Laboratório 2\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                   }
               }
@@ -2527,35 +2547,35 @@ void listaLocais(int capacidade){
                   if(loca.lugar==i && loca.capacidade==capacidade){//capacidade de 150 pq é palestra
                       if(i==1){
                         printf("%d-Auditório 1\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==2){
                         printf("%d-Auditório 2\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==3){
                         printf("%d-Auditório 3\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==4){
                         printf("%d-Sala 1\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==5){
                         printf("%d-Sala 2\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==6){
                         printf("%d-Sala 3\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==7){
                         printf("%d-Laboratório 1\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                       if(i==8){
                         printf("%d-Laboratório 2\n",i);
-                        disponiveis[i-1]=1;
+                        
                       }
                   }
               }

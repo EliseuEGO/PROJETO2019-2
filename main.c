@@ -78,9 +78,13 @@ int main(){
   CONGRE congressistas[300];//add contador de oficina e de curso;
   char organizadores[30][TAM];
 int j;
-for(j=1;j<=8;j++){
-  criarLocais(j);
-}
+
+  FILE *arq=NULL;
+  if ((arq = fopen("arquivos\\locais.txt", "r")) == NULL){
+    for(j=1;j<=8;j++){
+      criarLocais(j);
+    }
+  }
 mostra();
 
 
