@@ -2,9 +2,9 @@
 FALTA
 *TERMINAR FUNÇÃO DE ESCOLHA DE LOCAL
 
-*FAZER FUNÇÕES DE ORGANIZADORES
 
-*TERMINAR FUNÇÕES DE GRUPOS
+
+*ADD FUNÇÕES DE GRUPOS AS DEMAIS FUNÇÕES 
 
 *FAZER A LIMPEZA DAS FUNÇÕES
 
@@ -17,18 +17,17 @@ FALTA
 
 
 --CRIAR FUNÇÃO PARA VERIFICAR ID, COD, MATRICULA E CODL
---CRIAR FUNÇÕES DOS organizadores
+
 --FUNÇÃO PARA ESPERAR UM TEMPO OU PARAR
---DEMAIS FUNÇÕES DO GP DE DISCUSSÃO
 
 
---FUNÇÃO PARA RETIRAR UM UNICO PALESTRANTE DO GP DE DISCUSSÃO
+
+
 --ADD "LISTA VAZIA" QUANDO NÃO POSSUIR ITENS
 
 
---DEFINIR PROCESSO E ESTRUTURA DA FUNÇÕES DE ESCOLHA E PREENCHIMENTO DE LOCAIS
 --ADD STRUCT DE LOCAIS NAS STRUCTS DE EVENTOS
---AO CADASTRAR UM ALUNO PRECISA COMPARAR SE O NUM DE CADASTRADOS FICA MAIOR QUE A CAPACIDADE DA STRUCT DE LOCAL
+
 
 
 -----------------------------------------------------------
@@ -99,10 +98,10 @@ do{
       printf("Escolha uma opção>>");
       scanf("%d",&op2);
       switch(op2){
-        case 1: break;//-CADASTRAR
-        case 2: break;//-EDITAR
-        case 3: break;//-LISTAR
-        case 4: break;//-REMOVER
+        case 1:criaOrganizador(); break;//-CADASTRAR
+        case 2:editaOrganizador(); break;//-EDITAR
+        case 3:listaOrganizador(); break;//-LISTAR
+        case 4:removeOrganizador(); break;//-REMOVER
         case 5: break;//voltar
         default:break;
       }
@@ -171,10 +170,10 @@ do{
           scanf("%d",&op3);
           switch(op3){
             case 1:criaGrupo(); break;//-CADASTRAR
-            case 2: break;//-EDITAR
-            case 3: break;//-LISTAR
-            case 4: break;//-REMOVER
-            case 5: break;//-LISTAR ALUNOS DO GRUPOD
+            case 2:editaGrupo(); break;//-EDITAR
+            case 3:listaGrupos(); break;//-LISTAR
+            case 4:removeGrupo(); break;//-REMOVER
+            case 5:listaAlunosdoGrupo(); break;//-LISTAR ALUNOS DO GRUPOD
             case 6: break;//voltar
             default:break;
           }

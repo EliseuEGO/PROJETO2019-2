@@ -116,9 +116,7 @@ typedef struct{
 
 //FUNÇÕES-------------------------------------------------------
 
-void mostra();
 
-void criarLocais(int i);
 
 //void escolherLocal();
 
@@ -133,7 +131,7 @@ int numCongressistas();
 
 int numPalestrantes();
 
-//PALESTRANTES**************************
+//PALESTRANTES***********************************************
 //cadastrar palestrante
 void cadastroPalestrante();
 
@@ -199,6 +197,18 @@ void decrementarAluno(int cod, int mat);
 
 //************************************************************
 
+//ORGANIZADORES***************************************************
+//CRIAR ORGANIZADORES
+void criaOrganizador();
+//EDITAR ORGANIZADORES
+void editaOrganizador();
+//LISTAR ORGANIZADORES
+void listaOrganizador();
+//REMOVER ORGANIZADORES
+void removeOrganizador();
+//*****************************************************************
+
+
 //PALESTRAS-------------------------------------------------------
 //CRIAR PALESTRAS
 void criaPalestra();//
@@ -247,28 +257,37 @@ void listaAlunosdaOficina();//
 //CRIAR GRUPO_DE_DISCUSSOES
 void criaGrupo();//
 //EDITAR GRUPO_DE_DISCUSSOES
-
+void editaGrupo();
 //LISTAR GRUPO_DE_DISCUSSOES
-
+void listaGrupos();
 //REMOVER GRUPO_DE_DISCUSSOES
-
+void removeGrupo();
 //LISTAR CONGRESSISTAS DE GRUPO_DE_DISCUSSOES
-
+void listaAlunosdoGrupo();
 //LISTAR PALESTRANTES DO GRUPO
 void listaPalesdoGrupo(int cod);
 
-//ADD PALESTRANTE AO GRUPO DE DISCUSSÃO
-void addPalestranteaGrupo();
 
 
 
 //=============================================================
+
+//LOCAIS------------------------------------------
+void mostra();//FUNÇÃO DE TESTE
+
+//CRIA TODOS OS LOCAIS ZERADOS
+void criarLocais(int i);
+
+//ADICIONA O COD DO EVENTO NO LOCAL E HORA INDICAODS
 void escolheLocal(int cod);
 
+//FUNÇÃO DE TESTE PARA MELHORAR A FUNÇÃO DE ESCOLHER LOCAL(PARA APAGAR)
 void testeEscolheLocal(int cod);
 
+//LISTA HORARIOS DISPONIVEIS PARA CERTOS LOCAIS 
 void listaHorarios(int dia, int cod, int local);
 
+//LISTA LOCAIS COMPATIVEIS DE ACORDO COM A capacidade
 void listaLocais(int capacidade);
 
 //LISTAR O HORARIO DO EVENTO

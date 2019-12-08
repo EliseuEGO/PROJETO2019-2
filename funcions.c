@@ -1,15 +1,11 @@
 
+
 #include "funcions.h"
 
 
 void mostra(){
-  puts("não né");
+  puts("\nnão né\n");
 }
-void escolherLocal(){
-  //criar switch pra saber se vai colocar em auditório, lab ou sala e depois para escolher qual sala ou lab etc...
-  //case xxxx: struc->local=_____;struct->capacidade=_____
-
-  //usar ID do evento
 
   /*
     Auditório 1:até 150 pessoas
@@ -25,7 +21,7 @@ void escolherLocal(){
   */
 
 
-}
+
 
 
 /*
@@ -39,75 +35,6 @@ struct de horarios
   horario 6;//17-19
 */
 
-
-
-void criarLocais(int i){
-printf("I eh %d\n",i);
-  //TESTA SE O ARQUIVO JA EXISTE
-  int j,x,y;
-  //abre arquivo e verifica
-    FILE *fp;
-    SLOCAL loca;//varial de local
-    //teste de entrada de arquivo
-    if ((fp = fopen("arquivos\\locais.txt", "ab")) == NULL){
-        fprintf(stderr, "Banco de dados não existe.\n");
-        exit(EXIT_FAILURE);
-    }
-    puts("\nENTRANDO EM CRIAR LOCAIS\n");
-//while (fread(&loca, sizeof(SLOCAL), 1,fp)){//enquanto leitura for verdadeira
-puts("WHILW DE CRIAAR LOCAIS");
-  
-    //codigo de llocais
-      //srand(time(NULL));
-      //loca.CODL = 2000+(rand()% 999);//gerar num entre 2000 e 2999
-      //printf("Codigo do Local: %d\n",loca.CODL);
-    //local em si
-      loca.lugar=i;//enum de locais 1-8
-     // puts("lugar");
-      //carga horaria de duas horas
-      loca.cargahoraria=2;
-      //puts("carga");
-      for(j=1;j<=6;j++){//deixar todos os horarios disponiveis
-        loca.horario[0][j]=j;//dia 1
-        printf("\n\nDIA 1 HORA %d = %d",j,j);
-        loca.horario[1][j]=j;//dia 2
-        printf("\n\nDIA 2 HORA %d = %d\n",j,j);
-        //puts("horario");
-      }
-      //zera a matriz de cods dos eventos
-       for(x=0;x<6;x++){
-          //for(y=0;y<4;y++){
-             loca.Eventos[0][x][0]=0;
-             loca.Eventos[1][x][0]=0;
-             //puts("evento");
-          //}
-       }
-
-      //define as capacidades dos locais
-      if(i==AUD1){//se for auditorio 1
-        loca.capacidade=150;
-        puts("capacidade do auditorio 1");
-      }
-      if(i==AUD2){//se for auditorio 2
-        loca.capacidade=100;
-      }
-      if(i==AUD3||i==SALA1||i==SALA2){//se for auditorio 3, sala1 ou sala 2
-        loca.capacidade=50;
-      }
-      if(i==SALA3){//se for sala 3
-        loca.capacidade=30;
-      }
-      if(i==LAB1||i==LAB2){//se for lab 1 ou lab 2
-        loca.capacidade=20;
-      }
-
-
-  
-//}
-puts("FINAL");
-      fwrite(&loca, sizeof(SLOCAL), 1, fp);
-  fclose(fp);
-}
 
 
 
@@ -359,7 +286,7 @@ int numCongressistas(){
   }
   return cont;
 }
-
+//contador de palestrantes 
 int numPalestrantes(){
   int cont=0;
   FILE *fp;
@@ -370,6 +297,140 @@ int numPalestrantes(){
   }
   return cont;
 }
+
+//====================================================================
+
+//FUNÇÕES DOS ORGANIZADORES--------------------------------------
+//CRIAR ORGANIZADORES
+void criaOrganizador(){
+  printf("\nCADASTRO DE ORGANIZADORES\n");
+    //abre arquivo e verifica
+    FILE *fp;
+    ORGANIZADORES org;//
+    //teste de entrada de arquivo
+    if ((fp = fopen("arquivos\\organizadores.txt", "ab")) == NULL){
+        fprintf(stderr, "Banco de dados não existe.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    //ID
+      srand(time(NULL));
+      org.ID = 700+(rand()% 99);//gerar num entre 700 e 799
+      printf("\nID: %d\n",org.ID);
+    //nome
+      puts("Insira o nome do Palestrante");
+      setbuf(stdin, NULL);
+      fgets(org.nome,TAM,stdin);
+      strtok(org.nome,"\n");
+    //cpf ou curso
+      puts("Insira seu CPF");
+      scanf("%d",&org.cpf);
+
+    puts("Cadastro concluído");
+
+    fwrite(&org,sizeof(ORGANIZADORES),1,fp);
+    fclose(fp);
+}
+
+//EDITAR ORGANIZADORES
+void editaOrganizador(){
+  printf("\nALTERAR ORGANIZADORES\n");
+    int id,op2;
+    char novoNome[TAM];
+    
+    FILE *fp;
+    FILE *fp2;
+    ORGANIZADORES org;//
+    
+    fp = fopen("arquivos\\organizadores.txt", "rb");
+    fp2 = fopen("arquivos\\tempOrg.txt", "ab");
+
+    listaOrganizador();
+    putchar('\n');
+    printf("Insira o ID do organizador que deseja alterar>>");
+    scanf("%d",&id);
+
+    while(fread(&org,sizeof(ORGANIZADORES),1,fp)){
+        if(org.ID==id){
+            puts("1-Nome\t2-CPF\t3-NENHUM");
+            printf("Qual dado deseja alterar?>> ");
+            scanf("%d",&op2);
+            switch(op2){
+              case 1:{
+                puts("Insira novo nome");
+                  setbuf(stdin,NULL);
+                  fgets(novoNome,TAM,stdin);
+                  strtok(novoNome,"\n");
+                  strcpy(org.nome,novoNome);
+                break;
+              }
+              case 2:{
+                puts("Insira novo CPF");
+                scanf("%d",&org.cpf);
+                break;
+              }
+              case 3:break;
+              default:break;
+            }
+            fwrite(&org,sizeof(ORGANIZADORES),1,fp2);
+        }else{
+          fwrite(&org,sizeof(ORGANIZADORES),1,fp2);
+        }
+    }
+    fclose(fp);
+    fclose(fp2);
+    remove("arquivos\\organizadores.txt");
+    rename("arquivos\\tempOrg.txt", "arquivos\\organizadores.txt");
+
+}
+//LISTAR ORGANIZADORES
+void listaOrganizador(){
+  FILE *fp;
+    ORGANIZADORES org;
+    fp = fopen("arquivos\\organizadores.txt", "rb");
+    while(fread(&org,sizeof(ORGANIZADORES),1,fp)){
+      printf("-------------------------------------------\n");
+      printf(" ID: %d\nNome: %s\nCPF: %d\n",org.ID,org.nome,org.cpf);
+      printf("-------------------------------------------\n");
+    }
+    fclose(fp);
+}
+
+//REMOVER ORGANIZADORES
+void removeOrganizador(){
+  int id;
+  puts("\nREMOVER ORGANIZADOR\n");
+  //abre arquivo e verifica
+    FILE *fp;
+    FILE *fp2;
+    ORGANIZADORES org;//
+    
+    fp = fopen("arquivos\\organizadores.txt", "rb");
+    fp2 = fopen("arquivos\\tempOrg.txt", "ab");
+    
+    listaOrganizador();
+    putchar('\n');
+    printf("Insira o ID do organizador que deseja remover>>");
+    scanf("%d",&id);
+
+    while(fread(&org,sizeof(ORGANIZADORES),1,fp)){
+        if(org.ID!=id){
+          fwrite(&org,sizeof(ORGANIZADORES),1,fp2);
+        }else{
+          printf("Removendo...");
+        }
+    }
+
+
+    fclose(fp);
+    fclose(fp2);
+    remove("arquivos\\organizadores.txt");
+    rename("arquivos\\tempOrg.txt", "arquivos\\organizadores.txt");
+
+}
+
+
+//==================================================================
 //FUNÇÕES PALESTRANTES----------------------------------------
 //cadastrar palestrante
 void cadastroPalestrante(){
@@ -1805,7 +1866,7 @@ void criaGrupo(){
     //fim
 }
 
-
+//LISTAR TODOS OS GRUPOS
 void listaGrupos(){
   puts("\nLista de grupos");
   int i;
@@ -2033,7 +2094,75 @@ void listaPalesdoGrupo(int cod){
 //************************************************************************************************
 
 
-//FUNÇÕES DE LOCAIS***************************************************************
+//FUNÇÕES DE LOCAIS*****************************************************
+//CRIA TODOS OS LOCAIS ZERADOS 
+void criarLocais(int i){
+printf("I eh %d\n",i);
+  //TESTA SE O ARQUIVO JA EXISTE
+  int j,x,y;
+  //abre arquivo e verifica
+    FILE *fp;
+    SLOCAL loca;//varial de local
+    //teste de entrada de arquivo
+    if ((fp = fopen("arquivos\\locais.txt", "ab")) == NULL){
+        fprintf(stderr, "Banco de dados não existe.\n");
+        exit(EXIT_FAILURE);
+    }
+    puts("\nENTRANDO EM CRIAR LOCAIS\n");
+//while (fread(&loca, sizeof(SLOCAL), 1,fp)){//enquanto leitura for verdadeira
+puts("WHILW DE CRIAAR LOCAIS");
+  
+    //codigo de llocais
+      //srand(time(NULL));
+      //loca.CODL = 2000+(rand()% 999);//gerar num entre 2000 e 2999
+      //printf("Codigo do Local: %d\n",loca.CODL);
+    //local em si
+      loca.lugar=i;//enum de locais 1-8
+     // puts("lugar");
+      //carga horaria de duas horas
+      loca.cargahoraria=2;
+      //puts("carga");
+      for(j=1;j<=6;j++){//deixar todos os horarios disponiveis
+        loca.horario[0][j]=j;//dia 1
+        printf("\n\nDIA 1 HORA %d = %d",j,j);
+        loca.horario[1][j]=j;//dia 2
+        printf("\n\nDIA 2 HORA %d = %d\n",j,j);
+        //puts("horario");
+      }
+      //zera a matriz de cods dos eventos
+       for(x=0;x<6;x++){
+          //for(y=0;y<4;y++){
+             loca.Eventos[0][x][0]=0;
+             loca.Eventos[1][x][0]=0;
+             //puts("evento");
+          //}
+       }
+
+      //define as capacidades dos locais
+      if(i==AUD1){//se for auditorio 1
+        loca.capacidade=150;
+        puts("capacidade do auditorio 1");
+      }
+      if(i==AUD2){//se for auditorio 2
+        loca.capacidade=100;
+      }
+      if(i==AUD3||i==SALA1||i==SALA2){//se for auditorio 3, sala1 ou sala 2
+        loca.capacidade=50;
+      }
+      if(i==SALA3){//se for sala 3
+        loca.capacidade=30;
+      }
+      if(i==LAB1||i==LAB2){//se for lab 1 ou lab 2
+        loca.capacidade=20;
+      }
+
+//}
+puts("FINAL");
+      fwrite(&loca, sizeof(SLOCAL), 1, fp);
+  fclose(fp);
+}
+
+
 //ESCOLHE LOCAL(cod do evnto)
 void escolheLocal(int cod){
   printf("\n\nEntra em escolher local\n\n");
@@ -2383,13 +2512,15 @@ void testeEscolheLocal(int cod){
 
 }
 
+
+//LISTA LOCAIS COMPATIVEIS DE ACORDO COM A capacidade
 void listaLocais(int capacidade){
   FILE *fpp;
   SLOCAL loca;//varial de local
   fpp = fopen("arquivos\\locais.txt", "rb");//
 
 
-int disponiveis[8],i;
+  int disponiveis[8],i;
   while (fread(&loca, sizeof(SLOCAL), 1,fpp)){//enquanto leitura for verdadeira
               puts("ENTRA EM WHILE DE ESCOLHEWR LOCAL");
               for(i=1;i<=8;i++){
@@ -2433,6 +2564,8 @@ int disponiveis[8],i;
     fclose(fpp);
 }
 
+
+//LISTA HORARIOS DISPONIVEIS PARA CERTOS LOCAIS
 void listaHorarios(int dia, int cod,int local){
 
   FILE *fpp;
