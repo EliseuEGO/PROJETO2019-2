@@ -117,7 +117,12 @@ do{
       printf("Escolha uma opção>>");
       scanf("%d",&op2);
       switch(op2){
-        case 1:NovoCongressista(); break;//-CADASTRAR CONGRESSISTA
+        case 1:
+          if((numCongressistas())<300){
+            NovoCongressista(); break;//-CADASTRAR CONGRESSISTA
+          }else{
+            puts("\n!Numero maximo de congressistas cadastrados!\n");break;
+          }
         case 2:editaAluno(); break;//-EDITAR
         case 3:listarAlunos(); break;//-LISTAR
         case 4:removerAluno(); break;//-REMOVER
