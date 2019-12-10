@@ -361,7 +361,9 @@ int numCongressistas(){
   int cont=0;
   FILE *fp;
   CONGRE aluno;
-  fp = fopen("arquivos\\alunos.txt", "rb");
+  if ((fp = fopen("arquivos\\alunos.txt", "rb"))==NULL){
+      return 1;
+  }
   while(fread(&aluno,sizeof(CONGRE),1,fp)){
     cont++;
   }
@@ -2503,6 +2505,43 @@ void listaHorariodoEvento(int cod){
       for(j=0;j<2;j++){
         for(i=1;i<=6;i++){
           if(loca.Eventos[j][i][0]==cod){
+            printf("Local: ");
+            switch (loca.lugar){
+              case 1:{
+                puts("Auditório 1");
+              break;
+              }
+              case 2:{
+                puts("Auditório 2");
+              break;
+              }
+            case 3:{
+                puts("Auditório 3");
+              break;
+              }
+              case 4:{
+                puts("Sala 1");
+              break;
+              }
+              case 5:{
+                puts("Sala 2");
+              break;
+              }
+              case 6:{
+                puts("Sala 3");
+              break;
+              }
+              case 7:{
+                puts("Laboratório 1");
+              break;
+              }
+              case 8:{
+                puts("Laboratório 2");
+              break;
+              }
+            default:
+              break;
+            }
             printf("Dia %d\n",j+1);
             switch(i){
               case 1:puts("Primeiro horário (Das 7h às 9h)"); break;
