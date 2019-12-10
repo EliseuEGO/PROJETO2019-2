@@ -1,10 +1,6 @@
 /*
 FALTA
-*TERMINAR FUNÇÃO DE ESCOLHA DE LOCAL
 
-
-
-*ADD FUNÇÕES DE GRUPOS AS DEMAIS FUNÇÕES 
 
 *FAZER A LIMPEZA DAS FUNÇÕES
 
@@ -12,21 +8,12 @@ FALTA
 
 **ADD LISTAR HORA E DATA EM TODAS AS FUNÇÕES NECESSARIAS
 
-
-
-
-
 --CRIAR FUNÇÃO PARA VERIFICAR ID, COD, MATRICULA E CODL
 
 --FUNÇÃO PARA ESPERAR UM TEMPO OU PARAR
 
 
 
-
---ADD "LISTA VAZIA" QUANDO NÃO POSSUIR ITENS
-
-
---ADD STRUCT DE LOCAIS NAS STRUCTS DE EVENTOS
 
 
 
@@ -38,10 +25,6 @@ BUGS
 
 -----------------------------IDEIAS---------------------------
 
- -pesquisar como colocar imagem no terminal
-
-
--Função para verificar se COD, ID ou MATRICULA já existe; int verifica e retorna 1 ou 0;
 
 -----------------------------PROBLEMAS---------------------
 
@@ -227,9 +210,6 @@ do{
 }while(op!=5);
 
 
-
-  printf("Bom dia\n");
-  printf("Vamos programar\n");
   getchar();
   return 0 ;
 }

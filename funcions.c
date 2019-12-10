@@ -187,7 +187,7 @@ void incrementarEventos(int cod, int mat){
     while (fread(&curse, sizeof(CURSO), 1,fpp)){
       if(cod==curse.cod){
          //num de cadastradas não pode ser maior que a capacidade
-       if((curse.numCadastrados+1)<50){//numero max de alunos   
+       if((curse.numCadastrados+1)<40){//numero max de alunos   
         curse.numCadastrados++;//incrementa num de cadastradas
         curse.cadastrados[curse.numCadastrados][0]=mat;//add matricula do aluno no array de cadastradas
         fwrite(&curse,sizeof(CURSO),1,fpp2);
@@ -2298,7 +2298,7 @@ puts("FINAL");
 
 //ESCOLHE LOCAL(cod do evnto)
 void escolheLocal(int cod){
-  printf("\n\nEntra em escolher local\n\n");
+      printf("\n\nEntra em escolher local\n\n");
       int i;//contador
       
       int nLocal,nHora,nDia;
@@ -2351,7 +2351,7 @@ void escolheLocal(int cod){
           if(cod>=200 && cod<300){//cod de GRUPO_DE_DISCUSSOES
             puts("\nEscolha o local do seu Grupo de discussão\n");
             puts("Locais disponíveis:");
-            listaLocais(150);//função paralistar locais com capacidade de ate 150 
+            listaLocais(50);//função paralistar locais com capacidade de ate 150 
             
               printf("Insira o número do Local desejado>> ");
               scanf("%d",&nLocal);
@@ -2379,177 +2379,71 @@ void escolheLocal(int cod){
 
           //==================================================================================
           if(cod>=300 && cod<400){//cod de curso
-            puts("\nEscolha o local do seu curso\n");
+                puts("\nEscolha o local do seu Curso\n");
             puts("Locais disponíveis:");
-            //while (fread(&loca, sizeof(SLOCAL), 1,fp)){//enquanto leitura for verdadeira
-              for(i=1;i<=8;i++){
-                  if(loca.lugar==i && loca.capacidade<40){//capacidade de 150 pq é palestra
-                      if(i==1){
-                        printf("%d-Auditório 1\n",i);
-                        
-                      }
-                      if(i==2){
-                        printf("%d-Auditório 2\n",i);
-                        
-                      }
-                      if(i==3){
-                        printf("%d-Auditório 3\n",i);
-                        
-                      }
-                      if(i==4){
-                        printf("%d-Sala 1\n",i);
-                        
-                      }
-                      if(i==5){
-                        printf("%d-Sala 2\n",i);
-                        
-                      }
-                      if(i==6){
-                        printf("%d-Sala 3\n",i);
-                        
-                      }
-                      if(i==7){
-                        printf("%d-Laboratório 1\n",i);
-                        
-                      }
-                      if(i==8){
-                        printf("%d-Laboratório 2\n",i);
-                        
-                      }
-                  }
-              }
+            listaLocais(50);//função paralistar locais com capacidade de ate 50 
+            
               printf("Insira o número do Local desejado>> ");
               scanf("%d",&nLocal);
-              
-              printf("1-Primeiro dia\t2-Segundo dia");
-              printf("Deseja incluir o evento em qual dia?>> ");
-              scanf("%d",&nDia);
+              while (fread(&loca, sizeof(SLOCAL), 1,fp)){
+                if(loca.lugar==nLocal){
+                  printf("\n1-Primeiro dia\t2-Segundo dia\n");
+                  printf("Deseja incluir o evento em qual dia?>> ");
+                  scanf("%d",&nDia);
 
-              puts("\nHorários disponiveis:");
-              for(i=1;i<=6;i++){
-                if((loca.horario[nDia-1][i])!=0){//lista só os horarios disponiveis
-                  if(i==1){
-                    puts("1- Primeiro horário (Das 7h às 9h)");
-                  }
-                  if(i==2){
-                    puts("2- Segundo horário (Das 9h às 11h) ");
-                  }
-                  if(i==3){
-                    puts("3- Terceiro horário horário (Das 11h às 13h) ");
-                  }
-                  if(i==4){
-                    puts("4- Quarto horário (Das 13h às 15h) ");
-                  }
-                  if(i==5){
-                    puts("5- Quinto horário (Das 15h às 17h) ");
-                  }
-                  if(i==6){
-                    puts("6- Sexto horário (Das 17h às 19h) ");
-                  }
+                  puts("\nHorários disponiveis:");
+                  listaHorarios(nDia,cod,nLocal);
+                  printf("\nInsira o digito do horário que deseja adicionar o evento (EX:1 para primeiro horário)\n>> ");
+                  scanf("%d",&nHora);
+
+                  loca.horario[nDia-1][nHora]=0;//torna horario indisponivel
+                  printf("\nDia %d\tHora: %d\tFica %d \n",nDia,nHora,loca.horario[nDia-1][nHora]);
+                  loca.Eventos[nDia-1][nHora][0]=cod;//add cod de evento da matriz
+
+                  fwrite(&loca,sizeof(SLOCAL),1,fp2);
+                }else{
+                  fwrite(&loca,sizeof(SLOCAL),1,fp2);
                 }
-              }
-            printf("Insira o digito do horário que deseja adicionar o evento (EX:1 para primeiro horário)\n>> ");
-            scanf("%d",&nHora);
-
-              loca.horario[nDia-1][nHora]=0;//torna horario indisponivel
-              loca.Eventos[nDia-1][nHora][0]=cod;//add cod de evento da matriz
-
-           // }  
+            }
           }
 
 
           //===================================================================================
           if(cod>=400 && cod<500){//cod de oficina
-            puts("\nEscolha o local da sua oficina\n");
+             puts("\nEscolha o local de sua Oficina\n");
             puts("Locais disponíveis:");
-            //while (fread(&loca, sizeof(SLOCAL), 1,fp)){//enquanto leitura for verdadeira
-              for(i=1;i<=8;i++){
-                  if(loca.lugar==i && loca.capacidade==20){//capacidade d
-                      if(i==1){
-                        printf("%d-Auditório 1\n",i);
-                        
-                      }
-                      if(i==2){
-                        printf("%d-Auditório 2\n",i);
-                        
-                      }
-                      if(i==3){
-                        printf("%d-Auditório 3\n",i);
-                        
-                      }
-                      if(i==4){
-                        printf("%d-Sala 1\n",i);
-                        
-                      }
-                      if(i==5){
-                        printf("%d-Sala 2\n",i);
-                        
-                      }
-                      if(i==6){
-                        printf("%d-Sala 3\n",i);
-                        
-                      }
-                      if(i==7){
-                        printf("%d-Laboratório 1\n",i);
-                        
-                      }
-                      if(i==8){
-                        printf("%d-Laboratório 2\n",i);
-                        
-                      }
-                  }
-              }
+            listaLocais(20);//função paralistar locais com capacidade de ate 50 
+            
               printf("Insira o número do Local desejado>> ");
               scanf("%d",&nLocal);
-              
-              printf("1-Primeiro dia\t2-Segundo dia");
-              printf("Deseja incluir o evento em qual dia?>> ");
-              scanf("%d",&nDia);
+              while (fread(&loca, sizeof(SLOCAL), 1,fp)){
+                if(loca.lugar==nLocal){
+                  printf("\n1-Primeiro dia\t2-Segundo dia\n");
+                  printf("Deseja incluir o evento em qual dia?>> ");
+                  scanf("%d",&nDia);
 
-              puts("\nHorários disponiveis:");
-              for(i=1;i<=6;i++){
-                if((loca.horario[nDia-1][i])!=0){//lista só os horarios disponiveis
-                  if(i==1){
-                    puts("1- Primeiro horário (Das 7h às 9h)");
-                  }
-                  if(i==2){
-                    puts("2- Segundo horário (Das 9h às 11h) ");
-                  }
-                  if(i==3){
-                    puts("3- Terceiro horário horário (Das 11h às 13h) ");
-                  }
-                  if(i==4){
-                    puts("4- Quarto horário (Das 13h às 15h) ");
-                  }
-                  if(i==5){
-                    puts("5- Quinto horário (Das 15h às 17h) ");
-                  }
-                  if(i==6){
-                    puts("6- Sexto horário (Das 17h às 19h) ");
-                  }
+                  puts("\nHorários disponiveis:");
+                  listaHorarios(nDia,cod,nLocal);
+                  printf("\nInsira o digito do horário que deseja adicionar o evento (EX:1 para primeiro horário)\n>> ");
+                  scanf("%d",&nHora);
+
+                  loca.horario[nDia-1][nHora]=0;//torna horario indisponivel
+                  printf("\nDia %d\tHora: %d\tFica %d \n",nDia,nHora,loca.horario[nDia-1][nHora]);
+                  loca.Eventos[nDia-1][nHora][0]=cod;//add cod de evento da matriz
+
+                  fwrite(&loca,sizeof(SLOCAL),1,fp2);
+                }else{
+                  fwrite(&loca,sizeof(SLOCAL),1,fp2);
                 }
-              }
-            printf("Insira o digito do horário que deseja adicionar o evento (EX:1 para primeiro horário)\n>> ");
-            scanf("%d",&nHora);
-
-              loca.horario[nDia-1][nHora]=0;//torna horario indisponivel
-              loca.Eventos[nDia-1][nHora][0]=cod;//add cod de evento da matriz
-
-            //}  
+            }
           }
 
-          //escolhe o local
-            //switch dia 14 ou 15
-            //de acordo com o local,pega a capacidade do local e coloca na capacidade do evento 
-              //função para imprimir só os horarios disponiveis//recebe os
-                //switch para pegar os horarios
-                  //insira o horario inicial do evento EX: 07 
-                    //loca.horario[dia][horario]=0//indisponivel
-                    //loca.Eventos[dia][horario]=cod do evento
+          
   //}
-  printf("\n\nsai de  escolher local\n\n");
-    fwrite(&loca,sizeof(SLOCAL),1,fp);
     fclose(fp);
+    fclose(fp2);
+    remove("arquivos\\locais.txt");//remove o original
+    rename("arquivos\\tempLocais.txt","arquivos\\locais.txt");
 }
 //LISTAR OS HORARIOS(int dia, int cod, int lugar)//recebe o dia, cod do evento, e o local escolhido
   //abre arquivos de locais
@@ -2561,6 +2455,38 @@ void escolheLocal(int cod){
         
 
 //ALTERAR HORARIO
+void alteraHorario(int cod){
+  removerHorario(cod);
+  printf("\nEscolher novo local e horário:\n");
+  escolheLocal(cod);
+}
+
+void removerHorario(int cod){
+      int i,j;//contador
+ 
+      FILE *fp;
+      FILE *fp2;
+      SLOCAL loca;//varial de local
+        fp = fopen("arquivos\\locais.txt", "rb");
+        fp2 = fopen("arquivos\\tempLocais.txt", "ab");
+        
+     for(i=0;i<2;i++){
+       for(j=1;j<=6;j++){
+         if(loca.Eventos[i][j][0]==cod){
+            loca.horario[1][j]=j;
+            loca.Eventos[i][j][0]=0;
+         }
+       }
+     }
+
+    fclose(fp);
+    fclose(fp2);
+    remove("arquivos\\locais.txt");//remove o original
+    rename("arquivos\\tempLocais.txt","arquivos\\locais.txt");
+}
+
+
+
 
 //LISTAR O HORARIO DO EVENTO
 void listaHorariodoEvento(int cod){
@@ -2655,11 +2581,13 @@ void listaLocais(int capacidade){
 
   int disponiveis[8],i;
   while (fread(&loca, sizeof(SLOCAL), 1,fpp)){//enquanto leitura for verdadeira
+  
               puts("ENTRA EM WHILE DE ESCOLHEWR LOCAL");
               for(i=1;i<=8;i++){
                   if(loca.lugar==i && loca.capacidade==capacidade){//capacidade de 150 pq é palestra
                       if(i==1){
                         printf("%d-Auditório 1\n",i);
+
                         
                       }
                       if(i==2){

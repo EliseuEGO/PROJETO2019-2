@@ -292,3 +292,9 @@ void listaLocais(int capacidade);
 
 //LISTAR O HORARIO DO EVENTO
 void listaHorariodoEvento(int cod);
+
+//ALTERA A HORA , DATA E LOCAL DO EVENTO
+void alteraHorario(int cod);
+
+//REMOVE A HORA , DATA E LOCAL DO EVENTO
+void removerHorario(int cod);
