@@ -6,9 +6,7 @@ FALTA
 
 *COMENTARIO E ORGANIZAÇÃO NO .H
 
-**ADD LISTAR HORA E DATA EM TODAS AS FUNÇÕES NECESSARIAS
 
---CRIAR FUNÇÃO PARA VERIFICAR ID, COD, MATRICULA E CODL
 
 --FUNÇÃO PARA ESPERAR UM TEMPO OU PARAR
 
@@ -40,6 +38,7 @@ BUGS
 #include <windows.h>
 #include <time.h>
 #include <locale.h>
+#include "aparencia.h"
 
 
 
@@ -56,12 +55,10 @@ int main(){
     //hablitar portugues
     setlocale(LC_ALL, "Portuguese");
 
-  //
-  PROFS palestrantes[30];
-  CONGRE congressistas[300];//add contador de oficina e de curso;
-  char organizadores[30][TAM];
+  
+  
 int j;
-
+//cria os locais
   FILE *arq=NULL;
   if ((arq = fopen("arquivos\\locais.txt", "r")) == NULL){
     for(j=1;j<=8;j++){
@@ -69,20 +66,41 @@ int j;
     }
   }
 mostra();
+calma();
 
 
 //MENU
-//da pra usar getchar e gotoxy para navegar coms setas??
+
 int op,op2,op3;
 do{
-  puts("1-OGANIZADORES\t2-CONGRESSISTAS\n3-PALESTRANTES\t4-EVENTOS\n 5-SAIR");
-  printf("Escolha uma opção>>");
+  
+
+ limpaTela();
+ fundo_tela();
+     gotoxy(50,13); puts("MENU PRINCIPAL");
+     gotoxy(40,15); puts("|1|OGANIZADORES");
+     gotoxy(58,15); puts("|2|CONGRESSISTAS");
+     gotoxy(40,16); puts("|3|PALESTRANTES");
+     gotoxy(58,16); puts("|4|EVENTOS");
+     gotoxy(52,17); puts("|5|SAIR");
+
+
+      /*
+      printf("");
+      printf("");
+      printf("");
+      printf("");
+      */
+
+
+
+  printf("Escolha uma opcao>>");
   scanf("%d",&op);
   switch(op){ 
     case 1:{//OGANIZADORES
       puts("OGANIZADORES");
       puts("1-CADASTRAR\t2-EDITAR\t3-LISTAR\t4-REMOVER\t5-VOLTAR");
-      printf("Escolha uma opção>>");
+      printf("Escolha uma opcao>>");
       scanf("%d",&op2);
       switch(op2){
         case 1:criaOrganizador(); break;//-CADASTRAR
@@ -97,7 +115,7 @@ do{
     case 2:{//-CONGRESSISTAS
       puts("CONGRESSISTAS");
       puts("1-CADASTRAR\t2-EDITAR\t3-LISTAR\n4-REMOVER\n5-CADASTRAR EM EVENTO\t6-EVENTOS\t7-SAIR DE EVENTOS\n8-VOLTAR");
-      printf("Escolha uma opção>>");
+      printf("Escolha uma opcao>>");
       scanf("%d",&op2);
       switch(op2){
         case 1:
@@ -120,7 +138,7 @@ do{
     case 3:{//-PALESTRANTES
       puts("PALESTRANTES");
       puts("1-CADASTRAR\t2-EDITAR\t3-LISTAR\n4-REMOVER\t5-EVENTOS\t6-VOLTAR");
-      printf("Escolha uma opção>>");
+      printf("Escolha uma opcao>>");
       scanf("%d",&op2);
       switch(op2){
         case 1:cadastroPalestrante(); break;//-CADASTRAR
@@ -136,13 +154,13 @@ do{
     case 4:{//-EVENTOs
       puts("EVENTOS");
       puts("1-PALESTRAS\t2-GRUPOD DE DISCUSSÕES\n3-CURSOS\t4-OFICINAS");
-      printf("Escolha uma opção>>");
+      printf("Escolha uma opcao>>");
       scanf("%d",&op2);
       switch(op2){
         case 1:{ //PALESTRAS
           puts("PALESTRAS");
           puts("1-CADASTRAR\t2-EDITAR\n3-LISTAR\t4-REMOVER\n5-LISTAR POR PALESTRAS\t6-VOLTAR");
-          printf("Escolha uma opção>>");
+          printf("Escolha uma opcao>>");
           scanf("%d",&op3);
           switch(op3){
             case 1:criaPalestra(); break;//-CADASTRAR
@@ -158,7 +176,7 @@ do{
         case 2:{//GRUPOD DE DISCUSSÕES
           puts("GRUPOS DE DISCUSSÕES");
           puts("1-CADASTRAR\t2-EDITAR\n3-LISTAR\t4-REMOVER\n5-LISTAR POR GRUPOS\t6-VOLTAR");
-          printf("Escolha uma opção>>");
+          printf("Escolha uma opcao>>");
           scanf("%d",&op3);
           switch(op3){
             case 1:criaGrupo(); break;//-CADASTRAR
@@ -173,7 +191,7 @@ do{
         case 3:{ //CURSOS
           puts("CURSOS");
           puts("1-CADASTRAR\t2-EDITAR\n3-LISTAR\t4-REMOVER\n5-LISTAR POR CURSOS\t6-VOLTAR");
-          printf("Escolha uma opção>>");
+          printf("Escolha uma opcao>>");
           scanf("%d",&op3);
           switch(op3){
             case 1:criaCurso(); break;//-CADASTRAR
@@ -188,7 +206,7 @@ do{
         case 4:{ //OFICINAS
           puts("OFICINAS");
           puts("1-CADASTRAR\t2-EDITAR\n3-LISTAR\t4-REMOVER\n5-LISTAR POR OFICINAS\t6-VOLTAR");
-          printf("Escolha uma opção>>");
+          printf("Escolha uma opcao>>");
           scanf("%d",&op3);
           switch(op3){
             case 1:criaOficina(); break;//-CADASTRAR
@@ -205,7 +223,7 @@ do{
     case 5:{
       puts("Fim do programa");break;
     }
-    default: puts("OPÇÃO INVÁLIDA");
+    default: puts("opcao INVÁLIDA");
   }
 }while(op!=5);
 
