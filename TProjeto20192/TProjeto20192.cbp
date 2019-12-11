@@ -31,7 +31,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="main.c">
+		<Unit filename="../aparencia.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../aparencia.h" />
+		<Unit filename="../funcions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../funcions.h" />
+		<Unit filename="../main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
