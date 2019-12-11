@@ -6,15 +6,6 @@ FALTA
 
 *COMENTARIO E ORGANIZAÇÃO NO .H
 
-
-
---FUNÇÃO PARA ESPERAR UM TEMPO OU PARAR
-
-
-
-
-
-
 -----------------------------------------------------------
 BUGS
 
@@ -39,6 +30,7 @@ BUGS
 #include <time.h>
 #include <locale.h>
 #include "aparencia.h"
+#include "cores.h"
 
 
 
@@ -77,143 +69,189 @@ do{
 
  limpaTela();
  fundo_tela();
-     gotoxy(50,13); puts("MENU PRINCIPAL");
-     gotoxy(40,15); puts("|1|OGANIZADORES");
-     gotoxy(58,15); puts("|2|CONGRESSISTAS");
-     gotoxy(40,16); puts("|3|PALESTRANTES");
-     gotoxy(58,16); puts("|4|EVENTOS");
-     gotoxy(52,17); puts("|5|SAIR");
 
-
-      /*
-      printf("");
-      printf("");
-      printf("");
-      printf("");
-      */
+     gotoxy(50,13); amarelo("MENU PRINCIPAL\n");
+     gotoxy(40,15); azulclaro("|1|OGANIZADORES\n");
+     gotoxy(58,15); azulclaro("|2|CONGRESSISTAS\n");
+     gotoxy(40,16); azulclaro("|3|PALESTRANTES\n");
+     gotoxy(58,16); azulclaro("|4|EVENTOS\n");
+     gotoxy(52,17); azulclaro("|5|SAIR\n");
 
 
 
-  printf("Escolha uma opcao>>");
+  cinzaclaro("Escolha uma opcao>>");
   scanf("%d",&op);
   switch(op){ 
     case 1:{//OGANIZADORES
-      puts("OGANIZADORES");
-      puts("1-CADASTRAR\t2-EDITAR\t3-LISTAR\t4-REMOVER\t5-VOLTAR");
-      printf("Escolha uma opcao>>");
+    limpaTela();
+        gotoxy(50,13);amarelo("OGANIZADORES\n");
+        gotoxy(40,15); azulclaro("|1|CADASTRAR\n");
+        gotoxy(58,15); azulclaro("|2|EDITAR\n");
+        gotoxy(40,16); azulclaro("|3|LISTAR\n");
+        gotoxy(58,16); azulclaro("|4|REMOVER\n");
+        gotoxy(52,17); azulclaro("|5|VOLTAR\n");
+      cinzaclaro("Escolha uma opcao>>");
       scanf("%d",&op2);
+
       switch(op2){
-        case 1:criaOrganizador(); break;//-CADASTRAR
-        case 2:editaOrganizador(); break;//-EDITAR
-        case 3:listaOrganizador(); break;//-LISTAR
-        case 4:removeOrganizador(); break;//-REMOVER
+        case 1:limpaTela();criaOrganizador(); break;//-CADASTRAR
+        case 2:limpaTela();editaOrganizador(); break;//-EDITAR
+        case 3:limpaTela();listaOrganizador(); break;//-LISTAR
+        case 4:limpaTela();removeOrganizador(); break;//-REMOVER
         case 5: break;//voltar
         default:break;
       }
     }break;
     
     case 2:{//-CONGRESSISTAS
-      puts("CONGRESSISTAS");
-      puts("1-CADASTRAR\t2-EDITAR\t3-LISTAR\n4-REMOVER\n5-CADASTRAR EM EVENTO\t6-EVENTOS\t7-SAIR DE EVENTOS\n8-VOLTAR");
-      printf("Escolha uma opcao>>");
+      limpaTela();
+      gotoxy(50,13);amarelo("CONGRESSISTAS\n");
+      
+        azulclaro("|1|CADASTRAR\n");
+        azulclaro("|2|EDITAR\n");
+        azulclaro("|3|LISTAR\n");
+        azulclaro("|4|REMOVER\n");
+        azulclaro("|5|CADASTRAR EM EVENTO\n");
+        azulclaro("|6|EVENTOS\n");
+        azulclaro("|7|SAIR DE EVENTOS\n");
+        azulclaro("|8|VOLTAR\n");
+
+      cinzaclaro("Escolha uma opcao>>");
       scanf("%d",&op2);
       switch(op2){
         case 1:
           if((numCongressistas())<300){
+            limpaTela();
             NovoCongressista(); break;//-CADASTRAR CONGRESSISTA
           }else{
             puts("\n!Numero maximo de congressistas cadastrados!\n");break;
           }
-        case 2:editaAluno(); break;//-EDITAR
-        case 3:listarAlunos(); break;//-LISTAR
-        case 4:removerAluno(); break;//-REMOVER
-        case 5:cadastrarAlunoemEvento(); break;//-CADASTRAR EM EVENTO 
-        case 6:listaEventosdeAlunos(); break;//-EVENTOS  DO CONGRESSISTA
-        case 7:deixarEvento(); break;//-SAIR DE EVENTOS
+        case 2:limpaTela();editaAluno(); break;//-EDITAR
+        case 3:limpaTela();listarAlunos(); break;//-LISTAR
+        case 4:limpaTela();removerAluno(); break;//-REMOVER
+        case 5:limpaTela();cadastrarAlunoemEvento(); break;//-CADASTRAR EM EVENTO 
+        case 6:limpaTela();listaEventosdeAlunos(); break;//-EVENTOS  DO CONGRESSISTA
+        case 7:limpaTela();deixarEvento(); break;//-SAIR DE EVENTOS
         case 8: break;//voltar
         default:break;
       }break;
     }break;
 
     case 3:{//-PALESTRANTES
-      puts("PALESTRANTES");
-      puts("1-CADASTRAR\t2-EDITAR\t3-LISTAR\n4-REMOVER\t5-EVENTOS\t6-VOLTAR");
-      printf("Escolha uma opcao>>");
+      limpaTela();
+        gotoxy(50,13);amarelo("PALESTRANTES\n");
+
+        gotoxy(40,15); azulclaro("|1|CADASTRAR\n");
+        gotoxy(58,15); azulclaro("|2|EDITAR\n");
+        gotoxy(40,16); azulclaro("|3|LISTAR\n");
+        gotoxy(58,16); azulclaro("|4|REMOVER\n");
+        gotoxy(40,17); azulclaro("|5|EVENTOS\n");
+        gotoxy(58,17); azulclaro("|6|VOLTAR\n");
+
+      cinzaclaro("Escolha uma opcao>>");
       scanf("%d",&op2);
       switch(op2){
-        case 1:cadastroPalestrante(); break;//-CADASTRAR
-        case 2:editaPalestrante(); break;//-EDITAR
-        case 3:listarPalestrantes(); break;//-LISTAR
-        case 4:removerPalestrantes(); break;//-REMOVER
-        case 5:listaEventosdoPalestrante(); break;//-EVENTOS  DO PALESTRANTE
+        case 1:limpaTela();cadastroPalestrante(); break;//-CADASTRAR
+        case 2:limpaTela();editaPalestrante(); break;//-EDITAR
+        case 3:limpaTela();listarPalestrantes(); break;//-LISTAR
+        case 4:limpaTela();removerPalestrantes(); break;//-REMOVER
+        case 5:limpaTela();listaEventosdoPalestrante(); break;//-EVENTOS  DO PALESTRANTE
         case 6: break;//voltar
         default:break;
       }break;
     }break;
 
     case 4:{//-EVENTOs
-      puts("EVENTOS");
-      puts("1-PALESTRAS\t2-GRUPOD DE DISCUSSÕES\n3-CURSOS\t4-OFICINAS");
-      printf("Escolha uma opcao>>");
+      limpaTela();
+      gotoxy(50,13); amarelo("EVENTOS\n");
+      gotoxy(40,15); azulclaro("|1|PALESTRAS\n");
+      gotoxy(58,15); azulclaro("|2|GRUPOD DE DISCUSSOES\n");
+      gotoxy(40,16); azulclaro("|3|CURSOS\n");
+      gotoxy(58,16); azulclaro("|4|OFICINAS\n");
+      cinzaclaro("Escolha uma opcao>>");
       scanf("%d",&op2);
       switch(op2){
         case 1:{ //PALESTRAS
-          puts("PALESTRAS");
-          puts("1-CADASTRAR\t2-EDITAR\n3-LISTAR\t4-REMOVER\n5-LISTAR POR PALESTRAS\t6-VOLTAR");
-          printf("Escolha uma opcao>>");
+          limpaTela();
+          gotoxy(50,13);amarelo("PALESTRAS\n");
+
+            gotoxy(40,15); azulclaro("|1|CADASTRAR\n");
+            gotoxy(58,15); azulclaro("|2|EDITAR\n");
+            gotoxy(40,16); azulclaro("|3|LISTAR\n");
+            gotoxy(58,16); azulclaro("|4|REMOVER\n");
+            gotoxy(40,17); azulclaro("|5|LISTAR POR PALESTRAS\n");
+            gotoxy(58,17); azulclaro("|6|EVENTOS\n");
+
+          cinzaclaro("Escolha uma opcao>>");
           scanf("%d",&op3);
           switch(op3){
-            case 1:criaPalestra(); break;//-CADASTRAR
-            case 2:editaPalestra(); break;//-EDITAR
-            case 3:listaPalestras(); break;//-LISTAR
-            case 4:removerPalestra(); break;//-REMOVER
-            case 5:listarAlunosdaPalestra(); break;//-LISTAR ALUNOS DA PALESTRA 
+            case 1:limpaTela();criaPalestra(); break;//-CADASTRAR
+            case 2:limpaTela();editaPalestra(); break;//-EDITAR
+            case 3:limpaTela();listaPalestras(); break;//-LISTAR
+            case 4:limpaTela();removerPalestra(); break;//-REMOVER
+            case 5:limpaTela();listarAlunosdaPalestra(); break;//-LISTAR ALUNOS DA PALESTRA 
             case 6: break;//voltar
             default:break;
           }
         }break;
         
         case 2:{//GRUPOD DE DISCUSSÕES
-          puts("GRUPOS DE DISCUSSÕES");
-          puts("1-CADASTRAR\t2-EDITAR\n3-LISTAR\t4-REMOVER\n5-LISTAR POR GRUPOS\t6-VOLTAR");
-          printf("Escolha uma opcao>>");
+          limpaTela();
+          gotoxy(50,13);amarelo("GRUPOS DE DISCUSSOES\n");
+            gotoxy(40,15); azulclaro("|1|CADASTRAR\n");
+            gotoxy(58,15); azulclaro("|2|EDITAR\n");
+            gotoxy(40,16); azulclaro("|3|LISTAR\n");
+            gotoxy(58,16); azulclaro("|4|REMOVER\n");
+            gotoxy(40,17); azulclaro("|5|LISTAR POR GRUPOS\n");
+            gotoxy(58,17); azulclaro("|6|EVENTOS\n");
+          cinzaclaro("Escolha uma opcao>>");
           scanf("%d",&op3);
           switch(op3){
-            case 1:criaGrupo(); break;//-CADASTRAR
-            case 2:editaGrupo(); break;//-EDITAR
-            case 3:listaGrupos(); break;//-LISTAR
-            case 4:removeGrupo(); break;//-REMOVER
-            case 5:listaAlunosdoGrupo(); break;//-LISTAR ALUNOS DO GRUPOD
+            case 1:limpaTela();criaGrupo(); break;//-CADASTRAR
+            case 2:limpaTela();editaGrupo(); break;//-EDITAR
+            case 3:limpaTela();listaGrupos(); break;//-LISTAR
+            case 4:limpaTela();removeGrupo(); break;//-REMOVER
+            case 5:limpaTela();listaAlunosdoGrupo(); break;//-LISTAR ALUNOS DO GRUPOD
             case 6: break;//voltar
             default:break;
           }
         }break;
         case 3:{ //CURSOS
-          puts("CURSOS");
-          puts("1-CADASTRAR\t2-EDITAR\n3-LISTAR\t4-REMOVER\n5-LISTAR POR CURSOS\t6-VOLTAR");
-          printf("Escolha uma opcao>>");
+          gotoxy(50,13);amarelo("CURSOS\n");
+            gotoxy(40,15); azulclaro("|1|CADASTRAR\n");
+            gotoxy(58,15); azulclaro("|2|EDITAR\n");
+            gotoxy(40,16); azulclaro("|3|LISTAR\n");
+            gotoxy(58,16); azulclaro("|4|REMOVER\n");
+            gotoxy(40,17); azulclaro("|5|LISTAR POR CURSO\n");
+            gotoxy(58,17); azulclaro("|6|EVENTOS\n");
+          cinzaclaro("Escolha uma opcao>>");
           scanf("%d",&op3);
           switch(op3){
-            case 1:criaCurso(); break;//-CADASTRAR
-            case 2:editaCurso(); break;//-EDITAR
-            case 3:listaCursos(); break;//-LISTAR
-            case 4:removerCurso(); break;//-REMOVER
-            case 5:listarAlunosdoCurso(); break;//-LISTAR ALUNOS DO CURSO 
+            case 1:limpaTela();criaCurso(); break;//-CADASTRAR
+            case 2:limpaTela();editaCurso(); break;//-EDITAR
+            case 3:limpaTela();listaCursos(); break;//-LISTAR
+            case 4:limpaTela();removerCurso(); break;//-REMOVER
+            case 5:limpaTela();listarAlunosdoCurso(); break;//-LISTAR ALUNOS DO CURSO 
             case 6: break;//voltar
             default:break;
           }
         }break;
         case 4:{ //OFICINAS
-          puts("OFICINAS");
-          puts("1-CADASTRAR\t2-EDITAR\n3-LISTAR\t4-REMOVER\n5-LISTAR POR OFICINAS\t6-VOLTAR");
-          printf("Escolha uma opcao>>");
+          gotoxy(50,13);amarelo("OFICINAS\n");
+            gotoxy(40,15); azulclaro("|1|CADASTRAR\n");
+            gotoxy(58,15); azulclaro("|2|EDITAR\n");
+            gotoxy(40,16); azulclaro("|3|LISTAR\n");
+            gotoxy(58,16); azulclaro("|4|REMOVER\n");
+            gotoxy(40,17); azulclaro("|5|LISTAR POR OFICINAS\n");
+            gotoxy(58,17); azulclaro("|6|EVENTOS\n");
+          cinzaclaro("Escolha uma opcao>>");
           scanf("%d",&op3);
           switch(op3){
-            case 1:criaOficina(); break;//-CADASTRAR
-            case 2:editaOficinas(); break;//-EDITAR
-            case 3:listaOficinas(); break;//-LISTAR
-            case 4:removerOficinas(); break;//-REMOVER
-            case 5:listaAlunosdaOficina(); break;//-LISTAR ALUNOS DA PALESTRA 
+            case 1:limpaTela();criaOficina(); break;//-CADASTRAR
+            case 2:limpaTela();editaOficinas(); break;//-EDITAR
+            case 3:limpaTela();listaOficinas(); break;//-LISTAR
+            case 4:limpaTela();removerOficinas(); break;//-REMOVER
+            case 5:limpaTela();listaAlunosdaOficina(); break;//-LISTAR ALUNOS DA PALESTRA 
             case 6: break;//voltar
             default:break;
           }
@@ -223,8 +261,9 @@ do{
     case 5:{
       puts("Fim do programa");break;
     }
-    default: puts("opcao INVÁLIDA");
+    default: puts("OPCAO INVALIDA");
   }
+  perainda();
 }while(op!=5);
 
 
