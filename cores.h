@@ -13,7 +13,7 @@
 #define pretoacinzentado(texto) printf("\33[1;30m %s \33[0m",texto)
 #define vermelhoclaro(texto) printf("\33[1;31m %s \33[0m",texto)
 #define verdeclaro(texto) printf("\33[1;32m %s \33[0m",texto)
-#define amarelo(texto) printf("\33[1;33m %s \33[0m",texto)
+#define amarelo(texto)  printf("\33[1;33m %s \33[0m",texto)
 #define azulclaro(texto) printf("\33[1;34m %s \33[0m",texto)
 #define roxoclaro(texto) printf("\33[1;35m %s \33[0m",texto)
 #define cianoclaro(texto) printf("\33[1;36m %s \33[0m",texto)

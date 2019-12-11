@@ -5,7 +5,33 @@ void gotoxy(int x, int y){
 }
 
 void fundo_tela(){
-    system("Color 05");
+    system("Color 00");
+    calma();
+    calma();
+    system("Color 10");
+     calma();
+    calma();
+    system("Color 20");
+    calma();
+    calma();
+    system("Color 30");
+    calma();
+    calma();
+    system("Color 40");
+    calma();
+    calma();
+    system("Color 50");
+    calma();
+    calma();
+    system("Color 60");
+    calma();
+    calma();
+    system("Color 70");
+    calma();
+    calma();
+    system("Color 8");
+    calma();
+    calma();
 }
 
 void linhas(){
@@ -17,8 +43,9 @@ void limpaTela(){
 }
 
 void perainda(){
-    getchar();
     printf("\nPressione qualquer tecla para continuar...");
+    setbuf(stdin,NULL);
+    getchar();
 }
 
 void calma(){

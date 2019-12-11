@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1576000168 source:c:\users\bonza\documents\github\projeto2019-2\aparencia.c
+1576073335 source:c:\users\bonza\documents\github\projeto2019-2\aparencia.c
 	"aparencia.h"
 
 1575998203 c:\users\bonza\documents\github\projeto2019-2\aparencia.h
@@ -10,10 +10,10 @@
 	<time.h>
 	<locale.h>
 
-1575995603 source:c:\users\bonza\documents\github\projeto2019-2\funcions.c
+1576089426 source:c:\users\bonza\documents\github\projeto2019-2\funcions.c
 	"funcions.h"
 
-1575969132 c:\users\bonza\documents\github\projeto2019-2\funcions.h
+1576081218 c:\users\bonza\documents\github\projeto2019-2\funcions.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -21,7 +21,7 @@
 	<time.h>
 	<locale.h>
 
-1576000778 source:c:\users\bonza\documents\github\projeto2019-2\main.c
+1576085644 source:c:\users\bonza\documents\github\projeto2019-2\main.c
 	<stdio.h>
 	"funcions.h"
 	<stdlib.h>
@@ -30,4 +30,7 @@
 	<time.h>
 	<locale.h>
 	"aparencia.h"
+	"cores.h"
+
+1576074475 c:\users\bonza\documents\github\projeto2019-2\cores.h
 

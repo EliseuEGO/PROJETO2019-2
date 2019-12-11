@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <time.h>
 #include <locale.h>
-#define TAM 21
+#define TAM 41
 #define TAM2 30
 
 
@@ -58,7 +58,6 @@ typedef struct{
   int numCadastrados;//numero de cadastrados no evento
   int capacidadeE;//capacidade de alunos no evento
 	
-  SLOCAL Local;//locais que possuem limitação de 30/50
 	
 }GRUPO_DE_DISCUSSOES;
 
@@ -71,7 +70,7 @@ typedef struct{
   int numCadastrados;//numero de cadastrados no evento
   int capacidadeE;//capacidade de alunos no evento
 	
-  SLOCAL Local;
+ 
 }CURSO;
 
 typedef struct{
@@ -83,7 +82,7 @@ typedef struct{
   int numCadastrados;//numero de cadastrados no evento
   int capacidadeE;//capacidade de alunos no evento
 	
-  SLOCAL Local;
+  
 }OFICINAS;
 
 typedef struct{

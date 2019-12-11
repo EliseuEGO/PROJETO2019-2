@@ -4,7 +4,7 @@
 
 
 void mostra(){
-  puts("\n============ENIC===========\n");
+  puts("\n============ENCEC===========\n");
   
 }
 
@@ -13,7 +13,7 @@ void mostra(){
 void listarEventos(int cod){
 
   if(cod>=100 && cod<200){//cod de palestra
-      puts("\n\tPalestra----------");
+      puts("\n--------PALESTRA----------");
       FILE *fp;
       PALESTRAS pale;
       fp = fopen("arquivos\\palestras.txt", "rb");//abre arquivo no modo de leitura
@@ -21,7 +21,7 @@ void listarEventos(int cod){
         if(cod==pale.cod){
           printf("CODIGO: %d\nTEMA: %s\n",pale.cod,pale.tema);
           mostraPalestrante(pale.palestrante);
-          //LISTAR HORÁRIO E LOCAL
+          //LISTAR HorariO E LOCAL
           listaHorariodoEvento(pale.cod);
           puts("\n----------------------------\n");
         }
@@ -29,6 +29,7 @@ void listarEventos(int cod){
       fclose(fp);
   }
   if(cod>=400 && cod<500){//cod de oficina
+  puts("\n---------OFICINA----------");
       FILE *fp;
       OFICINAS ofi;
       fp = fopen("arquivos\\oficinas.txt", "rb");//abre arquivo no modo de leitura
@@ -36,7 +37,7 @@ void listarEventos(int cod){
        if(cod==ofi.cod){      
         printf("CODIGO: %d\nTEMA: %s\n",ofi.cod,ofi.Tema);
         mostraPalestrante(ofi.Palestrante);//pega o id do palestrante para exibir nome
-        //LISTAR HORÁRIO E LOCAL
+        //LISTAR HorariO E LOCAL
         listaHorariodoEvento(ofi.cod);
         puts("\n----------------------------\n");
        }
@@ -45,6 +46,7 @@ void listarEventos(int cod){
       //fim
   }
   if(cod>=300 && cod<400){//cod de curso
+  puts("\n---------CURSO----------");
       FILE *fp;
       CURSO curse;
       fp = fopen("arquivos\\cursos.txt", "rb");//abre arquivo no modo de leitura
@@ -52,7 +54,7 @@ void listarEventos(int cod){
         if(cod==curse.cod){
           printf("CODIGO: %d\nTEMA: %s\n",curse.cod,curse.Tema);
           mostraPalestrante(curse.Palestrante);//pega o id do palestrante para exibir nome
-          //LISTAR HORÁRIO E LOCAL
+          //LISTAR HorariO E LOCAL
           listaHorariodoEvento(curse.cod);
           puts("\n----------------------------\n");
         }
@@ -64,6 +66,7 @@ void listarEventos(int cod){
       int i;
       FILE *fp;
       GRUPO_DE_DISCUSSOES grup;
+      puts("\n---------GRUPOS----------");
       fp = fopen("arquivos\\grupos.txt", "rb");//abre arquivo no modo de leitura
       while (fread(&grup, sizeof(GRUPO_DE_DISCUSSOES), 1,fp)){//enquanto leitura for verdadeira
         if(cod==grup.cod){
@@ -71,7 +74,7 @@ void listarEventos(int cod){
         for(i=0;i<grup.numPalestrante;i++){
           mostraPalestrante(grup.Membros_da_mesa[i][0]);//pega o id do palestrante para exibir nome
         }  
-          //LISTAR HORÁRIO E LOCAL
+          //LISTAR HorariO E LOCAL
           listaHorariodoEvento(grup.cod);
           puts("\n----------------------------\n");
         }
@@ -333,11 +336,13 @@ int numCongressistas(){
   FILE *fp;
   CONGRE aluno;
   if ((fp = fopen("arquivos\\alunos.txt", "rb"))==NULL){
+      fclose(fp);
       return 1;
   }
   while(fread(&aluno,sizeof(CONGRE),1,fp)){
     cont++;
   }
+  fclose(fp);
   return cont;
 }
 //contador de palestrantes 
@@ -349,6 +354,7 @@ int numPalestrantes(){
   while(fread(&profs,sizeof(PROFS),1,fp)){
     cont++;
   }
+  fclose(fp);
   return cont;
 }
 
@@ -381,7 +387,7 @@ void criaOrganizador(){
       puts("Insira seu CPF");
       scanf("%d",&org.cpf);
 
-    puts("Cadastro concluído");
+    puts("Cadastro concluido");
 
     fwrite(&org,sizeof(ORGANIZADORES),1,fp);
     fclose(fp);
@@ -611,13 +617,14 @@ void removerPalestrantes(){
         puts("\n\nInsira o ID do palestrante que deseja remover");
         scanf("%d",&ID);
         while(fread(&profs,sizeof(PROFS),1,fp)){
-          if(profs.ID==ID && profs.numEventos>0){ //testa se num de eventos está maior que zero
-          //se estiver exibe que não pode remover ate que ele saia dos eventos
-            puts("Palestrante cadastrado em evento, saia do evento para poder remove-lo");
-            break;
-          }else{
-            if(profs.ID!=ID){//se a matricula for a que eu quero editar
+          if(profs.ID!=ID){//se a matricula for a que eu quero editar
               fwrite(&profs,sizeof(PROFS),1,fp_aux);
+            }else{
+                if(profs.ID==ID && profs.numEventos>0){
+                  fwrite(&profs,sizeof(PROFS),1,fp_aux);
+                   //testa se num de eventos está maior que zero
+               //se estiver exibe que não pode remover ate que ele saia dos eventos
+                puts("Palestrante cadastrado em evento, saia do evento para poder remove-lo");
             }
           }
         }
@@ -626,7 +633,7 @@ void removerPalestrantes(){
     remove("arquivos\\palestrantes.txt");//remove o original
     rename("arquivos\\tempProf.txt","arquivos\\palestrantes.txt");//renomeia o aux com nome do orinial
     //fim
-    puts("fim da função");
+    
     //getchar();
 }
 //Listar palestrantes
@@ -683,7 +690,7 @@ void listaEventosdoPalestrante(){
   int i; //contador
   listarPalestrantes();
   int ID;
-  printf("Insira o ID do palestrante >>");
+  printf("\nInsira o ID do palestrante >>");
   scanf("%d",&ID);
   FILE *fpp;
       PROFS profs;
@@ -719,7 +726,7 @@ void mostraPalestrante(int ID){
 void incrementarPale(int cod,int ID){
   
  
-  int i;
+  int z;
   FILE *fpp;
   FILE *fpp2;
       PROFS profs;
@@ -929,7 +936,7 @@ void removerAluno(){
       FILE *fp=NULL;
       FILE *fp_aux=NULL;//arquivo auxiliar
       CONGRE aluno;
-      CONGRE aux;//struct auxiliar
+      //CONGRE aux;//struct auxiliar
 
       fp=fopen("arquivos\\alunos.txt","rb");//abre arquivos principais no modo de leitura
       fp_aux=fopen("arquivos\\tempAlunos.txt","ab");//abre arquivos temporarios no modo de acesso
@@ -1007,8 +1014,8 @@ void listarAlunosdeEventos(int cod,int IDaluno){
 //INCREMENTAR EVENTO EM CONGRESSISTA
 void incrementarAluno(int cod,int mat){//recebe o codigo do evento e a matricula do aluno
     int i;
-    FILE *fpp;
-    FILE *fpp2;
+    FILE *fpp=NULL;
+    FILE *fpp2=NULL;
     CONGRE aluno;
 
     fpp = fopen("arquivos\\alunos.txt", "rb");//abre arquivo no modo de leitura
@@ -1036,6 +1043,7 @@ void incrementarAluno(int cod,int mat){//recebe o codigo do evento e a matricula
     fclose(fpp2);
     remove("arquivos\\alunos.txt");//remove o original
     rename("arquivos\\tempAlunos.txt","arquivos\\alunos.txt");//renomeia o aux com nome do original
+    puts("FIM DE INCREMENTARALUNO");
     //fim
 }
 //DECREMENTAR EVENTO DE UM CONGRESSISTA
@@ -1081,7 +1089,7 @@ void decrementarAluno(int cod, int mat){
 void cadastrarAlunoemEvento(){
   int op,mat,cod;
 
-  puts("\n1-Palestras\t2-Gp de discussão\t3-Curso\t4-Oficina\n5-Sair");
+  puts("\n1-Palestras\t 2-Gp de discussão\t 3-Curso\t 4-Oficina\t 5-Sair");
   printf("Deseja cadastrar um congressita em qual evento?>>");
   scanf("%d",&op);
 
@@ -1258,7 +1266,7 @@ void criaPalestra(){
       //verifica cod
       srand(time(NULL));
       pale.cod = 100+(rand()% 99);//gerar num entre 100 e 199
-      printf("Código da palestra: %d\n",pale.cod);
+      printf("Codigo da palestra: %d\n",pale.cod);
     
     //Insere tema
       puts("Insira o Tema da palestra");
@@ -1266,10 +1274,10 @@ void criaPalestra(){
       fgets(pale.tema,TAM,stdin);
       strtok(pale.tema,"\n");
     // lista palestrantes
-      puts("Lista de palestrantes");
+      puts("\n==Lista de palestrantes==");
       listarPalestrantes2(pale.cod);//envia cod pra listar só palestrantes sem palestra
       putchar('\n');
-      puts("\nInsira o ID do palestrante desejado");
+      puts("Insira o ID do palestrante desejado");
       //insere palestrantes
       //escolhe palestrantes da lista baseado no id
       scanf("%d",&pale.palestrante);
@@ -1281,7 +1289,7 @@ void criaPalestra(){
     puts("LOCAL:");
     //ESCOLHE LOCAL(COD DO EVENTO)
       escolheLocal(pale.cod);
-      puts("Cadastro de palestra concluido");
+      puts("\n\nCadastro de palestra concluido");
 
     //escreve tudo no arquivo
       fwrite(&pale,sizeof(PALESTRAS),1,fp);
@@ -1291,14 +1299,14 @@ void criaPalestra(){
 
 //LISTAR PALESTRA
 void listaPalestras(){
-  puts("\nLista de palestras");
+  puts("\nLista de palestras\n\n");
     FILE *fp;
       PALESTRAS pale;
       fp = fopen("arquivos\\palestras.txt", "rb");//abre arquivo no modo de leitura
       while (fread(&pale, sizeof(PALESTRAS), 1,fp)){//enquanto leitura for verdadeira
         printf("CODIGO: %d\nTEMA: %s\n",pale.cod,pale.tema);
         mostraPalestrante(pale.palestrante);//pega o id do palestrante para exibir nome
-        //LISTAR HORÁRIO E LOCAL
+        //LISTAR HorariO E LOCAL
         
         listaHorariodoEvento(pale.cod);
         puts("\n------------------------------------------\n");
@@ -1331,7 +1339,7 @@ void editaPalestra(){
 
       while(fread(&pale,sizeof(PALESTRAS),1,fp)){//le arquivo principal
         if(pale.cod==codigo){//se a matricula for a que eu quero editar
-           puts("1-Tema\t2-Palestrante\t3-Local e Horário");
+           puts("1-Tema\t2-Palestrante\t3-Local e Horario");
            puts("O que deseja alterar?");
             scanf("%d",&op2);
             //escolha
@@ -1347,7 +1355,7 @@ void editaPalestra(){
                 }
                 case 2:{
                   listarPalestrantes2(pale.cod);//lista palestrantes disponiveis
-                  puts("Insira novo ID de palestrante");
+                  puts("\nInsira novo ID de palestrante");
                   scanf("%d",&ID);
                   //SUBSTITUIR PALESTRANTE
                   trocaPalestrante(pale.cod,pale.palestrante,ID);
@@ -1417,18 +1425,19 @@ void removerPalestra(){
 
 //LISTA CONGRESSISTAS DA PALESTRA
 void listarAlunosdaPalestra(){
-  puts("\nLista de alunos da palestra");
+  puts("\n==LISTAR CONGRESSISTAS POR PALESTRA==\n");
   int codigo;//codigo da palestra
   int i;
     listaPalestras();
-   puts("\n\nInsira o codigo da palestra");
+   puts("\nInsira o codigo da palestra");
         scanf("%d",&codigo);
 
   FILE *fp=NULL;
   PALESTRAS pale;
 
   fp=fopen("arquivos\\palestras.txt","rb");//abre arquivos principais no modo de leitura
-
+  
+  puts("\n==LISTA DE CONGRESSISTAS==\n");
   while(fread(&pale,sizeof(PALESTRAS),1,fp)){//le arquivo principal
     if(pale.cod==codigo){
       for(i=0;i<1;i++){
@@ -1512,9 +1521,9 @@ void listaCursos(){
       CURSO curse;
       fp = fopen("arquivos\\cursos.txt", "rb");//abre arquivo no modo de leitura
       while (fread(&curse, sizeof(CURSO), 1,fp)){//enquanto leitura for verdadeira
-        printf("CODIGO: %d\nTEMA: %s\n",curse.cod,curse.Tema);
+        printf("\n\nCODIGO: %d\nTEMA: %s\n",curse.cod,curse.Tema);
         mostraPalestrante(curse.Palestrante);//pega o id do palestrante para exibir nome
-        //LISTAR HORÁRIO E LOCAL
+        //LISTAR HorariO E LOCAL
         listaHorariodoEvento(curse.cod);
       }
       fclose(fp);
@@ -1544,7 +1553,7 @@ void editaCurso(){
 
       while(fread(&curse,sizeof(CURSO),1,fp)){//le arquivo principal
         if(curse.cod==codigo){//se a matricula for a que eu quero editar
-           puts("1-Tema\t2-Palestrante\t3-Local\t4-Horário");
+           puts("1-Tema\t2-Palestrante\t3-Local\t4-Horario");
            puts("O que deseja alterar?");
             scanf("%d",&op2);
             //escolha
@@ -1723,7 +1732,7 @@ void listaOficinas(){
       while (fread(&ofi, sizeof(OFICINAS), 1,fp)){//enquanto leitura for verdadeira
         printf("CODIGO: %d\nTEMA: %s\n",ofi.cod,ofi.Tema);
         mostraPalestrante(ofi.Palestrante);//pega o id do palestrante para exibir nome
-        //LISTAR HORÁRIO E LOCAL
+        //LISTAR HorariO E LOCAL
         listaHorariodoEvento(ofi.cod);
       }
       fclose(fp);
@@ -1752,7 +1761,7 @@ void editaOficinas(){
 
       while(fread(&ofi,sizeof(OFICINAS),1,fp)){//le arquivo principal
         if(ofi.cod==codigo){//se a matricula for a que eu quero editar
-           puts("1-Tema\t2-Palestrante\t3-Local\t4-Horário");
+           puts("1-Tema\t2-Palestrante\t3-Local\t4-Horario");
            puts("O que deseja alterar?");
             scanf("%d",&op2);
             //escolha
@@ -1868,7 +1877,7 @@ void criaGrupo(){
   printf("\n\n------------------------------------------\n\n");
     //cria arquivo
     FILE *fp;
-    FILE *fpp;
+    //FILE *fpp;
     GRUPO_DE_DISCUSSOES grup;
     //teste de entrada de arquivo
     
@@ -1978,7 +1987,7 @@ void listaGrupos(){
           mostraPalestrante(grup.Membros_da_mesa[i][0]);//pega o id do palestrante para exibir nome
           putchar('\n');
         }
-        //LISTAR HORÁRIO E LOCAL
+        //LISTAR HorariO E LOCAL
         listaHorariodoEvento(grup.cod);
       }
       fclose(fpp);
@@ -2002,7 +2011,7 @@ void editaGrupo(){
 
       while(fread(&grup,sizeof(GRUPO_DE_DISCUSSOES),1,fp)){//le arquivo principal
         if(grup.cod==codigo){//se a matricula for a que eu quero editar
-           puts("1-Tema\t2-Palestrante\t3-Local\t4-Horário\t5-Sair");
+           puts("1-Tema\t2-Palestrante\t3-Local\t4-Horario\t5-Sair");
            puts("O que deseja alterar?");
             scanf("%d",&op2);
             //escolha
@@ -2199,7 +2208,7 @@ void listaPalesdoGrupo(int cod){
 //CRIA TODOS OS LOCAIS ZERADOS 
 void criarLocais(int i){
   
-  printf("I eh %d\n",i);
+  //printf("I eh %d\n",i);
   //TESTA SE O ARQUIVO JA EXISTE
   int j,x,y;
   //abre arquivo e verifica
@@ -2209,9 +2218,9 @@ void criarLocais(int i){
     
         
       fp = fopen("arquivos\\locais.txt", "ab");
-    puts("\nENTRANDO EM CRIAR LOCAIS\n");
+    //puts("\nENTRANDO EM CRIAR LOCAIS\n");
     //while (fread(&loca, sizeof(SLOCAL), 1,fp)){//enquanto leitura for verdadeira
-    puts("WHILW DE CRIAAR LOCAIS");
+    //puts("WHILW DE CRIAAR LOCAIS");
   
       //codigo de llocais
       //srand(time(NULL));
@@ -2225,9 +2234,9 @@ void criarLocais(int i){
       //puts("carga");
       for(j=1;j<=6;j++){//deixar todos os horarios disponiveis
         loca.horario[0][j]=j;//dia 1
-        printf("\n\nDIA 1 HORA %d = %d",j,j);
+        //printf("\n\nDIA 1 HORA %d = %d",j,j);
         loca.horario[1][j]=j;//dia 2
-        printf("\n\nDIA 2 HORA %d = %d\n",j,j);
+       // printf("\n\nDIA 2 HORA %d = %d\n",j,j);
         //puts("horario");
       }
       //zera a matriz de cods dos eventos
@@ -2242,7 +2251,7 @@ void criarLocais(int i){
       //define as capacidades dos locais
       if(i==AUD1){//se for auditorio 1
         loca.capacidade=150;
-        puts("capacidade do auditorio 1");
+        //puts("capacidade do auditorio 1");
       }
       if(i==AUD2){//se for auditorio 2
         loca.capacidade=100;
@@ -2251,14 +2260,14 @@ void criarLocais(int i){
         loca.capacidade=50;
       }
       if(i==SALA3){//se for sala 3
-        loca.capacidade=30;
+       loca.capacidade=30;
       }
       if(i==LAB1||i==LAB2){//se for lab 1 ou lab 2
         loca.capacidade=20;
       }
 
 //}
-puts("FINAL");
+//puts("FINAL");
     
       fwrite(&loca, sizeof(SLOCAL), 1, fp);
   fclose(fp);
@@ -2267,7 +2276,7 @@ puts("FINAL");
 
 //ESCOLHE LOCAL(cod do evnto)
 void escolheLocal(int cod){
-      printf("\n\nEntra em escolher local\n\n");
+      //printf("\n\nEntra em escolher local\n\n");
       int i;//contador
       
       int nLocal,nHora,nDia;
@@ -2287,7 +2296,7 @@ void escolheLocal(int cod){
 
           if(cod>=100 && cod<200){//cod de palestra
              //i=1;
-            puts("\nEscolha o local da sua Palestra\n");
+            puts("Escolha o local da sua Palestra:");
             puts("Locais disponíveis:");
 
             listaLocais(150);//função paralistar locais com capacidade de ate 150 
@@ -2296,17 +2305,17 @@ void escolheLocal(int cod){
               scanf("%d",&nLocal);
               while (fread(&loca, sizeof(SLOCAL), 1,fp)){
                 if(loca.lugar==nLocal){
-                  printf("\n1-Primeiro dia\t2-Segundo dia\n");
+                  printf("\n1-Primeiro dia\t2-Segundo dia\n\n");
                   printf("Deseja incluir o evento em qual dia?>> ");
                   scanf("%d",&nDia);
 
-                  puts("\nHorários disponiveis:");
+                  puts("\nHorarios disponiveis:");
                   listaHorarios(nDia,cod,nLocal);
-                  printf("\nInsira o digito do horário que deseja adicionar o evento (EX:1 para primeiro horário)\n>> ");
+                  printf("\nInsira o digito do horario que deseja adicionar o evento (EX:1 para primeiro horario)\n>> ");
                   scanf("%d",&nHora);
 
                   loca.horario[nDia-1][nHora]=0;//torna horario indisponivel
-                  printf("\nDia %d\tHora: %d\tFica %d \n",nDia,nHora,loca.horario[nDia-1][nHora]);
+                  //printf("\nDia %d\tHora: %d\tFica %d \n",nDia,nHora,loca.horario[nDia-1][nHora]);
                   loca.Eventos[nDia-1][nHora][0]=cod;//add cod de evento da matriz
 
                   fwrite(&loca,sizeof(SLOCAL),1,fp2);
@@ -2326,17 +2335,17 @@ void escolheLocal(int cod){
               scanf("%d",&nLocal);
               while (fread(&loca, sizeof(SLOCAL), 1,fp)){
                 if(loca.lugar==nLocal){
-                  printf("\n1-Primeiro dia\t2-Segundo dia\n");
+                  printf("\n1-Primeiro dia\t2-Segundo dia\n\n");
                   printf("Deseja incluir o evento em qual dia?>> ");
                   scanf("%d",&nDia);
 
-                  puts("\nHorários disponiveis:");
+                  puts("\nHorarios disponiveis:");
                   listaHorarios(nDia,cod,nLocal);
-                  printf("\nInsira o digito do horário que deseja adicionar o evento (EX:1 para primeiro horário)\n>> ");
+                  printf("\nInsira o digito do horario que deseja adicionar o evento (EX:1 para primeiro horario)\n>> ");
                   scanf("%d",&nHora);
 
                   loca.horario[nDia-1][nHora]=0;//torna horario indisponivel
-                  printf("\nDia %d\tHora: %d\tFica %d \n",nDia,nHora,loca.horario[nDia-1][nHora]);
+                  //printf("\nDia %d\tHora: %d\tFica %d \n",nDia,nHora,loca.horario[nDia-1][nHora]);
                   loca.Eventos[nDia-1][nHora][0]=cod;//add cod de evento da matriz
 
                   fwrite(&loca,sizeof(SLOCAL),1,fp2);
@@ -2356,17 +2365,17 @@ void escolheLocal(int cod){
               scanf("%d",&nLocal);
               while (fread(&loca, sizeof(SLOCAL), 1,fp)){
                 if(loca.lugar==nLocal){
-                  printf("\n1-Primeiro dia\t2-Segundo dia\n");
+                  printf("\n1-Primeiro dia\t2-Segundo dia\n\n");
                   printf("Deseja incluir o evento em qual dia?>> ");
                   scanf("%d",&nDia);
 
-                  puts("\nHorários disponiveis:");
+                  puts("\nHorarios disponiveis:");
                   listaHorarios(nDia,cod,nLocal);
-                  printf("\nInsira o digito do horário que deseja adicionar o evento (EX:1 para primeiro horário)\n>> ");
+                  printf("\nInsira o digito do horario que deseja adicionar o evento (EX:1 para primeiro horario)\n>> ");
                   scanf("%d",&nHora);
 
                   loca.horario[nDia-1][nHora]=0;//torna horario indisponivel
-                  printf("\nDia %d\tHora: %d\tFica %d \n",nDia,nHora,loca.horario[nDia-1][nHora]);
+                 //printf("\nDia %d\tHora: %d\tFica %d \n",nDia,nHora,loca.horario[nDia-1][nHora]);
                   loca.Eventos[nDia-1][nHora][0]=cod;//add cod de evento da matriz
 
                   fwrite(&loca,sizeof(SLOCAL),1,fp2);
@@ -2387,17 +2396,17 @@ void escolheLocal(int cod){
               scanf("%d",&nLocal);
               while (fread(&loca, sizeof(SLOCAL), 1,fp)){
                 if(loca.lugar==nLocal){
-                  printf("\n1-Primeiro dia\t2-Segundo dia\n");
+                  printf("\n1-Primeiro dia\t2-Segundo dia\n\n");
                   printf("Deseja incluir o evento em qual dia?>> ");
                   scanf("%d",&nDia);
 
-                  puts("\nHorários disponiveis:");
+                  puts("\nHorarios disponiveis:");
                   listaHorarios(nDia,cod,nLocal);
-                  printf("\nInsira o digito do horário que deseja adicionar o evento (EX:1 para primeiro horário)\n>> ");
+                  printf("\nInsira o digito do horario que deseja adicionar o evento (EX:1 para primeiro horario)\n>> ");
                   scanf("%d",&nHora);
 
                   loca.horario[nDia-1][nHora]=0;//torna horario indisponivel
-                  printf("\nDia %d\tHora: %d\tFica %d \n",nDia,nHora,loca.horario[nDia-1][nHora]);
+                  //printf("\nDia %d\tHora: %d\tFica %d \n",nDia,nHora,loca.horario[nDia-1][nHora]);
                   loca.Eventos[nDia-1][nHora][0]=cod;//add cod de evento da matriz
 
                   fwrite(&loca,sizeof(SLOCAL),1,fp2);
@@ -2408,25 +2417,18 @@ void escolheLocal(int cod){
           }
 
           
-  //}
+ // puts("FIM");
     fclose(fp);
     fclose(fp2);
     remove("arquivos\\locais.txt");//remove o original
     rename("arquivos\\tempLocais.txt","arquivos\\locais.txt");
 }
-//LISTAR OS HORARIOS(int dia, int cod, int lugar)//recebe o dia, cod do evento, e o local escolhido
-  //abre arquivos de locais
-    //abre cod de locais
-    //if cod de local {aparece determinados horarios compativeis}
-    //while cods de locais
-      //abre o array de horarios
-        //lista os horarios diferentes de zero
-        
+
 
 //ALTERAR HORARIO
 void alteraHorario(int cod){
   removerHorario(cod);
-  printf("\nEscolher novo local e horário:\n");
+  printf("\nEscolher novo local e horario:\n");
   escolheLocal(cod);
 }
 
@@ -2449,9 +2451,9 @@ void removerHorario(int cod){
        }
      }
      if(loca.Eventos[x][y][0]==cod){
-       printf("\n**dia %d\thora %d\t = %d",i,j,loca.Eventos[x][y][0]);
+      // printf("\n**dia %d\thora %d\t = %d",i,j,loca.Eventos[x][y][0]);
             loca.horario[x][y]=y;
-            printf("\n**dia %d\thora %d\t = %d",i,j,j);
+            //printf("\n**dia %d\thora %d\t = %d",i,j,j);
             loca.Eventos[x][y][0]=0;
              fwrite(&loca,sizeof(SLOCAL),1,fp2);
      }else{
@@ -2487,15 +2489,15 @@ void listaHorariodoEvento(int cod){
             printf("Local: ");
             switch (loca.lugar){
               case 1:{
-                puts("Auditório 1");
+                puts("Auditorio 1");
               break;
               }
               case 2:{
-                puts("Auditório 2");
+                puts("Auditorio 2");
               break;
               }
             case 3:{
-                puts("Auditório 3");
+                puts("Auditorio 3");
               break;
               }
               case 4:{
@@ -2511,24 +2513,25 @@ void listaHorariodoEvento(int cod){
               break;
               }
               case 7:{
-                puts("Laboratório 1");
+                puts("Laboratorio 1");
               break;
               }
               case 8:{
-                puts("Laboratório 2");
+                puts("Laboratorio 2");
               break;
               }
             default:
               break;
             }
             printf("Dia %d\n",j+1);
+            printf("Horario: ");
             switch(i){
-              case 1:puts("Primeiro horário (Das 7h às 9h)"); break;
-              case 2:puts("Segundo horário (Das 9h às 11h)"); break;
-              case 3:puts("Terceiro horário (Das 11h às 13h)"); break;
-              case 4:puts("Quarto horário (Das 13h às 15h)"); break;
-              case 5:puts("Quinto horário (Das 15h às 17h)"); break;
-              case 6:puts("Sexto horário (Das 17h às 19h)"); break;
+              case 1:puts("Primeiro horario (Das 7h às 9h)"); break;
+              case 2:puts("Segundo horario (Das 9h às 11h)"); break;
+              case 3:puts("Terceiro horario (Das 11h às 13h)"); break;
+              case 4:puts("Quarto horario (Das 13h às 15h)"); break;
+              case 5:puts("Quinto horario (Das 15h às 17h)"); break;
+              case 6:puts("Sexto horario (Das 17h às 19h)"); break;
             }
           }
         }
@@ -2563,9 +2566,9 @@ void testeEscolheLocal(int cod){
                   printf("Deseja incluir o evento em qual dia?>> ");
                   scanf("%d",&nDia);
 
-                  puts("\nHorários disponiveis:");
+                  puts("\nHorarios disponiveis:");
                   listaHorarios(nDia,cod,nLocal);
-                  printf("\nInsira o digito do horário que deseja adicionar o evento (EX:1 para primeiro horário)\n>> ");
+                  printf("\nInsira o digito do horario que deseja adicionar o evento (EX:1 para primeiro horario)\n>> ");
                   scanf("%d",&nHora);
 
                   loca.horario[nDia-1][nHora]=0;//torna horario indisponivel
@@ -2599,23 +2602,20 @@ void listaLocais(int capacidade){
 
   int disponiveis[8],i;
   while (fread(&loca, sizeof(SLOCAL), 1,fpp)){//enquanto leitura for verdadeira
-  
-              puts("ENTRA EM WHILE DE ESCOLHEWR LOCAllllllllllllllL");
-
-              for(i=1;i<=8;i++){
-                printf("\n\ncapacidade %d capacidade do local %d\n",capacidade,loca.capacidade);
+                for(i=1;i<=8;i++){
+                
                   if(loca.lugar==i && loca.capacidade==capacidade){//capacidade de 150 pq é palestra
                       if(i==1){
-                        printf("%d-Auditório 1\n",i);
+                        printf("%d-Auditorio 1\n",i);
 
                         
                       }
                       if(i==2){
-                        printf("%d-Auditório 2\n",i);
+                        printf("%d-Auditorio 2\n",i);
                         
                       }
                       if(i==3){
-                        printf("%d-Auditório 3\n",i);
+                        printf("%d-Auditorio 3\n",i);
                         
                       }
                       if(i==4){
@@ -2631,11 +2631,11 @@ void listaLocais(int capacidade){
                         
                       }
                       if(i==7){
-                        printf("%d-Laboratório 1\n",i);
+                        printf("%d-Laboratorio 1\n",i);
                         
                       }
                       if(i==8){
-                        printf("%d-Laboratório 2\n",i);
+                        printf("%d-Laboratorio 2\n",i);
                         
                       }
                   }
@@ -2659,13 +2659,13 @@ void listaHorarios(int dia, int cod,int local){
             for(i=1;i<=3;i++){//palestras só podem pela manha
                 if((loca.horario[dia-1][i])!=0){//lista só os horarios disponiveis
                   if(i==1){
-                    puts("1- Primeiro horário (Das 7h às 9h)");
+                    puts("1- Primeiro horario (Das 7h às 9h)");
                   }
                   if(i==2){
-                    puts("2- Segundo horário (Das 9h às 11h) ");
+                    puts("2- Segundo horario (Das 9h às 11h) ");
                   }
                   if(i==3){
-                    puts("3- Terceiro horário horário (Das 11h às 13h) ");
+                    puts("3- Terceiro horario horario (Das 11h às 13h) ");
                   }
                   
                 }
@@ -2678,22 +2678,22 @@ void listaHorarios(int dia, int cod,int local){
             for(i=1;i<=6;i++){
                 if((loca.horario[dia-1][i])!=0){//lista só os horarios disponiveis
                   if(i==1){
-                    puts("1- Primeiro horário (Das 7h às 9h)");
+                    puts("1- Primeiro horario (Das 7h às 9h)");
                   }
                   if(i==2){
-                    puts("2- Segundo horário (Das 9h às 11h) ");
+                    puts("2- Segundo horario (Das 9h às 11h) ");
                   }
                   if(i==3){
-                    puts("3- Terceiro horário horário (Das 11h às 13h) ");
+                    puts("3- Terceiro horario horario (Das 11h às 13h) ");
                   }
                   if(i==4){
-                    puts("4- Quarto horário (Das 13h às 15h) ");
+                    puts("4- Quarto horario (Das 13h às 15h) ");
                   }
                   if(i==5){
-                    puts("5- Quinto horário (Das 15h às 17h) ");
+                    puts("5- Quinto horario (Das 15h às 17h) ");
                   }
                   if(i==6){
-                    puts("6- Sexto horário (Das 17h às 19h) ");
+                    puts("6- Sexto horario (Das 17h às 19h) ");
                   }
                 }
               }
